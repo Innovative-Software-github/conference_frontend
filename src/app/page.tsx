@@ -7,7 +7,7 @@ export default function Home() {
         header
       </header>
       <main>
-        мейн
+        мейн testrc
       </main>
       <footer>
         footer
