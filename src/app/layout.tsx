@@ -1,10 +1,16 @@
 import React from 'react';
 import type { Metadata } from 'next';
-import { Geist } from 'next/font/google';
+// eslint-disable-next-line camelcase
+import { Roboto_Mono } from 'next/font/google';
 
-const geistSans = Geist({
-  variable: '--font-geist-sans',
-  subsets: ['latin'],
+import './global.css';
+import 'ui-kit-conf/dist/variables.css';
+import 'ui-kit-conf/dist/index.css';
+
+const robotoMono = Roboto_Mono({
+  subsets: ['latin', 'cyrillic'],
+  weight: ['400', '700'],
+  display: 'swap',
 });
 
 export const metadata: Metadata = {
@@ -19,7 +25,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${geistSans.variable}`}>
+      <body className={`${robotoMono.className}`}>
         {children}
       </body>
     </html>

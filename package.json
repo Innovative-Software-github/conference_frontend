@@ -9,12 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "lint": "eslint --ext .ts,.tsx ./src",
+    "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "next": "15.1.0"
+    "ui-kit-conf": "^1.1.6"
   },
   "devDependencies": {
-    "typescript": "^5",
     "@types/node": "^20",
     "@types/react": "^19",
     "@types/react-dom": "^19",
@@ -25,6 +26,10 @@
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-jsx-a11y": "^6.10.0",
     "eslint-plugin-react": "^7.37.0",
-    "eslint-plugin-storybook": "^0.9.0"
+    "eslint-plugin-storybook": "^0.9.0",
+    "typescript": "^5"
+  },
+  "engines": {
+    "node": ">=14.14.0"
   }
 }

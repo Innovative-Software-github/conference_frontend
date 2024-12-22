@@ -8,6 +8,6 @@ export const HttpStatusCode = {
   NoAdmin: 403,
   Unauthorized: 422,
   ValidateError: 404,
-} as const
+} as const;
 
 export type THttpStatusCode = typeof HttpStatusCode[keyof typeof HttpStatusCode];

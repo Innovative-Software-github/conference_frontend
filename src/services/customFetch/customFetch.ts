@@ -2,11 +2,6 @@ import { cookies } from 'next/headers';
 import { stringifySearchParams } from '../../utils/searchParams/searchParams';
 import { THttpStatusCode } from '../HttpStatusCode';
 
-export interface IApiError {
-  status: THttpStatusCode;
-  message: string;
-}
-
 export type THTTPRequestMethod = 'HEAD' | 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 export type TURIScheme = 'http' | 'https';
 
@@ -79,14 +74,14 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
     scheme = 'http',
     port,
     contentType = 'application/json',
-    isProtected = true,
+    isProtected = false,
     withCredentials = true,
     withErrorHandling = false,
   }: IHttpRequestConfig,
   data?: TRequestPayload,
 ): Promise<IResponse<TResponsePayload> | TResponsePayload> {
   const makeRequest = async (): Promise<TResponsePayload> => {
-    const host = '188.225.56.164:8000';
+    const host = process.env.BROWSER_BACKEND_SERVER;
 
     if (!host) {
       throw new Error('Backend host is not defined');
@@ -116,12 +111,12 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
     });
 
     if (!response.ok) {
-      const error = await response.json().catch(() => {});
+      const error = await response.json().catch(() => ({}));
 
-      const newError: IApiError = {
+      const newError = {
         status: response.status as THttpStatusCode,
-        message: error.detail[0].msg,
-      }
+        error,
+      };
 
       throw newError;
     }

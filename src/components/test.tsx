@@ -2,10 +2,8 @@
 
 import React from 'react';
 
-export const Testv3 = () => {
-  return (
-    <>
-      test
-    </>
-  );
-};
+export const TestComponent = () => (
+  <>
+    test
+  </>
+);

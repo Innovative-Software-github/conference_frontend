@@ -4,6 +4,7 @@ export const ApiPath = {
 
   /* Ручки для регистрации/аутентификации */
   auth: {
+    check_token_valid: '/api/auth/dev/token/valid',
     sign_in: '/api/auth/sign-in',
     sign_up: '/api/auth/sign-up',
     sign_verify: '/api/auth/verify',

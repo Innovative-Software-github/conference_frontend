@@ -1,13 +1,14 @@
 import React from 'react';
 
-export default async function Home() {
+export default function Home() {
   return (
     <div>
       <header>
         header
       </header>
-      <main />
-        main
+      <main>
+        мейн
+      </main>
       <footer>
         footer
       </footer>
