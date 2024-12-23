@@ -29,6 +29,7 @@ module.exports = {
     'import/extensions': 'off',
     'comma-dangle': ['error', 'always-multiline'],
     'max-lines': [1, 300],
+    'no-useless-catch': 0,
     'padding-line-between-statements': [
       'error',
       { blankLine: 'always', prev: '*', next: 'return' },
