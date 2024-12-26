@@ -6,7 +6,7 @@
   max-width: var(--container-width-desktop);
   background: var(--conf-color-white);
   border: 1px solid var(--conf-color-grey-2);
-  border-radius: 100px;
+  border-radius: 50px;
   height: 78px;
   margin: 12px auto 0 auto;
   overflow: hidden;
@@ -15,6 +15,13 @@
   align-items: center;
 
   padding: 14px 32px;
+
+  transition: box-shadow 150ms ease;
+}
+
+.header:hover {
+  box-shadow: 1px 2px 4px 1px #00000010;
+
 }
 
 .homeLink {
@@ -52,6 +59,7 @@
 
 .linkBlock:hover {
   background: var(--conf-color-grey-1);
+  border-color: var(--conf-color-grey-2);
 }
 
 @media(max-width: 768px) {
