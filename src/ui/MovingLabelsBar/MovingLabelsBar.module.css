@@ -1,0 +1,37 @@
+.bar {
+  position: relative;
+  overflow: hidden;
+  width: 100%;
+  background-color: var(--conf-color-grey-7);
+  height: 45px;
+  display: flex;
+  align-items: center;
+}
+
+.scrollingContainer {
+  display: flex;
+}
+
+.content {
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  animation-name: scroll;
+  animation-timing-function: linear;
+  animation-iteration-count: infinite;
+}
+
+.label {
+  flex: none;
+  margin: 0 140px;
+  color: var(--conf-color-grey-2);
+}
+
+@keyframes scroll {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}

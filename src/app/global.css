@@ -1,12 +1,26 @@
+:root {
+  --container-width-desktop: 1296px;
+}
+
 html,
 body {
   margin: 0;
   padding: 0;
   overflow: hidden;
   height: 100vh;
+  width: 100%;
+  background: var(--conf-color-grey-1);
 }
 
 body * {
   font-family: inherit !important;
   box-sizing: border-box;
+}
+
+a {
+  color: initial;
+}
+
+a:active {
+  color: initial;
 }
