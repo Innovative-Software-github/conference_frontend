@@ -1,0 +1,32 @@
+
+.swiper-slide-active {
+  cursor: pointer;
+}
+
+.swiper-pagination {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.swiperPaginationBullet {
+  width: 12px;
+  height: 8px;
+  background-color: var(--conf-color-grey-3);
+  border-radius: 8px;
+  margin: 0 5px;
+  transition: width 300ms ease-in-out;
+}
+
+.swiperPaginationBulletActive {
+  width: 24px;
+  border-radius: 4px;
+  background-color: var(--conf-color-grey-7);
+}
+
+.swiper-slide-prev,
+.swiper-slide-next {
+  opacity: 44%;
+  cursor: grab;
+}

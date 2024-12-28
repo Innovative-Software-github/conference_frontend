@@ -8,6 +8,7 @@ import { Pagination, Autoplay } from 'swiper/modules';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
+import './PopularConferencesSwiper.css';
 
 import cls from './PopularConferencesSwiper.module.css';
 
@@ -17,43 +18,60 @@ export interface IPopularConferencesSwiper {
 
 export const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({
   slides,
-}) => (
-  <div className={cls.swiperContainer}>
-    <Swiper
-      modules={[Pagination, Autoplay]}
-      autoplay={{
-        delay: 5000,
-        disableOnInteraction: false,
-        pauseOnMouseEnter: true,
-      }}
-      slidesPerView="auto"
-      centeredSlides
-      loop
-      speed={500}
-      spaceBetween={20}
-      pagination={{
-        clickable: true,
-        bulletClass: 'swiperPaginationBullet',
-        bulletActiveClass: 'swiperPaginationBulletActive',
-      }}
-      className={cls.swiper}
-    >
-      {slides.map((slideContent: any) => (
-        <SwiperSlide
-          key={slideContent.alt}
-          className={cls.customSwiperSlide}
-        >
-          <Link href="/" target="_blank">
-            <Image
-              src={slideContent.src}
-              alt={slideContent.alt}
-              width={636}
-              height={372}
-              unoptimized
-            />
-          </Link>
-        </SwiperSlide>
-      ))}
-    </Swiper>
-  </div>
-);
+}) => {
+  const [activeIndex, setActiveIndex] = React.useState(0);
+
+  return (
+    <div className={cls.swiperContainer}>
+      <Swiper
+        modules={[Pagination, Autoplay]}
+        autoplay={{
+          delay: 123500,
+          disableOnInteraction: false,
+        }}
+        slidesPerView="auto"
+        centeredSlides
+        loop
+        speed={500}
+        spaceBetween={20}
+        pagination={{
+          clickable: true,
+          bulletClass: 'swiperPaginationBullet',
+          bulletActiveClass: 'swiperPaginationBulletActive',
+        }}
+        className={cls.swiper}
+        onSwiper={(swiper) => {
+          setActiveIndex(swiper.realIndex);
+        }}
+        onSlideChange={(swiper) => {
+          setActiveIndex(swiper.realIndex);
+        }}
+      >
+        {slides.map((slideContent: any, index: number) => (
+          <SwiperSlide
+            key={slideContent.alt}
+            className={cls.customSwiperSlide}
+          >
+            {index === activeIndex ? (
+              <Link href="/" target="_blank">
+                <Image
+                  src={slideContent.src}
+                  alt={slideContent.alt}
+                  fill
+                  sizes="(max-width: 768px) calc(100%-32px), 636px"
+                />
+              </Link>
+            ) : (
+              <Image
+                src={slideContent.src}
+                alt={slideContent.alt}
+                fill
+                sizes="(max-width: 768px) calc(100%-32px), 636px"
+              />
+            )}
+          </SwiperSlide>
+        ))}
+      </Swiper>
+    </div>
+  );
+};
