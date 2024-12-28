@@ -40,4 +40,9 @@
   .swiperPaginationBulletActive {
     width: 22px;
   }
+
+  .swiper-slide-prev,
+  .swiper-slide-next {
+    opacity: initial;
+  }
 }

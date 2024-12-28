@@ -29,6 +29,7 @@
     width: calc(100% - 32px);
     aspect-ratio: 636 / 372;
     height: auto;
+    transition: none;
   }
 
   .customSwiperSlide img {

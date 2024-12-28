@@ -5,21 +5,24 @@ import Image from 'next/image';
 import Link from 'next/link';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Pagination, Autoplay } from 'swiper/modules';
+import { useMediaQuery } from 'react-responsive';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
 import './PopularConferencesSwiper.css';
 
 import cls from './PopularConferencesSwiper.module.css';
+import { MediaQuery } from '../../constants/MediaQuery';
 
 export interface IPopularConferencesSwiper {
   slides: any;
 }
 
-export const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({
+const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({
   slides,
 }) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
+  const isMobile = useMediaQuery({ maxWidth: MediaQuery.BigMobile });
 
   return (
     <div className={cls.swiperContainer}>
@@ -41,10 +44,10 @@ export const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({
         }}
         className={cls.swiper}
         onSwiper={(swiper) => {
-          setActiveIndex(swiper.realIndex);
+          if (!isMobile) setActiveIndex(swiper.realIndex);
         }}
         onSlideChange={(swiper) => {
-          setActiveIndex(swiper.realIndex);
+          if (!isMobile) setActiveIndex(swiper.realIndex);
         }}
       >
         {slides.map((slideContent: any, index: number) => (
@@ -52,13 +55,14 @@ export const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({
             key={slideContent.alt}
             className={cls.customSwiperSlide}
           >
-            {index === activeIndex ? (
+            {(index === activeIndex || isMobile) ? (
               <Link href="/" target="_blank">
                 <Image
                   src={slideContent.src}
                   alt={slideContent.alt}
                   fill
                   sizes="(max-width: 768px) calc(100%-32px), 636px"
+                  priority
                 />
               </Link>
             ) : (
@@ -67,6 +71,7 @@ export const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({
                 alt={slideContent.alt}
                 fill
                 sizes="(max-width: 768px) calc(100%-32px), 636px"
+                priority
               />
             )}
           </SwiperSlide>
@@ -75,3 +80,5 @@ export const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({
     </div>
   );
 };
+
+export default PopularConferencesSwiper;

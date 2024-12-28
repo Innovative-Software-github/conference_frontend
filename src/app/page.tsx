@@ -1,8 +1,10 @@
-/* eslint-disable react/jsx-key */
 import React from 'react';
+
 import { MovingLabelsBar } from '../ui/MovingLabelsBar/MovingLabelsBar';
 import { Header } from '../ui/Header/Header';
-import { PopularConferencesSwiper } from '../components/PopularConferencesSwiper/PopularConferencesSwiper';
+import {
+  PopularConferencesSwiperContainer,
+} from '../components/PopularConferencesSwiper/PopularConferencesSwiperContainer';
 
 export default function Home() {
   const labels = ['С++ Russia 2025', 'Хакатон IT INNO HACK | 28/2', 'Джедайские трюки Java by IT one'];
@@ -34,7 +36,7 @@ export default function Home() {
       <MovingLabelsBar labels={labels} />
       <Header />
       <main>
-        <PopularConferencesSwiper slides={slidesData} />
+        <PopularConferencesSwiperContainer slides={slidesData} />
       </main>
       <footer>
         footerы
