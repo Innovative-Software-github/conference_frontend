@@ -1,0 +1,49 @@
+.swiperContainer {
+  overflow: visible;
+  margin-top: 48px;
+}
+
+.swiper {
+  width: 100%;
+  padding-bottom: 28px;
+}
+
+.customSwiperSlide {
+  overflow: hidden;
+  border-radius: 16px;
+  width: 636px;
+  height: 372px;
+  transition: opacity 300ms ease-in-out;
+}
+
+:global(.swiper-slide-active) {
+  cursor: pointer;
+}
+
+:global(.swiper-pagination) {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+:global(.swiperPaginationBullet) {
+  width: 12px;
+  height: 8px;
+  background-color: var(--conf-color-grey-3);
+  border-radius: 8px;
+  margin: 0 5px;
+  transition: width 300ms ease-in-out;
+}
+
+:global(.swiperPaginationBulletActive) {
+  width: 24px;
+  border-radius: 4px;
+  background-color: var(--conf-color-grey-7);
+}
+
+:global(.swiper-slide-prev),
+:global(.swiper-slide-next) {
+  opacity: 44%;
+  pointer-events: none;
+}
