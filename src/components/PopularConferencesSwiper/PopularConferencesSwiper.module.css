@@ -1,6 +1,7 @@
 .swiperContainer {
   overflow: visible;
   margin-top: 48px;
+  margin-bottom: 32px;
   user-select: none;
 }
 
@@ -10,6 +11,7 @@
 }
 
 .customSwiperSlide {
+  position: relative;
   overflow: hidden;
   border-radius: 16px;
   width: 636px;
@@ -18,12 +20,20 @@
 }
 
 @media(max-width: 768px) {
+  .swiperContainer {
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
   .customSwiperSlide {
     width: calc(100% - 32px);
-    height: 195px;
+    aspect-ratio: 636 / 372;
+    height: auto;
   }
 
   .customSwiperSlide img {
-    object-fit: fill;
+    width: 100%;
+    height: auto;
+    display: block;
   }
 }

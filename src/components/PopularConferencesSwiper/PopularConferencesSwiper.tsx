@@ -26,7 +26,7 @@ export const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({
       <Swiper
         modules={[Pagination, Autoplay]}
         autoplay={{
-          delay: 123500,
+          delay: 3500,
           disableOnInteraction: false,
         }}
         slidesPerView="auto"

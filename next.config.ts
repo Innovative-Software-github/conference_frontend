@@ -1,9 +1,5 @@
-import type { NextConfig } from 'next';
-
-const nextConfig: NextConfig = {
+module.exports = {
   images: {
-    domains: ['api.it-event-hub.ru'],
+    unoptimized: true,
   },
 };
-
-export default nextConfig;

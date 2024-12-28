@@ -30,3 +30,14 @@
   opacity: 44%;
   cursor: grab;
 }
+
+@media(max-width:768px) {
+  .swiperPaginationBullet {
+    width: 10px;
+    height: 6px;
+  }
+
+  .swiperPaginationBulletActive {
+    width: 22px;
+  }
+}
