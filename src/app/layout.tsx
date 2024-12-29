@@ -6,6 +6,8 @@ import { Roboto_Mono } from 'next/font/google';
 import './global.css';
 import 'ui-kit-conf/dist/variables.css';
 import 'ui-kit-conf/dist/index.css';
+import 'swiper/css';
+import 'swiper/css/pagination';
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin', 'cyrillic'],
