@@ -3,7 +3,7 @@ import React from 'react';
 import { MovingLabelsBar } from '../ui/MovingLabelsBar/MovingLabelsBar';
 import { Header } from '../ui/Header/Header';
 import { ConfEventCard, ConfEventModel } from '@/components/conf-event-card/ConfEventCard';
-import { PopularConferencesSwiperContainer } from '../components/PopularConferencesSwiper/PopularConferencesSwiperContainer';
+import PopularConferencesSwiperContainer from '@/components/PopularConferencesSwiper/SwiperContainer';
 
 const eventModel: ConfEventModel = {
   imgLink: 'http:/photo.jpg',

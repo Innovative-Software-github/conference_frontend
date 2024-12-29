@@ -1,6 +1,6 @@
 import React from 'react';
 
-import cls from './PopularConferencesSwiperSkeleton.module.css';
+import cls from './SwiperSkeleton.module.css';
 
 export const PopularConferencesSwiperSkeleton = () => (
   <div className={cls.swiperContainer}>
