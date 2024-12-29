@@ -2,8 +2,8 @@
 
 import Image from 'next/image';
 import { Tag } from 'ui-kit-conf/dist';
-import confEventImage from '../../../public/favicon.ico';
-import styles from './ConfEvent.module.scss';
+import confEventImage from '../../../public/event-card-img.jpeg';
+import styles from './ConfEventCard.module.scss';
 
 export interface ConfEventModel {
   imgLink?: string;
@@ -14,15 +14,17 @@ export interface ConfEventModel {
   dateFinish: Date;
 }
 
-interface CardProps {
+interface ConfCardCardProps {
   eventModel: ConfEventModel;
 }
 
-export const ConfEvent = ({ eventModel }: CardProps) => (
-  <article className={styles.art}>
-    <section>{eventModel?.imgLink && <Image width={100} height={100} src={confEventImage} alt="Conf Image" />}</section>
-    <p>{eventModel.title}</p>
-    <section>
+export const ConfEventCard = ({ eventModel }: ConfCardCardProps) => (
+  <article className={styles.card}>
+    <section className={styles.cardImg}>
+      {eventModel?.imgLink && <Image src={confEventImage} alt="Conf Image" />}
+    </section>
+    <p className={styles.cardTitle}>{eventModel.title}</p>
+    <section className={styles.cardTags}>
       {eventModel.tags?.map((tag) => (
         <Tag key={tag} type="default">
           {tag}

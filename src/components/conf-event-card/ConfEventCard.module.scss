@@ -1,0 +1,30 @@
+.card {
+  margin-left: 25%; // temp
+  width: 300px;
+  border: 1px solid var(--conf-color-grey-2);
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  padding: 1em;
+}
+
+.cardImg > img {
+  width: 100%;
+  height: auto;
+  border-radius: 10px;
+}
+
+.cardImg {
+  align-self: center;
+}
+
+.cardTitle {
+  margin-top: 0.875em;
+  font-size: 1.125rem;
+  font-weight: 500;
+}
+
+.cardTags {
+  display: flex;
+  flex-wrap: wrap;
+}

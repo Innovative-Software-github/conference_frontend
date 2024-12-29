@@ -1,7 +1,7 @@
 import React from 'react';
 import { MovingLabelsBar } from '../ui/MovingLabelsBar/MovingLabelsBar';
 import { Header } from '../ui/Header/Header';
-import { ConfEvent, ConfEventModel } from '@/components/conf-event/ConfEvent';
+import { ConfEventCard, ConfEventModel } from '@/components/conf-event-card/ConfEventCard';
 
 const eventModel: ConfEventModel = {
   imgLink: 'http:/photo.jpg',
@@ -21,7 +21,7 @@ export default function Home() {
       <Header />
       <main>
         мейн testrc2
-        <ConfEvent eventModel={eventModel} />
+        <ConfEventCard eventModel={eventModel} />
       </main>
       <footer>footer</footer>
     </div>
