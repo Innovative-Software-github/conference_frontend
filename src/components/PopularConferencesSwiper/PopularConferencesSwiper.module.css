@@ -1,0 +1,40 @@
+.swiperContainer {
+  overflow: visible;
+  margin-top: 48px;
+  margin-bottom: 32px;
+  user-select: none;
+}
+
+.swiper {
+  width: 100%;
+  padding-bottom: 28px;
+}
+
+.customSwiperSlide {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  width: 636px;
+  height: 372px;
+  transition: opacity 300ms ease-in-out;
+}
+
+@media(max-width: 768px) {
+  .swiperContainer {
+    margin-top: 32px;
+    margin-bottom: 24px;
+  }
+
+  .customSwiperSlide {
+    width: calc(100% - 32px);
+    aspect-ratio: 636 / 372;
+    height: auto;
+    transition: none;
+  }
+
+  .customSwiperSlide img {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+}
