@@ -2,13 +2,13 @@ import React from 'react';
 
 import { MovingLabelsBar } from '../ui/MovingLabelsBar/MovingLabelsBar';
 import { Header } from '../ui/Header/Header';
-import { ConfEventCard, ConfEventModel } from '@/components/conf-event-card/ConfEventCard';
+import { ConfEventModel, EventCard } from '@/components/event-card/EventCard';
 import PopularConferencesSwiperContainer from '@/components/PopularConferencesSwiper/SwiperContainer';
 
 const eventModel: ConfEventModel = {
   imgLink: 'http:/photo.jpg',
   title: 'Хакатон IT INNO HACK',
-  tags: ['AI', 'Инфраструктура', 'Аналитика', 'Менеджмент', 'C++', 'Java', 'Программирование'],
+  tags: [],
   location: 'г. Санкт-Петербург',
   dateStart: new Date(Date.UTC(2024, 12, 20)),
   dateFinish: new Date(Date.UTC(2024, 12, 21)),
@@ -45,7 +45,7 @@ export default function Home() {
       <Header />
       <main>
         <PopularConferencesSwiperContainer slides={slidesData} />
-        <ConfEventCard eventModel={eventModel} />
+        <EventCard eventModel={eventModel} />
       </main>
       <footer>footerы</footer>
     </div>

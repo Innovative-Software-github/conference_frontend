@@ -1,9 +1,9 @@
 'use client';
 
 import Image from 'next/image';
-import { Tag } from 'ui-kit-conf/dist';
 import confEventImage from '../../../public/event-card-img.jpeg';
-import styles from './ConfEventCard.module.scss';
+import styles from './EventCard.module.scss';
+import { EventTags } from '../event-tags/EventTags';
 
 export interface ConfEventModel {
   imgLink?: string;
@@ -14,23 +14,17 @@ export interface ConfEventModel {
   dateFinish: Date;
 }
 
-interface ConfCardCardProps {
+interface IEventCardProps {
   eventModel: ConfEventModel;
 }
 
-export const ConfEventCard = ({ eventModel }: ConfCardCardProps) => (
+export const EventCard = ({ eventModel }: IEventCardProps) => (
   <article className={styles.card}>
     <section className={styles.cardImg}>
       {eventModel?.imgLink && <Image src={confEventImage} alt="Conf Image" />}
     </section>
     <p className={styles.cardTitle}>{eventModel.title}</p>
-    <section className={styles.cardTags}>
-      {eventModel.tags?.map((tag) => (
-        <Tag key={tag} type="default">
-          {tag}
-        </Tag>
-      ))}
-    </section>
+    <EventTags tags={eventModel.tags ?? []} />
     <section className={styles.cardFooter}>
       <p className={styles.cardLocation}>{eventModel.location}</p>
       <p className={styles.cardDates}>
