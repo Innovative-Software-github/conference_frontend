@@ -31,10 +31,10 @@ export const ConfEventCard = ({ eventModel }: ConfCardCardProps) => (
         </Tag>
       ))}
     </section>
-    <section>
-      <p>{eventModel.location}</p>
-      <p>
-        {eventModel.dateStart.toDateString()}-{eventModel.dateFinish.toDateString()}
+    <section className={styles.cardFooter}>
+      <p className={styles.cardLocation}>{eventModel.location}</p>
+      <p className={styles.cardDates}>
+        {eventModel.dateStart.getDay()}-{eventModel.dateFinish.getDay()} сентября
       </p>
     </section>
   </article>

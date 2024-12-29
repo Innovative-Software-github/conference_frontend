@@ -9,12 +9,14 @@
 }
 
 .cardImg > img {
+  height: 100%;
   width: 100%;
-  height: auto;
   border-radius: 10px;
 }
 
 .cardImg {
+  width: 100%;
+  height: 190px;
   align-self: center;
 }
 
@@ -25,6 +27,20 @@
 }
 
 .cardTags {
+  margin-top: 0.875em;
   display: flex;
+  gap: 0.5em;
   flex-wrap: wrap;
+}
+
+.cardFooter {
+  margin-top: 2.5em;
+}
+
+.cardLocation {
+  color: var(--conf-color-grey-5);
+}
+
+.cardDates {
+  margin-top: 0.5em;
 }
