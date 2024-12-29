@@ -11,10 +11,8 @@ export default function Home() {
       <MovingLabelsBar labels={labels} />
       <Header />
       <main>
-        мейн testrc2
         <Card />
       </main>
-      <footer>footer</footer>
     </div>
   );
 }
