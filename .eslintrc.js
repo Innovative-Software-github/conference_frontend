@@ -28,6 +28,7 @@ module.exports = {
     'prettier',
   ],
   rules: {
+    'react/react-in-jsx-scope': 'off', // начиная с react v17 импортировать React необязательно
     'import/extensions': 'off',
     'comma-dangle': ['error', 'always-multiline'],
     'max-lines': [1, 300],

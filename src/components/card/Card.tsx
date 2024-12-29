@@ -1,3 +1,1 @@
-export const Card = () => {
-  return <div>dsd</div>;
-};
+export const Card = () => <div>its Card</div>;
