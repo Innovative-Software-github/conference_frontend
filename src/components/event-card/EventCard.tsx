@@ -1,5 +1,3 @@
-'use client';
-
 import Image from 'next/image';
 import confEventImage from '../../../public/event-card-img.jpeg';
 import styles from './EventCard.module.scss';

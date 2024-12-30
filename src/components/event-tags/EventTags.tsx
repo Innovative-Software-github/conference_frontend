@@ -1,6 +1,7 @@
 'use client';
 
 import { Tag } from 'ui-kit-conf/dist';
+import { useEffect } from 'react';
 import styles from './EventTags.module.scss';
 import { useEventTagsPresentation } from './hooks/useEventTagsPresentation';
 
@@ -11,6 +12,10 @@ interface IEventTagsProps {
 
 export const EventTags: React.FC<IEventTagsProps> = ({ tags, visibleTagsNumber = 5 }) => {
   const { visibleTags, hiddenTagsNumber } = useEventTagsPresentation(tags, visibleTagsNumber);
+
+  useEffect(() => {
+    console.log('UseEffect');
+  }, [tags]);
 
   return (
     // eslint-disable-next-line react/jsx-no-useless-fragment
