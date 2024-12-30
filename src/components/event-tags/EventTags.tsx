@@ -22,7 +22,7 @@ export const EventTags: React.FC<IEventTagsProps> = ({ tags, visibleTagsNumber =
               {tag}
             </Tag>
           ))}
-          <Tag type="default">Ещё {hiddenTagsNumber}</Tag>
+          {hiddenTagsNumber > 0 && <Tag type="default">Ещё {hiddenTagsNumber}</Tag>}
         </section>
       )}
     </>

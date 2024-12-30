@@ -4,21 +4,13 @@ import Image from 'next/image';
 import confEventImage from '../../../public/event-card-img.jpeg';
 import styles from './EventCard.module.scss';
 import { EventTags } from '../event-tags/EventTags';
-
-export interface ConfEventModel {
-  imgLink?: string;
-  title: string;
-  tags?: string[];
-  location: string;
-  dateStart: Date;
-  dateFinish: Date;
-}
+import { IConfEventModel } from '@/types/conf-event';
 
 interface IEventCardProps {
-  eventModel: ConfEventModel;
+  eventModel: IConfEventModel;
 }
 
-export const EventCard = ({ eventModel }: IEventCardProps) => (
+export const EventCard: React.FC<IEventCardProps> = ({ eventModel }) => (
   <article className={styles.card}>
     <section className={styles.cardImg}>
       {eventModel?.imgLink && <Image src={confEventImage} alt="Conf Image" />}
