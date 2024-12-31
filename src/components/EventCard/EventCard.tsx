@@ -1,6 +1,6 @@
 import Image from 'next/image';
 import confEventImage from '../../../public/event-card-img.jpeg';
-import { EventTags } from './EventCard/EventTags';
+import { EventTags } from './EventTags/EventTags';
 
 import cls from './EventCard.module.scss';
 
