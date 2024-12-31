@@ -1,38 +1,41 @@
 .card {
   width: 300px;
   border: 1px solid var(--conf-color-grey-2);
-  border-radius: 10px;
+  background: var(--conf-color-white);
+  border-radius: 16px;
   display: flex;
   flex-direction: column;
   padding: 1em;
 }
 
-.cardImg > img {
+.image>img {
   height: 100%;
   width: 100%;
   border-radius: 10px;
 }
 
-.cardImg {
+.image {
   width: 100%;
   height: 190px;
   align-self: center;
 }
 
-.cardTitle {
+.title {
+  color: var(--conf-color-grey-7);
   margin-top: 0.875em;
   font-size: 1.125rem;
   font-weight: 500;
 }
 
-.cardFooter {
+.footer {
   margin-top: 2.5em;
 }
 
-.cardLocation {
+.location {
   color: var(--conf-color-grey-5);
 }
 
-.cardDates {
-  margin-top: 0.5em;
+.dates {
+  color: var(--conf-color-grey-7);
+  margin-top: 0.25em;
 }

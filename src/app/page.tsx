@@ -2,9 +2,8 @@ import React from 'react';
 
 import { MovingLabelsBar } from '../ui/MovingLabelsBar/MovingLabelsBar';
 import { Header } from '../ui/Header/Header';
-import { EventCard } from '@/components/event-card/EventCard';
+import { EventCard, IConfEventModel } from '@/components/EventCard/EventCard';
 import PopularConferencesSwiperContainer from '@/components/PopularConferencesSwiper/SwiperContainer';
-import { IConfEventModel } from '@/types/conf-event';
 
 const eventModel: IConfEventModel = {
   imgLink: 'http:/photo.jpg',

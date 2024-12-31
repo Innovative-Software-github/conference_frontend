@@ -1,8 +1,12 @@
-import { useMemo } from 'react';
-import { IEventTagsPresentation } from '../types/event-tags';
+import * as React from 'react';
+
+export interface IEventTagsPresentation {
+  visibleTags: string[];
+  hiddenTagsNumber: number;
+}
 
 export function useEventTagsPresentation(tags: string[], visibleTagsNumber: number): IEventTagsPresentation {
-  const eventTagsPresentation = useMemo<IEventTagsPresentation>(
+  const eventTagsPresentation = React.useMemo<IEventTagsPresentation>(
     () => ({
       visibleTags: tags.slice(0, visibleTagsNumber),
       hiddenTagsNumber: tags.length - visibleTagsNumber,
