@@ -27,9 +27,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <body className={`${robotoMono.className}`}>
-        {children}
-      </body>
+      <body className={`${robotoMono.className}`}>{children}</body>
     </html>
   );
 }

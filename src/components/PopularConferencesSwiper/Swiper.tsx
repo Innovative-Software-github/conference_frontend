@@ -9,18 +9,16 @@ import { useMediaQuery } from 'react-responsive';
 
 import 'swiper/css';
 import 'swiper/css/pagination';
-import './PopularConferencesSwiper.css';
+import './Swiper.css';
 
-import cls from './PopularConferencesSwiper.module.css';
+import cls from './Swiper.module.css';
 import { MediaQuery } from '../../constants/MediaQuery';
 
 export interface IPopularConferencesSwiper {
   slides: any;
 }
 
-const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({
-  slides,
-}) => {
+const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({ slides }) => {
   const [activeIndex, setActiveIndex] = React.useState(0);
   const isMobile = useMediaQuery({ maxWidth: MediaQuery.BigMobile });
 
@@ -51,11 +49,8 @@ const PopularConferencesSwiper: React.FC<IPopularConferencesSwiper> = ({
         }}
       >
         {slides.map((slideContent: any, index: number) => (
-          <SwiperSlide
-            key={slideContent.alt}
-            className={cls.customSwiperSlide}
-          >
-            {(index === activeIndex || isMobile) ? (
+          <SwiperSlide key={slideContent.alt} className={cls.customSwiperSlide}>
+            {index === activeIndex || isMobile ? (
               <Link href="/" target="_blank">
                 <Image
                   src={slideContent.src}

@@ -9,7 +9,6 @@
     "lint": "next lint"
   },
   "dependencies": {
-    "lint": "eslint --ext .ts,.tsx ./src",
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -25,11 +24,15 @@
     "@typescript-eslint/parser": "^5.0.0",
     "eslint": "^8.57.1",
     "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.30.0",
     "eslint-plugin-jsx-a11y": "^6.10.0",
     "eslint-plugin-react": "^7.37.0",
     "eslint-plugin-storybook": "^0.9.0",
-    "typescript": "^5"
+    "prettier": "3.4.2",
+    "sass": "^1.83.0",
+    "typescript": "^5",
+    "typescript-plugin-css-modules": "^5.1.0"
   },
   "engines": {
     "node": ">=14.14.0"
