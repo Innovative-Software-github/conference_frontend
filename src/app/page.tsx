@@ -2,17 +2,8 @@ import React from 'react';
 
 import { MovingLabelsBar } from '../ui/MovingLabelsBar/MovingLabelsBar';
 import { Header } from '../ui/Header/Header';
-import { EventCard, IConfEventModel } from '@/components/conf-event/EventCard/EventCard';
 import PopularConferencesSwiperContainer from '@/components/PopularConferencesSwiper/SwiperContainer';
-
-const eventModel: IConfEventModel = {
-  imgLink: 'http:/photo.jpg',
-  title: 'Хакатон IT INNO HACK',
-  tags: ['AI', 'Инфраструктура', 'Дизайн', 'Backend', 'Frontend', 'Lead'],
-  location: 'г. Санкт-Петербург',
-  dateStart: new Date(Date.UTC(2024, 12, 20)),
-  dateFinish: new Date(Date.UTC(2024, 12, 21)),
-};
+import { EventList } from '@/components/conf-event/EventList/EventList';
 
 export default function Home() {
   const labels = ['С++ Russia 2025', 'Хакатон IT INNO HACK | 28/2', 'Джедайские трюки Java by IT one'];
@@ -45,7 +36,7 @@ export default function Home() {
       <Header />
       <main>
         <PopularConferencesSwiperContainer slides={slidesData} />
-        <EventCard eventModel={eventModel} />
+        <EventList />
       </main>
       <footer>footerы</footer>
     </div>

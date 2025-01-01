@@ -7,7 +7,7 @@ import { useMediaQuery } from 'react-responsive';
 
 import { ROUTES } from '../../constants/Routes';
 
-import cls from './Header.module.css';
+import cls from './Header.module.scss';
 import { MediaQuery } from '../../constants/MediaQuery';
 
 export const Header = () => {
@@ -23,9 +23,7 @@ export const Header = () => {
         <Input
           className={cls.input}
           placeholder="Найти событие"
-          elPrefix={
-            <Icon type={IconType.Search_20} width={20} height={20} />
-            }
+          elPrefix={<Icon type={IconType.Search_20} width={20} height={20} />}
         />
 
         <Link href={ROUTES.createEvent} className={cls.link}>

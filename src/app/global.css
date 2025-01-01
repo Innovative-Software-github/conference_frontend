@@ -27,3 +27,8 @@ a:active {
 p {
   margin: 0;
 }
+
+.container {
+  max-width: var(--container-width-desktop);
+  padding: 0 1em;
+}
