@@ -1,6 +1,6 @@
 import Image from 'next/image';
-import confEventImage from '../../../public/event-card-img.jpeg';
-import { EventTags } from './EventTags/EventTags';
+import confEventImage from '@public/event-card-img.jpeg';
+import { EventTags } from '../EventTags/EventTags';
 
 import cls from './EventCard.module.scss';
 
@@ -19,9 +19,7 @@ export interface IEventCardProps {
 
 export const EventCard: React.FC<IEventCardProps> = ({ eventModel }) => (
   <article className={cls.card}>
-    <section className={cls.image}>
-      {eventModel?.imgLink && <Image src={confEventImage} alt="Conf Image" />}
-    </section>
+    <section className={cls.image}>{eventModel?.imgLink && <Image src={confEventImage} alt="Conf Image" />}</section>
     <p className={cls.title}>{eventModel.title}</p>
     <EventTags tags={eventModel.tags ?? []} />
     <section className={cls.footer}>

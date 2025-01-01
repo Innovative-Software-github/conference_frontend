@@ -2,7 +2,7 @@ import React from 'react';
 
 import { MovingLabelsBar } from '../ui/MovingLabelsBar/MovingLabelsBar';
 import { Header } from '../ui/Header/Header';
-import { EventCard, IConfEventModel } from '@/components/EventCard/EventCard';
+import { EventCard, IConfEventModel } from '@/components/conf-event/EventCard/EventCard';
 import PopularConferencesSwiperContainer from '@/components/PopularConferencesSwiper/SwiperContainer';
 
 const eventModel: IConfEventModel = {
