@@ -1,4 +1,4 @@
-export const createValidationRulesLogin = () => ({
+export const createValidationRulesEmail = () => ({
   email: {
     required: 'Почта обязательна для заполнения',
     pattern: {
@@ -20,5 +20,8 @@ export const createValidationRulesLogin = () => ({
       value: /^[A-Za-z0-9!@#$%^&*()_+]+$/,
       message: 'Пароль может содержать только латинские буквы, цифры и спецсимволы',
     },
+  },
+  acceptRules: {
+    validate: (value: boolean) => value || 'Необходимо принять правила использования',
   },
 });

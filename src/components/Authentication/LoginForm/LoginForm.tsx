@@ -15,9 +15,9 @@ import { toast } from 'sonner';
 
 import { AuthenticationContainer } from '../AuthenticationContainer/AuthenticationContainer';
 import { ROUTES } from '../../../constants/Routes';
-import { createValidationRules } from './utils';
+import { createValidationRulesLogin } from './utils';
 import { ILoginRequest, ILoginResponse } from '../../../services/authentication/interfaces';
-import { checkAuthToken, login } from '../../../services/authentication/request';
+import { login } from '../../../services/authentication/request';
 import { setServerCookie } from '../../../utils/cookies';
 
 import cls from './LoginForm.module.css';
@@ -41,7 +41,7 @@ export const LoginForm = () => {
   });
 
   const validationRules = React.useMemo(() => (
-    createValidationRules()
+    createValidationRulesLogin()
   ), []);
 
   const eyeIconButton = (

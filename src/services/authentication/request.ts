@@ -7,6 +7,11 @@ export const login = (data: ILoginRequest) => customFetch<ILoginRequest>(
   data,
 );
 
+export const registration = (data: ILoginRequest) => customFetch<ILoginRequest>(
+  { path: ApiPath.auth.sign_up, method: 'POST', withCredentials: false },
+  data,
+);
+
 export const checkAuthToken = () => customFetch(
   { path: ApiPath.auth.check_token_valid, method: 'POST', isProtected: true },
 );

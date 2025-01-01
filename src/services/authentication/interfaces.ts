@@ -8,6 +8,10 @@ export interface ILoginResponse {
   email_is_verify: boolean;
 }
 
-export interface IRegistrationRequest {}
+export interface IRegistrationRequest {
+  email: string;
+  password: string;
+  acceptRules: boolean;
+}
 
-export interface IRegistrationResponse {}
+export interface IRegistrationResponse extends ILoginResponse {}
