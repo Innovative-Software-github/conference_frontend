@@ -9,42 +9,40 @@ import {
   Input,
 } from 'ui-kit-conf/dist';
 import Link from 'next/link';
+import { Controller, useForm } from 'react-hook-form';
+import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
+
 import { AuthenticationContainer } from '../AuthenticationContainer/AuthenticationContainer';
+import { ROUTES } from '../../../constants/Routes';
+import { createValidationRules } from './utils';
+import { ILoginRequest, ILoginResponse } from '../../../services/authentication/interfaces';
+import { checkAuthToken, login } from '../../../services/authentication/request';
+import { setServerCookie } from '../../../utils/cookies';
 
 import cls from './LoginForm.module.css';
-import { ROUTES } from '../../../constants/Routes';
-import { validateFormState } from './utils';
-import { IRegistrationAuthForm, IRegistrationAuthFormErrors } from '../RegistrationForm/RegistrationForm';
-
-// Пароль:
-// Длина больше >= 6
-// Только латиница
-// Только буквы и цифры и спецсимволы
-// Не больше 50 символов
-
-export interface ILoginAuthForm extends Omit<IRegistrationAuthForm, 'access'> {}
-
-export interface ILoginAuthFormErrors extends Omit<IRegistrationAuthFormErrors, 'access'> {}
 
 export const LoginForm = () => {
+  const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
-  const [formState, setFormState] = React.useState<ILoginAuthForm>({
-    email: '',
-    password: '',
-  });
-  const [errors] = React.useState<ILoginAuthFormErrors>({
-    email: false,
-    password: false,
+  const [isLoading, setIsLoading] = React.useState(false);
+
+  const {
+    control,
+    handleSubmit,
+    formState: { errors, isValid },
+  } = useForm<ILoginRequest>({
+    mode: 'onBlur',
+    reValidateMode: 'onBlur',
+    defaultValues: {
+      email: '',
+      password: '',
+    },
   });
 
-  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>, name: keyof ILoginAuthForm) => {
-    setFormState((prev) => ({
-      ...prev,
-      [name]: event.target.value,
-    }));
-  };
-
-  const isEmailPassportCompleted = !formState.email || !formState.password;
+  const validationRules = React.useMemo(() => (
+    createValidationRules()
+  ), []);
 
   const eyeIconButton = (
     <button
@@ -60,52 +58,109 @@ export const LoginForm = () => {
     </button>
   );
 
-  const { type, text } = validateFormState(formState);
+  const onSubmit = async (data: ILoginRequest) => {
+    try {
+      setIsLoading(true);
+      const response = await login(data);
+
+      if (!response.ok) {
+        const errorData = await response.json();
+
+        switch (response.status) {
+          case 400:
+            toast.error('Неверный пароль!');
+            break;
+          case 404:
+            toast.error('Пользователь с таким email не найден!');
+            break;
+          case 422:
+            toast.error('Некорректные данные!');
+            break;
+          default:
+            toast.error('Произошла ошибка при входе!');
+            console.error('Login error:', errorData);
+        }
+      } else {
+        const responseData = (await response.json()) as ILoginResponse;
+
+        setServerCookie('x-auth', responseData.token);
+
+        toast.success('Вы успешно вошли!');
+        router.push(ROUTES.home);
+      }
+    } catch (error) {
+      console.error('error', error);
+      toast.error('Возникла ошибка. Пожалуйста, попробуйте позже.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   return (
     <AuthenticationContainer title="Вход">
-      <FieldWrapper
-        className={cls.fieldWrapper}
-        type={type as unknown as any}
-        text={text}
-        label="Почта"
-      >
-        <Input
-          value={formState.email}
-          placeholder="Введите почту"
-          onChange={(event) => handleInputChange(event, 'email')}
+      <form onSubmit={handleSubmit(onSubmit)}>
+        <Controller
+          name="email"
+          control={control}
+          rules={validationRules.email}
+          render={({ field }) => (
+            <FieldWrapper
+              className={cls.fieldWrapper}
+              type={errors.email ? 'error' : 'info'}
+              text={errors.email ? errors.email.message : ''}
+              label="Почта"
+            >
+              <Input
+                {...field}
+                isError={!!errors.email}
+                placeholder="Введите почту"
+              />
+            </FieldWrapper>
+          )}
         />
-      </FieldWrapper>
-      <FieldWrapper
-        className={cls.fieldWrapper}
-        type={errors.email ? 'error' : 'info'}
-        label="Пароль"
-        text={(
-          <div className={cls.forgotLinkContainer}>
-            <Link href="/" className={cls.forgotLink}>Забыли пароль?</Link>
-          </div>
-        )}
-      >
-        <Input
-          value={formState.password}
-          placeholder="Введите пароль"
-          type={isPasswordVisible ? 'text' : 'password'}
-          elSuffix={eyeIconButton}
-          onChange={(event) => handleInputChange(event, 'password')}
+        <Controller
+          name="password"
+          control={control}
+          rules={validationRules.password}
+          render={({ field }) => (
+            <FieldWrapper
+              className={cls.fieldWrapper}
+              label="Пароль"
+              type={errors.password ? 'error' : 'info'}
+              text={
+                errors.password ? (
+                  errors.password.message
+                ) : (
+                  <div className={cls.forgotLinkContainer}>
+                    <Link href="/" className={cls.forgotLink}>Забыли пароль?</Link>
+                  </div>
+                )
+              }
+            >
+              <Input
+                {...field}
+                isError={!!errors.password}
+                placeholder="Введите пароль"
+                type={isPasswordVisible ? 'text' : 'password'}
+                elSuffix={eyeIconButton}
+              />
+            </FieldWrapper>
+          )}
         />
-      </FieldWrapper>
-      <Button
-        className={cls.button}
-        type="button"
-        variant="default"
-        isDisabled={isEmailPassportCompleted}
-      >
-        Продолжить
-      </Button>
-      <div className={cls.registation}>
-        <span>Еще нет аккаунта?</span>
-        <Link href={ROUTES.registation}>Зарегистрироваться</Link>
-      </div>
+        <Button
+          className={cls.button}
+          type="submit"
+          variant="default"
+          isDisabled={!isValid}
+          isLoading={isLoading}
+        >
+          Продолжить
+        </Button>
+        <div className={cls.registation}>
+          <span>Еще нет аккаунта?</span>
+          <Link href={ROUTES.registation}>Зарегистрироваться</Link>
+        </div>
+      </form>
     </AuthenticationContainer>
   );
 };

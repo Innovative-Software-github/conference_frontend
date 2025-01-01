@@ -3,6 +3,8 @@ import type { Metadata } from 'next';
 // eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google';
 
+import { ToasterContainer } from '../components/Toaster/ToasterContainer';
+
 import './global.css';
 import 'ui-kit-conf/dist/variables.css';
 import 'ui-kit-conf/dist/index.css';
@@ -28,6 +30,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={`${robotoMono.className}`}>
+        <ToasterContainer />
         {children}
       </body>
     </html>

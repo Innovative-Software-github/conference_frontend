@@ -1,22 +1,24 @@
-import { IFormState } from './LoginForm';
-
-export const validateFormState = (formState: IFormState) => {
-  if (formState.email.length < 5) {
-    return {
-      text: 'Не меньше 5 букв',
-      type: 'error',
-    };
-  }
-
-  if (!formState.email.includes('@')) {
-    return {
-      text: 'Должна быть собака',
-      type: 'error',
-    };
-  }
-
-  return {
-    text: '',
-    type: 'info',
-  };
-};
+export const createValidationRules = () => ({
+  email: {
+    required: 'Почта обязательна для заполнения',
+    pattern: {
+      value: /^\S+@\S+\.\S+$/,
+      message: 'Некорректный формат почты',
+    },
+  },
+  password: {
+    required: 'Пароль обязателен для заполнения',
+    minLength: {
+      value: 6,
+      message: 'Пароль должен содержать не менее 6 символов',
+    },
+    maxLength: {
+      value: 50,
+      message: 'Пароль должен содержать не более 50 символов',
+    },
+    pattern: {
+      value: /^[A-Za-z0-9!@#$%^&*()_+]+$/,
+      message: 'Пароль может содержать только латинские буквы, цифры и спецсимволы',
+    },
+  },
+});
