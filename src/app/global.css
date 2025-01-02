@@ -18,8 +18,13 @@ body * {
 
 a {
   color: initial;
+  text-decoration: none;
 }
 
 a:active {
   color: initial;
+}
+
+p {
+  margin: 0;
 }

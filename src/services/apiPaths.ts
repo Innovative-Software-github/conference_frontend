@@ -10,8 +10,6 @@ export const ApiPath = {
     sign_verify: '/api/auth/verify',
     sign_resetPassport: '/api/auth/reset-password',
     sign_changeEmail: '/api/auth/change-mail',
-    sign_up_route: 'api/sign_up',
-    sign_in_route: 'api/sign_in',
   },
 
   /* Ручки для событий */
