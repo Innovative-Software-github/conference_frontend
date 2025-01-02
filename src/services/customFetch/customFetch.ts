@@ -1,6 +1,5 @@
-import { cookies } from 'next/headers';
-import { stringifySearchParams } from '../../utils/searchParams/searchParams';
-import { THttpStatusCode } from '../HttpStatusCode';
+import { getServerCookie } from '../../utils/cookies';
+import { stringifySearchParams } from '../../utils/searchParams';
 
 export type THTTPRequestMethod = 'HEAD' | 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 export type TURIScheme = 'http' | 'https';
@@ -8,7 +7,7 @@ export type TURIScheme = 'http' | 'https';
 export interface IHttpRequestConfig {
   path: string;
   method: THTTPRequestMethod;
-  headers?: [string, string][];
+  headers?: [string, string][] | Record<string, string>;
   scheme?: TURIScheme;
   port?: number;
   contentType?: string;
@@ -28,60 +27,48 @@ interface IErrorResponse {
   message: string;
 }
 
-interface IResponse<T> {
-  data: T | null;
+export interface IResponse {
+  response: Response | null;
   error: IErrorResponse | null;
 }
 
 /**
- *
- * @template TResponsePayload - Тип данных ответа
- * @template TRequestPayload - Тип данных запроса
+ * Выполняет HTTP-запрос с указанными настройками и данными.
  *
  * @param {IHttpRequestConfig} settings - Настройки запроса
- * @param {string} settings.path - Путь запроса
- * @param {THTTPRequestMethod} settings.method - HTTP метод
- * @param {[string, string][]} [settings.headers] - Дополнительные заголовки
- * @param {TURIScheme} [settings.scheme] - Протокол (http/https)
- * @param {number} [settings.port] - Порт
- * @param {string} [settings.contentType] - Тип контента
- * @param {boolean} [settings.withCredentials] - флаг отправлять ли куки
- * @param {boolean} [settings.withErrorHandling] - флаг включить ли обработку ошибок
- *
  * @param {TRequestPayload} [data] - Данные для отправки
  *
- * @returns {Promise<IResponse<TResponsePayload> | TResponsePayload>} Результат запроса
- * - Если withErrorHandling=true, возвращает объект {data, error}
- * - Если withErrorHandling=false, возвращает данные напрямую
- *
- * @throws {Error} Выбрасывает ошибку, если не задан хост бэкенда
+ * @returns {Promise<IResponse | Response>} Результат запроса
+ * - Если withErrorHandling=true, возвращает объект {response, error}
+ * - Если withErrorHandling=false, возвращает объект Response напрямую
  */
-export function customFetch<TResponsePayload = unknown, TRequestPayload = IRequestData>(
+export function customFetch<TRequestPayload = IRequestData>(
   settings: IHttpRequestConfig & { withErrorHandling: true },
   data?: TRequestPayload,
-): Promise<IResponse<TResponsePayload>>;
+): Promise<IResponse>;
 
-export function customFetch<TResponsePayload = unknown, TRequestPayload = IRequestData>(
+export function customFetch<TRequestPayload = IRequestData>(
   settings: IHttpRequestConfig & { withErrorHandling?: false },
   data?: TRequestPayload,
-): Promise<TResponsePayload>;
+): Promise<Response>;
 
-export async function customFetch<TResponsePayload = unknown, TRequestPayload = IRequestData>(
-  {
+export async function customFetch<TRequestPayload = IRequestData>(
+  settings: IHttpRequestConfig,
+  data?: TRequestPayload,
+): Promise<IResponse | Response> {
+  const {
     path,
     method,
     headers = [],
     scheme = 'http',
     port,
     contentType = 'application/json',
-    isProtected = false,
     withCredentials = true,
     withErrorHandling = false,
-  }: IHttpRequestConfig,
-  data?: TRequestPayload,
-): Promise<IResponse<TResponsePayload> | TResponsePayload> {
-  const makeRequest = async (): Promise<TResponsePayload> => {
-    const host = process.env.BROWSER_BACKEND_SERVER;
+  } = settings;
+
+  const makeRequest = async (): Promise<Response> => {
+    const host = process.env.BROWSER_BACKEND_SERVER || '188.225.56.164:8000';
 
     if (!host) {
       throw new Error('Backend host is not defined');
@@ -92,14 +79,14 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
 
     const url = `${scheme}://${host}${port ? `:${port}` : ''}${path}${query}`;
 
-    const authHeader = (await cookies()).get('x-auth');
+    const authHeader = getServerCookie('x-auth');
 
     const headersObject = Array.isArray(headers) ? Object.fromEntries(headers) : headers || {};
 
-    const combinedHeaders = {
+    const combinedHeaders: Record<string, string> = {
       ...headersObject,
-      ...(isProtected && authHeader?.value ? { 'x-auth': authHeader.value } : {}),
       'Content-Type': contentType,
+      'x-auth': (await authHeader)?.value ?? '',
     };
 
     const response = await fetch(url, {
@@ -110,34 +97,44 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
       cache: 'no-store',
     });
 
-    if (!response.ok) {
-      const error = await response.json().catch(() => ({}));
-
-      const newError = {
-        status: response.status as THttpStatusCode,
-        error,
-      };
-
-      throw newError;
-    }
-
-    return response.json();
+    return response;
   };
 
   if (withErrorHandling) {
     try {
       const response = await makeRequest();
 
+      if (!response.ok) {
+        let errorMessage = `Request failed with status ${response.status}`;
+
+        try {
+          const errorData = await response.json();
+
+          errorMessage = errorData.message || errorMessage;
+        } catch (error) {
+          throw error;
+        }
+
+        return {
+          response: null,
+          error: {
+            code: response.status,
+            message: errorMessage,
+          },
+        };
+      }
+
       return {
-        data: response,
+        response,
         error: null,
       };
-    } catch (e) {
+    } catch (e: any) {
       return {
-        data: null,
+        response: null,
         error: {
-          code: (e as any)?.status || 500,
-          message: (e as any)?.message || `Неизвестная ошибка запроса к сервису ${path}`,
+          code: e?.status || 500,
+          message:
+            e?.message || `Неизвестная ошибка запроса к сервису ${settings.path}`,
         },
       };
     }
