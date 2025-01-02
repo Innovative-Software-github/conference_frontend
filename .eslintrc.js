@@ -24,8 +24,11 @@ module.exports = {
     'plugin:react/recommended',
     'plugin:@typescript-eslint/eslint-recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:storybook/recommended'],
+    'plugin:storybook/recommended',
+    'prettier',
+  ],
   rules: {
+    'react/react-in-jsx-scope': 'off', // начиная с react v17 импортировать React необязательно
     'import/extensions': 'off',
     'comma-dangle': ['error', 'always-multiline'],
     'max-lines': [1, 300],

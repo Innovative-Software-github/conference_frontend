@@ -24,3 +24,7 @@ a {
 a:active {
   color: initial;
 }
+
+p {
+  margin: 0;
+}
