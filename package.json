@@ -14,9 +14,11 @@
     "next": "15.1.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
+    "react-hook-form": "^7.54.2",
     "react-responsive": "^10.0.0",
+    "sonner": "^1.7.1",
     "swiper": "^11.1.15",
-    "ui-kit-conf": "^1.1.10"
+    "ui-kit-conf": "^1.1.14-beta.0"
   },
   "devDependencies": {
     "@types/node": "^20",

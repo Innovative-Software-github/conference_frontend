@@ -1,0 +1,39 @@
+.fieldWrapper {
+  margin-bottom: 16px;
+}
+
+.eyeButton,
+.forgotLink {
+  all: unset;
+  cursor: pointer;
+}
+
+.forgotLinkContainer {
+  width: 100%;
+  display: flex;
+  justify-content: end;
+}
+
+.button {
+  width: 100%;
+  text-align: center;
+  margin-top: 22px;
+}
+
+.login {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 16px;
+  color: var(--conf-color-grey-7);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+}
+
+.login a {
+  color: var(--conf-color-cyan-8);
+  transition: color 150ms ease;
+}
