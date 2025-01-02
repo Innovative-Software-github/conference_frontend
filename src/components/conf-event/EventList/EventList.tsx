@@ -1,11 +1,11 @@
-import { EventCard, IConfEventModel } from '../EventCard/EventCard';
-import { getEvents } from './api/getEvents';
+import { getEvents } from '../../../services/events/api';
+import { EventCard, IEventsResponse } from '../EventCard/EventCard';
 import styles from './EventList.module.scss';
 
-interface IEventListProps {}
+interface IEventListProps { }
 
 export const EventList: React.FC<IEventListProps> = async () => {
-  let events: IConfEventModel[] = [];
+  let events: IEventsResponse[] = [];
 
   try {
     events = await getEvents();
