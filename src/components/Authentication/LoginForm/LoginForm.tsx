@@ -15,7 +15,7 @@ import { toast } from 'sonner';
 
 import { AuthenticationContainer } from '../AuthenticationContainer/AuthenticationContainer';
 import { ROUTES } from '../../../constants/Routes';
-import { createValidationRulesLogin } from './utils';
+import { createValidationRulesLogin, errorMessages } from './utils';
 import { ILoginRequest, ILoginResponse } from '../../../services/authentication/interfaces';
 import { login } from '../../../services/authentication/request';
 import { setServerCookie } from '../../../utils/cookies';
@@ -65,21 +65,10 @@ export const LoginForm = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
+        const errorMessage = errorMessages[response.status] || 'Произошла ошибка при входе!';
 
-        switch (response.status) {
-          case 400:
-            toast.error('Неверный пароль!');
-            break;
-          case 404:
-            toast.error('Пользователь с таким email не найден!');
-            break;
-          case 422:
-            toast.error('Некорректные данные!');
-            break;
-          default:
-            toast.error('Произошла ошибка при входе!');
-            console.error('Login error:', errorData);
-        }
+        toast.error(errorMessage);
+        console.log('error:', errorData);
       } else {
         const responseData = (await response.json()) as ILoginResponse;
 

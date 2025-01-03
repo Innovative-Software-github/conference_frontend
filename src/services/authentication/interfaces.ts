@@ -11,7 +11,7 @@ export interface ILoginResponse {
 export interface IRegistrationRequest {
   email: string;
   password: string;
-  acceptRules: boolean;
+  accept_rules: boolean;
 }
 
-export interface IRegistrationResponse extends ILoginResponse {}
+export interface IRegistrationResponse extends ILoginResponse { }

@@ -17,7 +17,7 @@ import { useRouter } from 'next/navigation';
 import { AuthenticationContainer } from '../AuthenticationContainer/AuthenticationContainer';
 import cls from './RegistrationForm.module.css';
 import { ROUTES } from '../../../constants/Routes';
-import { createValidationRulesEmail } from './utils';
+import { createValidationRulesRegistration, errorMessages } from './utils';
 import { ILoginRequest, ILoginResponse, IRegistrationRequest } from '../../../services/authentication/interfaces';
 import { registration } from '../../../services/authentication/request';
 import { setServerCookie } from '../../../utils/cookies';
@@ -38,7 +38,7 @@ export const RegistrationForm = () => {
     defaultValues: {
       email: '',
       password: '',
-      acceptRules: false,
+      accept_rules: false,
     },
   });
 
@@ -57,7 +57,7 @@ export const RegistrationForm = () => {
     </button>
   );
 
-  const validationRules = React.useMemo(() => createValidationRulesEmail(), []);
+  const validationRules = React.useMemo(() => createValidationRulesRegistration(), []);
 
   const onSubmit = async (data: ILoginRequest) => {
     try {
@@ -66,18 +66,10 @@ export const RegistrationForm = () => {
 
       if (!response.ok) {
         const errorData = await response.json();
+        const errorMessage = errorMessages[response.status] || 'Произошла ошибка при входе!';
 
-        switch (response.status) {
-          case 400:
-            toast.error('Такая почта уже существует');
-            break;
-          case 422:
-            toast.error('Некорректные данные!');
-            break;
-          default:
-            toast.error('Произошла ошибка при входе!');
-            console.error('Login error:', errorData);
-        }
+        toast.error(errorMessage);
+        console.log('error:', errorData);
       } else {
         const responseData = (await response.json()) as ILoginResponse;
 
@@ -146,13 +138,13 @@ export const RegistrationForm = () => {
         />
 
         <Controller
-          name="acceptRules"
+          name="accept_rules"
           control={control}
-          rules={validationRules.acceptRules}
+          rules={validationRules.accept_rules}
           render={({ field }) => (
             <FieldWrapper
-              type={errors.acceptRules ? 'error' : 'info'}
-              text={errors.acceptRules?.message}
+              type={errors.accept_rules ? 'error' : 'info'}
+              text={errors.accept_rules?.message}
             >
               <Checkbox
                 checked={field.value}

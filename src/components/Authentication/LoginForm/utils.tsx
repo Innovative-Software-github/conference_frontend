@@ -22,3 +22,9 @@ export const createValidationRulesLogin = () => ({
     },
   },
 });
+
+export const errorMessages: { [key: number]: string } = {
+  403: 'Неверный пароль!',
+  404: 'Пользователь с таким email не найден!',
+  422: 'Некорректные данные!',
+} as const;
