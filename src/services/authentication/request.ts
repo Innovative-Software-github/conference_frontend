@@ -1,5 +1,5 @@
 import { ApiPath } from '../apiPaths';
-import { customFetch } from '../customFetch/customFetch';
+import { customFetch } from '../customFetch';
 import { ILoginRequest } from './interfaces';
 
 export const login = (data: ILoginRequest) => customFetch<ILoginRequest>(

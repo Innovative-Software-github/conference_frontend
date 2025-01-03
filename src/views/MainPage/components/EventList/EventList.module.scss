@@ -1,0 +1,29 @@
+.container {
+  padding: 16px;
+  max-width: var(--container-width-desktop);
+  margin: 0 auto;
+}
+
+.event {
+  margin: 0 auto;
+}
+
+.event+.event {
+  margin-top: 1em;
+}
+
+@media (min-width: 688px) {
+  .event {
+    margin: 0;
+  }
+
+  .event+.event {
+    margin-top: 0;
+  }
+
+  .container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+  }
+}
