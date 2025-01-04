@@ -1,14 +1,14 @@
 import { ApiPath } from '../apiPaths';
-import { customFetch } from '../customFetch/customFetch';
+import { customFetch } from '../customFetch';
 import { ILoginRequest } from './interfaces';
 
 export const login = (data: ILoginRequest) => customFetch<ILoginRequest>(
-  { path: ApiPath.auth.sign_in, method: 'POST', withCredentials: false },
+  { path: ApiPath.auth.sign_in, method: 'POST' },
   data,
 );
 
 export const registration = (data: ILoginRequest) => customFetch<ILoginRequest>(
-  { path: ApiPath.auth.sign_up, method: 'POST', withCredentials: false },
+  { path: ApiPath.auth.sign_up, method: 'POST' },
   data,
 );
 

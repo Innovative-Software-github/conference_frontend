@@ -6,15 +6,16 @@ import { Icon, IconType, Input } from 'ui-kit-conf/dist';
 import { useMediaQuery } from 'react-responsive';
 
 import { ROUTES } from '../../constants/Routes';
-
-import cls from './Header.module.css';
 import { MediaQuery } from '../../constants/MediaQuery';
+
+import cls from './Header.module.scss';
+import { Container } from '@/ui/Container/Container';
 
 export const Header = () => {
   const isMobile = useMediaQuery({ maxWidth: MediaQuery.BigMobile });
 
   return (
-    <div className={cls.container}>
+    <Container>
       <header className={cls.header}>
         <Link href={ROUTES.home} className={cls.homeLink}>
           <Icon type={IconType.Logotype} width={isMobile ? 121 : 141} height={31} isScalable />
@@ -23,9 +24,7 @@ export const Header = () => {
         <Input
           className={cls.input}
           placeholder="Найти событие"
-          elPrefix={
-            <Icon type={IconType.Search_20} width={20} height={20} />
-            }
+          elPrefix={<Icon type={IconType.Search_20} width={20} height={20} />}
         />
 
         <Link href={ROUTES.createEvent} className={cls.link}>
@@ -40,6 +39,6 @@ export const Header = () => {
           </div>
         </Link>
       </header>
-    </div>
+    </Container>
   );
 };

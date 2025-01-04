@@ -1,5 +1,5 @@
-import { getServerCookie } from '../../utils/cookies';
-import { stringifySearchParams } from '../../utils/searchParams';
+import { getServerCookie } from '../utils/cookies';
+import { stringifySearchParams } from '../utils/searchParams';
 
 export type THTTPRequestMethod = 'HEAD' | 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 export type TURIScheme = 'http' | 'https';
@@ -63,12 +63,12 @@ export async function customFetch<TRequestPayload = IRequestData>(
     scheme = 'http',
     port,
     contentType = 'application/json',
-    withCredentials = true,
+    withCredentials = false,
     withErrorHandling = false,
   } = settings;
 
   const makeRequest = async (): Promise<Response> => {
-    const host = process.env.BROWSER_BACKEND_SERVER || '188.225.56.164:8000';
+    const host = process.env.NEXT_PUBLIC_API_URL;
 
     if (!host) {
       throw new Error('Backend host is not defined');
