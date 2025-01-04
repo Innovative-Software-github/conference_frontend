@@ -9,12 +9,13 @@ import { ROUTES } from '../../constants/Routes';
 import { MediaQuery } from '../../constants/MediaQuery';
 
 import cls from './Header.module.scss';
+import { Container } from '@/ui/Container/Container';
 
 export const Header = () => {
   const isMobile = useMediaQuery({ maxWidth: MediaQuery.BigMobile });
 
   return (
-    <div className={cls.container}>
+    <Container>
       <header className={cls.header}>
         <Link href={ROUTES.home} className={cls.homeLink}>
           <Icon type={IconType.Logotype} width={isMobile ? 121 : 141} height={31} isScalable />
@@ -38,6 +39,6 @@ export const Header = () => {
           </div>
         </Link>
       </header>
-    </div>
+    </Container>
   );
 };

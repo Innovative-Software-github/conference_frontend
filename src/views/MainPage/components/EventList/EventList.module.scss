@@ -5,8 +5,9 @@
   column-gap: 1em;
   gap: 0.5em;
   padding: 1em;
-  max-width: var(--container-width-desktop);
-  margin: 0 auto;
+  border-radius: 16px;
+  background: var(--conf-color-white);
+  border: 1px solid var(--conf-color-grey-2);
 }
 
 @media (max-width: 1110px) {
