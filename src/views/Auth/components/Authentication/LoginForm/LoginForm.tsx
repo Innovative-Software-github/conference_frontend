@@ -3,28 +3,26 @@
 import React from 'react';
 import {
   Button,
-  Checkbox,
   FieldWrapper,
   Icon,
   IconType,
   Input,
 } from 'ui-kit-conf/dist';
-import { Controller, useForm } from 'react-hook-form';
 import Link from 'next/link';
-import { toast } from 'sonner';
+import { Controller, useForm } from 'react-hook-form';
 import { useRouter } from 'next/navigation';
+import { toast } from 'sonner';
 
 import { AuthenticationContainer } from '../AuthenticationContainer/AuthenticationContainer';
-import cls from './RegistrationForm.module.css';
-import { ROUTES } from '../../../constants/Routes';
-import { createValidationRulesRegistration, errorMessages } from './utils';
-import { ILoginRequest, ILoginResponse, IRegistrationRequest } from '../../../services/authentication/interfaces';
-import { registration } from '../../../services/authentication/request';
-import { setServerCookie } from '../../../utils/cookies';
+import { ROUTES } from '../../../../../constants/Routes';
+import { createValidationRulesLogin, errorMessages } from './utils';
+import { ILoginRequest, ILoginResponse } from '../../../../../services/authentication/interfaces';
+import { login } from '../../../../../services/authentication/request';
+import { setServerCookie } from '../../../../../utils/cookies';
 
-const ACCESS = 'Согласен с Правилами использования, которые включают в себя настоящую Политику Конфиденциальности';
+import cls from './LoginForm.module.css';
 
-export const RegistrationForm = () => {
+export const LoginForm = () => {
   const router = useRouter();
   const [isPasswordVisible, setIsPasswordVisible] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
@@ -33,36 +31,37 @@ export const RegistrationForm = () => {
     control,
     handleSubmit,
     formState: { errors, isValid },
-  } = useForm<IRegistrationRequest>({
+  } = useForm<ILoginRequest>({
     mode: 'onBlur',
+    reValidateMode: 'onBlur',
     defaultValues: {
       email: '',
       password: '',
-      accept_rules: false,
     },
   });
+
+  const validationRules = React.useMemo(() => (
+    createValidationRulesLogin()
+  ), []);
 
   const eyeIconButton = (
     <button
       type="button"
       className={cls.eyeButton}
       onClick={() => setIsPasswordVisible((isVisible) => !isVisible)}
-      aria-label={isPasswordVisible ? 'Скрыть пароль' : 'Показать пароль'}
     >
       <Icon
-        type={isPasswordVisible ? IconType.EyeOff_20 : IconType.Eye_20}
+        type={isPasswordVisible ? IconType.Eye_20 : IconType.EyeOff_20}
         width={20}
         height={20}
       />
     </button>
   );
 
-  const validationRules = React.useMemo(() => createValidationRulesRegistration(), []);
-
   const onSubmit = async (data: ILoginRequest) => {
     try {
       setIsLoading(true);
-      const response = await registration(data);
+      const response = await login(data);
 
       if (!response.ok) {
         const errorData = await response.json();
@@ -87,8 +86,8 @@ export const RegistrationForm = () => {
   };
 
   return (
-    <AuthenticationContainer title="Регистрация">
-      <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
+    <AuthenticationContainer title="Вход">
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="email"
           control={control}
@@ -97,14 +96,17 @@ export const RegistrationForm = () => {
             <FieldWrapper
               className={cls.fieldWrapper}
               type={errors.email ? 'error' : 'info'}
+              text={errors.email ? errors.email.message : ''}
               label="Почта"
-              text={errors.email?.message}
             >
-              <Input {...field} placeholder="Введите почту" isError={!!errors.email} />
+              <Input
+                {...field}
+                isError={!!errors.email}
+                placeholder="Введите почту"
+              />
             </FieldWrapper>
           )}
         />
-
         <Controller
           name="password"
           control={control}
@@ -112,49 +114,28 @@ export const RegistrationForm = () => {
           render={({ field }) => (
             <FieldWrapper
               className={cls.fieldWrapper}
-              type={errors.password ? 'error' : 'info'}
               label="Пароль"
+              type={errors.password ? 'error' : 'info'}
               text={
                 errors.password ? (
                   errors.password.message
                 ) : (
                   <div className={cls.forgotLinkContainer}>
-                    <Link href={ROUTES.home} className={cls.forgotLink}>
-                      Забыли пароль?
-                    </Link>
+                    <Link href="/" className={cls.forgotLink}>Забыли пароль?</Link>
                   </div>
                 )
               }
             >
               <Input
                 {...field}
+                isError={!!errors.password}
                 placeholder="Введите пароль"
                 type={isPasswordVisible ? 'text' : 'password'}
                 elSuffix={eyeIconButton}
-                isError={!!errors.password}
               />
             </FieldWrapper>
           )}
         />
-
-        <Controller
-          name="accept_rules"
-          control={control}
-          rules={validationRules.accept_rules}
-          render={({ field }) => (
-            <FieldWrapper
-              type={errors.accept_rules ? 'error' : 'info'}
-              text={errors.accept_rules?.message}
-            >
-              <Checkbox
-                checked={field.value}
-                onChange={(e) => field.onChange(e.target.checked)}
-                label={ACCESS}
-              />
-            </FieldWrapper>
-          )}
-        />
-
         <Button
           className={cls.button}
           type="submit"
@@ -164,12 +145,11 @@ export const RegistrationForm = () => {
         >
           Продолжить
         </Button>
+        <div className={cls.registation}>
+          <span>Еще нет аккаунта?</span>
+          <Link href={ROUTES.registation}>Зарегистрироваться</Link>
+        </div>
       </form>
-
-      <div className={cls.login}>
-        <span>Уже есть аккаунт? </span>
-        <Link href={ROUTES.login}>Войти</Link>
-      </div>
     </AuthenticationContainer>
   );
 };

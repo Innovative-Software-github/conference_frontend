@@ -3,7 +3,7 @@ import { checkAuthToken } from './services/authentication/request';
 import { ROUTES } from './constants/Routes';
 
 const protectedRoutes = ['/profile']; // Список защищенных маршрутов
-const authPages = ['/login']; // Страницы, доступ к которым запрещен аутентифицированным пользователям
+const authPages = ['/login', '/registration']; // Страницы, доступ к которым запрещен аутентифицированным пользователям
 
 export async function middleware(request: NextRequest) {
   const path = request.nextUrl.pathname;
