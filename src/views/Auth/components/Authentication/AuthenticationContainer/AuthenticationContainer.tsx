@@ -5,9 +5,9 @@ import Link from 'next/link';
 import { Icon, IconType } from 'ui-kit-conf/dist';
 import { useMediaQuery } from 'react-responsive';
 
-import { Container } from '../../../ui/Container/Container';
-import { ROUTES } from '../../../constants/Routes';
-import { MediaQuery } from '../../../constants/MediaQuery';
+import { Container } from '../../../../../ui/Container/Container';
+import { ROUTES } from '../../../../../constants/Routes';
+import { MediaQuery } from '../../../../../constants/MediaQuery';
 
 import cls from './AuthenticationContainer.module.css';
 

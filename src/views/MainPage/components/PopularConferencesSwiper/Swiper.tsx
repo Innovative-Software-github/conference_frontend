@@ -12,7 +12,7 @@ import 'swiper/css/pagination';
 import './Swiper.css';
 
 import cls from './Swiper.module.css';
-import { MediaQuery } from '../../constants/MediaQuery';
+import { MediaQuery } from '../../../../constants/MediaQuery';
 
 export interface IPopularConferencesSwiper {
   slides: any;

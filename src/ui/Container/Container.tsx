@@ -8,7 +8,7 @@ export interface IContainerProps extends React.PropsWithChildren {
 }
 
 export const Container: React.FC<IContainerProps> = ({ children, className }) => (
-  <div className={clsx(cls.container, className)}>
+  <section className={clsx(cls.container, className)}>
     {children}
-  </div>
+  </section>
 );

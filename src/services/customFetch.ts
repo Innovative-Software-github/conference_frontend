@@ -1,5 +1,5 @@
-import { getServerCookie } from '../../utils/cookies';
-import { stringifySearchParams } from '../../utils/searchParams';
+import { getServerCookie } from '../utils/cookies';
+import { stringifySearchParams } from '../utils/searchParams';
 
 export type THTTPRequestMethod = 'HEAD' | 'GET' | 'POST' | 'PUT' | 'PATCH' | 'DELETE';
 export type TURIScheme = 'http' | 'https';
