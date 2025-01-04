@@ -47,6 +47,7 @@ export const MainPage = () => {
       location: 'г. Санкт-Петербург',
       dateStart: 24,
       dateFinish: 25,
+      href: '/',
     },
     {
       id: 2,
@@ -63,6 +64,7 @@ export const MainPage = () => {
       location: 'г. Санкт-Петербург',
       dateStart: 24,
       dateFinish: 25,
+      href: '/',
     },
     {
       id: 3,
@@ -79,6 +81,7 @@ export const MainPage = () => {
       location: 'г. Санкт-Петербург',
       dateStart: 24,
       dateFinish: 25,
+      href: '/',
     },
     {
       id: 4,
@@ -95,6 +98,7 @@ export const MainPage = () => {
       location: 'г. Санкт-Петербург',
       dateStart: 24,
       dateFinish: 25,
+      href: '/',
     },
     {
       id: 5,
@@ -111,6 +115,7 @@ export const MainPage = () => {
       location: 'г. Санкт-Петербург',
       dateStart: 24,
       dateFinish: 25,
+      href: '/',
     },
     {
       id: 6,
@@ -127,6 +132,7 @@ export const MainPage = () => {
       location: 'г. Санкт-Петербург',
       dateStart: 24,
       dateFinish: 25,
+      href: '/',
     },
   ]
 

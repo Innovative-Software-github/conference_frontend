@@ -10,7 +10,7 @@ export interface IEventListProps {
 export const EventList: React.FC<IEventListProps> = ({ events }) => (
   <section className={cls.container}>
     {events.map((event) => (
-      <EventCard className={cls.event} key={event.id} eventModel={event} />
+      <EventCard className={cls.card} key={event.id} eventModel={event} />
     ))}
   </section>
 );

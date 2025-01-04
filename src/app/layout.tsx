@@ -1,5 +1,5 @@
 import React from 'react';
-import type { Metadata } from 'next';
+import type { Metadata, Viewport } from 'next';
 // eslint-disable-next-line camelcase
 import { Roboto_Mono } from 'next/font/google';
 

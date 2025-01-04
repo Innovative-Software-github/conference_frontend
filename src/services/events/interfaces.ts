@@ -1,5 +1,6 @@
 export interface IEventsResponse {
   id: number;
+  href: string;
   imgLink?: string;
   title: string;
   tags?: string[];
