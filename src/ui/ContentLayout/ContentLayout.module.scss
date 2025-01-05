@@ -1,0 +1,10 @@
+.layout {
+  padding: 20px;
+  border-radius: 16px;
+  background: var(--conf-color-white);
+  border: 1px solid var(--conf-color-grey-2);
+
+  @media (max-width: 768px) {
+    padding: 16px;
+  }
+}
