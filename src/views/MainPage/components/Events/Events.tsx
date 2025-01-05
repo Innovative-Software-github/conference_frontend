@@ -4,6 +4,7 @@ import { EventList } from './EventList/EventList';
 import { getEvents } from '@/services/events/request';
 import { IEventsResponse } from '@/services/events/interfaces';
 import { eventsFallback } from '@/constants/eventsFallback';
+import cls from './Events.module.scss';
 
 export const Events = async () => {
   let events: IEventsResponse[] = eventsFallback;
@@ -15,7 +16,7 @@ export const Events = async () => {
   }
 
   return (
-    <ConstraintContainer>
+    <ConstraintContainer className={cls.container}>
       <EventFilters />
       <EventList events={events} />
     </ConstraintContainer>
