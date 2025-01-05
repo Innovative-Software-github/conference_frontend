@@ -1,10 +1,8 @@
-import React from 'react'
+import React from 'react';
 import { MovingLabelsBar } from '../../components/MovingLabelsBar/MovingLabelsBar';
 import { Header } from '../../components/Header/Header';
 import PopularConferencesSwiperContainer from './components/PopularConferencesSwiper/SwiperContainer';
-import { EventList } from './components/EventList/EventList';
-import { EventFilters } from './components/EventFilters/EventFilters';
-import { IEventsResponse } from '../../services/events/interfaces';
+import { Events } from './components/Events/Events';
 
 export const MainPage = () => {
   const labels = ['С++ Russia 2025', 'Хакатон IT INNO HACK | 28/2', 'Джедайские трюки Java by IT one'];
@@ -31,121 +29,15 @@ export const MainPage = () => {
     },
   ];
 
-  const events: IEventsResponse[] = [
-    {
-      id: 1,
-      imgLink: 'http:/photo.jpg',
-      title: 'Хакатон IT INNO HACK',
-      tags: [
-        'AI',
-        'Инфраструктура',
-        'Дизайн',
-        'Backend',
-        'Frontend',
-        'Lead',
-      ],
-      location: 'г. Санкт-Петербург',
-      dateStart: 24,
-      dateFinish: 25,
-      href: '/',
-    },
-    {
-      id: 2,
-      imgLink: 'http:/photo.jpg',
-      title: 'Хакатон IT INNO HACK',
-      tags: [
-        'AI',
-        'Инфраструктура',
-        'Дизайн',
-        'Backend',
-        'Frontend',
-        'Lead',
-      ],
-      location: 'г. Санкт-Петербург',
-      dateStart: 24,
-      dateFinish: 25,
-      href: '/',
-    },
-    {
-      id: 3,
-      imgLink: 'http:/photo.jpg',
-      title: 'Хакатон IT INNO HACK',
-      tags: [
-        'AI',
-        'Инфраструктура',
-        'Дизайн',
-        'Backend',
-        'Frontend',
-        'Lead',
-      ],
-      location: 'г. Санкт-Петербург',
-      dateStart: 24,
-      dateFinish: 25,
-      href: '/',
-    },
-    {
-      id: 4,
-      imgLink: 'http:/photo.jpg',
-      title: 'Хакатон IT INNO HACK',
-      tags: [
-        'AI',
-        'Инфраструктура',
-        'Дизайн',
-        'Backend',
-        'Frontend',
-        'Lead',
-      ],
-      location: 'г. Санкт-Петербург',
-      dateStart: 24,
-      dateFinish: 25,
-      href: '/',
-    },
-    {
-      id: 5,
-      imgLink: 'http:/photo.jpg',
-      title: 'Хакатон IT INNO HACK',
-      tags: [
-        'AI',
-        'Инфраструктура',
-        'Дизайн',
-        'Backend',
-        'Frontend',
-        'Lead',
-      ],
-      location: 'г. Санкт-Петербург',
-      dateStart: 24,
-      dateFinish: 25,
-      href: '/',
-    },
-    {
-      id: 6,
-      imgLink: 'http:/photo.jpg',
-      title: 'Хакатон IT INNO HACK',
-      tags: [
-        'AI',
-        'Инфраструктура',
-        'Дизайн',
-        'Backend',
-        'Frontend',
-        'Lead',
-      ],
-      location: 'г. Санкт-Петербург',
-      dateStart: 24,
-      dateFinish: 25,
-      href: '/',
-    },
-  ]
-
   return (
     <div>
       <MovingLabelsBar labels={labels} />
       <Header />
       <main>
         <PopularConferencesSwiperContainer slides={slidesData} />
-        <EventFilters />
-        <EventList events={events} />
+        <Events />
       </main>
       <footer>footerы</footer>
     </div>
-  )
-}
+  );
+};

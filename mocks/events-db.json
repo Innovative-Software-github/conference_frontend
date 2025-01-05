@@ -2,96 +2,60 @@
   "events": [
     {
       "id": 1,
+      "href": "http:/photo.jpg",
       "imgLink": "http:/photo.jpg",
       "title": "Хакатон IT INNO HACK",
-      "tags": [
-        "AI",
-        "Инфраструктура",
-        "Дизайн",
-        "Backend",
-        "Frontend",
-        "Lead"
-      ],
+      "tags": ["AI", "Инфраструктура", "Дизайн", "Backend", "Frontend", "Lead"],
       "location": "г. Санкт-Петербург",
       "dateStart": 24,
       "dateFinish": 25
     },
     {
       "id": 2,
+      "href": "http:/photo.jpg",
       "imgLink": "http:/photo.jpg",
       "title": "Хакатон IT INNO HACK",
-      "tags": [
-        "AI",
-        "Инфраструктура",
-        "Дизайн",
-        "Backend",
-        "Frontend",
-        "Lead"
-      ],
+      "tags": ["AI", "Инфраструктура", "Дизайн", "Backend", "Frontend", "Lead"],
       "location": "г. Санкт-Петербург",
       "dateStart": 24,
       "dateFinish": 25
     },
     {
       "id": 3,
+      "href": "http:/photo.jpg",
       "imgLink": "http:/photo.jpg",
       "title": "Хакатон IT INNO HACK",
-      "tags": [
-        "AI",
-        "Инфраструктура",
-        "Дизайн",
-        "Backend",
-        "Frontend",
-        "Lead"
-      ],
+      "tags": ["AI", "Инфраструктура", "Дизайн", "Backend", "Frontend", "Lead"],
       "location": "г. Санкт-Петербург",
       "dateStart": 24,
       "dateFinish": 25
     },
     {
       "id": 4,
+      "href": "http:/photo.jpg",
       "imgLink": "http:/photo.jpg",
       "title": "Хакатон IT INNO HACK",
-      "tags": [
-        "AI",
-        "Инфраструктура",
-        "Дизайн",
-        "Backend",
-        "Frontend",
-        "Lead"
-      ],
+      "tags": ["AI", "Инфраструктура", "Дизайн", "Backend", "Frontend", "Lead"],
       "location": "г. Санкт-Петербург",
       "dateStart": 24,
       "dateFinish": 25
     },
     {
       "id": 5,
+      "href": "http:/photo.jpg",
       "imgLink": "http:/photo.jpg",
       "title": "Хакатон IT INNO HACK",
-      "tags": [
-        "AI",
-        "Инфраструктура",
-        "Дизайн",
-        "Backend",
-        "Frontend",
-        "Lead"
-      ],
+      "tags": ["AI", "Инфраструктура", "Дизайн", "Backend", "Frontend", "Lead"],
       "location": "г. Санкт-Петербург",
       "dateStart": 24,
       "dateFinish": 25
     },
     {
       "id": 6,
+      "href": "http:/photo.jpg",
       "imgLink": "http:/photo.jpg",
       "title": "Хакатон IT INNO HACK",
-      "tags": [
-        "AI",
-        "Инфраструктура",
-        "Дизайн",
-        "Backend",
-        "Frontend",
-        "Lead"
-      ],
+      "tags": ["AI", "Инфраструктура", "Дизайн", "Backend", "Frontend", "Lead"],
       "location": "г. Санкт-Петербург",
       "dateStart": 24,
       "dateFinish": 25

@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "mock-server": "cross-var json-server $npm_config_db_path --port $npm_config_port"
+    "mock-events": "json-server mocks/events-db.json --port 5050"
   },
   "dependencies": {
     "clsx": "^2.1.1",
