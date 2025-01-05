@@ -1,6 +1,6 @@
 'use client';
 
-import { Calendar, MultiSelect, Select } from 'ui-kit-conf/dist';
+import { Calendar, ComboGroup, MultiSelect } from 'ui-kit-conf/dist';
 import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
 import { useState } from 'react';
 import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
@@ -14,6 +14,8 @@ const cities: ISelectOptions[] = [
   { key: 'Красноярск', value: 'Красноярск' },
 ];
 
+const tagOptions = ['AI', 'Инфраструктура', 'Дизайн', 'Backend', 'Frontend', 'Lead'];
+
 interface IEventDate {
   startDate: Date | null;
   endDate: Date | null;
@@ -21,10 +23,11 @@ interface IEventDate {
 
 export const EventFilters = () => {
   const [selectedCities, setSelectedCities] = useState<ISelectOptions[]>([]);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [eventDate, setEventDate] = useState<IEventDate>();
 
   return (
-    <ContentLayout>
+    <ContentLayout className={cls.fields}>
       <section className={cls.mainFields}>
         <MultiSelect
           placeholder="Выберите города..."
@@ -43,7 +46,13 @@ export const EventFilters = () => {
           }
         />
       </section>
-      <section className="appliedFilters" />
+      <ComboGroup isSorted defaultIds={selectedTags} onChange={(tags) => setSelectedTags(tags)}>
+        {tagOptions.map((tag) => (
+          <ComboGroup.Checkbox key={tag} id={tag}>
+            {tag}
+          </ComboGroup.Checkbox>
+        ))}
+      </ComboGroup>
     </ContentLayout>
   );
 };

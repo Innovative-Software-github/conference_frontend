@@ -1,3 +1,9 @@
+.fields {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+}
+
 .mainFields {
   display: flex;
   gap: 1em;
