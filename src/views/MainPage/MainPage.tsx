@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import { MovingLabelsBar } from '../../components/MovingLabelsBar/MovingLabelsBar';
 import { Header } from '../../components/Header/Header';
 import PopularConferencesSwiperContainer from './components/PopularConferencesSwiper/SwiperContainer';

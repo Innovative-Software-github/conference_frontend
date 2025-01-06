@@ -2,11 +2,11 @@
 
 import { Calendar, ComboGroup, MultiSelect } from 'ui-kit-conf/dist';
 import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
-import { useState } from 'react';
+import { SetStateAction, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
 import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
 import cls from './EventFilters.module.scss';
-import { IEventFilters } from '../Events';
+import { IEventDate, IEventFilters } from '../Events';
 
 const cities: ISelectOptions[] = [
   { key: 'Москва', value: 'Москва' },
@@ -18,26 +18,22 @@ const cities: ISelectOptions[] = [
 
 const tagOptions = ['AI', 'Инфраструктура', 'Дизайн', 'Backend', 'Frontend', 'Lead'];
 
-interface IEventDate {
-  startDate: Date | null;
-  endDate: Date | null;
+interface IEventFiltersProps {
+  defaultFilters: IEventFilters;
+  setEventFilters: React.Dispatch<SetStateAction<IEventFilters>>;
 }
 
-export const EventFilters = () => {
-  // const [selectedCities, setSelectedCities] = useState<ISelectOptions[]>([]);
+export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, setEventFilters }) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [eventDate, setEventDate] = useState<IEventDate>();
 
   const { control, setValue, handleSubmit } = useForm<IEventFilters>({
-    defaultValues: {
-      location: [],
-      tags: [],
-      dateStart: null,
-      dateFinish: null,
-    },
+    defaultValues: defaultFilters,
   });
 
-  const onSubmit = (eventFilters: IEventFilters) => console.log(eventFilters);
+  const onSubmit = (eventFilters: IEventFilters) => {
+    console.log(eventFilters);
+    setEventFilters(eventFilters);
+  };
 
   return (
     <ContentLayout className={cls.fields}>
@@ -46,24 +42,29 @@ export const EventFilters = () => {
           <Controller
             name="location"
             control={control}
-            render={({ field: { onChange, value } }) => (
+            render={({ field: { onChange, value: selectedLocations } }) => (
               <MultiSelect
                 placeholder="Выберите города..."
                 options={cities}
-                selectedOptions={value}
+                selectedOptions={selectedLocations}
                 onOptionClick={(cities) => onChange(cities)}
               />
             )}
           />
-          <Calendar
-            startDate={eventDate?.startDate ?? null}
-            endDate={eventDate?.endDate ?? null}
-            onChangeEndDate={(endDate) =>
-              setEventDate((prev) => ({ ...(prev ?? { endDate: null, startDate: null }), endDate }))
-            }
-            onChangeStartDate={(startDate) =>
-              setEventDate((prev) => ({ ...(prev ?? { endDate: null, startDate: null }), startDate }))
-            }
+          <Controller
+            name="date"
+            control={control}
+            render={({ field: { onChange, value: selectedEventDate } }) => (
+              <Calendar
+                startDate={selectedEventDate.dateStart}
+                endDate={selectedEventDate.dateFinish}
+                onChangeEndDate={(endDate) => {
+                  console.log(selectedEventDate);
+                  setValue('date', { ...selectedEventDate, dateFinish: endDate });
+                }}
+                onChangeStartDate={(startDate) => setValue('date', { ...selectedEventDate, dateStart: startDate })}
+              />
+            )}
           />
         </section>
         <ComboGroup isSorted defaultIds={selectedTags} onChange={(tags) => setSelectedTags(tags)}>
