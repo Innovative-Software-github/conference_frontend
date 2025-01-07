@@ -68,19 +68,22 @@ function useEventFilters(): [IEventFilters, React.Dispatch<SetStateAction<IEvent
   return [eventFilters, setEventFilters];
 }
 
-function useEventFiltersUrlParams(eventFilters: IEventFilters): URLSearchParams {
-  const [eventFiltersUrlParams, setEventFiltersUrlParams] = useState<URLSearchParams>(new URLSearchParams());
+function useUrlParams<T>(buildUrlParams: (entityToParams: T) => URLSearchParams, entityToParams: T): URLSearchParams {
+  const [entityUrlParams, setEntityUrlParams] = useState<URLSearchParams>(new URLSearchParams());
 
   useEffect(() => {
-    setEventFiltersUrlParams(new FiltersUrlParamsBuilder().builder(eventFilters));
-  }, [eventFilters]);
+    setEntityUrlParams(buildUrlParams(entityToParams));
+  }, [entityToParams]);
 
-  return eventFiltersUrlParams;
+  return entityUrlParams;
 }
 
 export const Events = () => {
   const [eventFilters, setEventFilters] = useEventFilters();
-  const eventFiltersUrlParams = useEventFiltersUrlParams(eventFilters);
+  const eventFiltersUrlParams = useUrlParams(
+    (eventFilters) => new FiltersUrlParamsBuilder().builder(eventFilters),
+    eventFilters,
+  );
   const { error, data: events } = useEvents(eventFiltersUrlParams);
 
   // onFiltersChange
