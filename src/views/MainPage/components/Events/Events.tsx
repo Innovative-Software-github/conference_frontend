@@ -9,19 +9,8 @@ import { EventList } from './EventList/EventList';
 import { getEvents } from '@/services/events/request';
 import { eventsFallback } from '@/constants/eventsFallback';
 import cls from './Events.module.scss';
-import { IEventsResponse } from '@/services/events/interfaces';
+import { IEventFilters, IEventsResponse } from '@/services/events/interfaces';
 import { FiltersUrlParamsBuilder } from '@/services/events/builders/filtersUrlParamsBuilder';
-
-export interface IEventDate {
-  dateStart: Date | null;
-  dateFinish: Date | null;
-}
-
-export interface IEventFilters {
-  location: ISelectOptions[];
-  tags: string[];
-  date: IEventDate;
-}
 
 interface IEventsResponseMock {
   error?: string;
@@ -49,7 +38,6 @@ function useEvents(...urlSearchParams: URLSearchParams[]): IEventsResponseMock {
     }
 
     fetchEvents();
-    console.log('urlSearchParams', ...urlSearchParams);
   }, [...urlSearchParams]);
 
   return eventsResponse;

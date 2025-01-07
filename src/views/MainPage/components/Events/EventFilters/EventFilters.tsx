@@ -2,11 +2,11 @@
 
 import { Calendar, ComboGroup, Input, MultiSelect } from 'ui-kit-conf/dist';
 import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
-import { SetStateAction, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
+import { useState } from 'react';
 import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
 import cls from './EventFilters.module.scss';
-import { IEventDate, IEventFilters } from '../Events';
+import { IEventFilters, IEventDate } from '@/services/events/interfaces';
 
 const cities: ISelectOptions[] = [
   { key: 'Москва', value: 'Москва' },
@@ -26,7 +26,7 @@ interface IEventFiltersProps {
 export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, onFiltersChange }) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
-  const { control, setValue, handleSubmit } = useForm<IEventFilters>({
+  const { control, handleSubmit } = useForm<IEventFilters>({
     defaultValues: defaultFilters,
   });
 
