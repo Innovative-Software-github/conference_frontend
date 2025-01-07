@@ -17,7 +17,7 @@ export const Events: React.FC<IEventsProps> = () => {
     (eventFilters) => new FiltersUrlParamsBuilder().builder(eventFilters),
     eventFilters,
   );
-  const { error, data: events } = useEvents(eventFiltersUrlParams);
+  const { data: events } = useEvents(eventFiltersUrlParams);
 
   return (
     <ConstraintContainer className={cls.container}>

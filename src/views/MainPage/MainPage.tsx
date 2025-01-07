@@ -1,4 +1,4 @@
-import React, { Suspense } from 'react';
+import { Suspense } from 'react';
 import { MovingLabelsBar } from '../../components/MovingLabelsBar/MovingLabelsBar';
 import { Header } from '../../components/Header/Header';
 import PopularConferencesSwiperContainer from './components/PopularConferencesSwiper/SwiperContainer';
@@ -35,7 +35,9 @@ export const MainPage = () => {
       <Header />
       <main>
         <PopularConferencesSwiperContainer slides={slidesData} />
-        <Events />
+        <Suspense>
+          <Events />
+        </Suspense>
       </main>
       <footer>footerы</footer>
     </div>

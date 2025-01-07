@@ -1,12 +1,12 @@
 'use client';
 
-import { Calendar, ComboGroup, Input, MultiSelect } from 'ui-kit-conf/dist';
+import { ComboGroup, Input, MultiSelect } from 'ui-kit-conf/dist';
 import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
 import { Controller, useForm } from 'react-hook-form';
 import { useState } from 'react';
 import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
 import cls from './EventFilters.module.scss';
-import { IEventFilters, IEventDate } from '@/services/events/interfaces';
+import { IEventFilters } from '@/services/events/interfaces';
 
 const cities: ISelectOptions[] = [
   { key: 'Москва', value: 'Москва' },
@@ -51,7 +51,8 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, onF
               />
             )}
           />
-          <Controller
+
+          {/* <Controller  Ошибки из-за onChange в консоли с Suspense
             name="date"
             control={control}
             render={({ field: { onChange, value: selectedEventDate } }) => (
@@ -65,7 +66,7 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, onF
                 onChangeStartDate={(startDate) => ({ ...selectedEventDate, dateStart: startDate }) as IEventDate}
               />
             )}
-          />
+          /> */}
         </section>
         <ComboGroup isSorted defaultIds={selectedTags} onChange={(tags) => setSelectedTags(tags)}>
           {tagOptions.map((tag) => (
