@@ -1,0 +1,64 @@
+.footer {
+    background: var(--conf-color-grey-7);
+    padding: 32px 0;
+}
+
+.socialLinks {
+    margin: 24px 0;
+    display: flex;
+    gap: 8px;
+}
+
+.socialLink {
+    color: var(--conf-color-cyan-7);
+    transition: background 250ms ease;
+    border-radius: 50%;
+}
+
+.socialLink:hover {
+    background: var(--conf-color-white);
+}
+
+.socialLink:active {
+    background: var(--conf-color-white);
+    color: var(--conf-color-cyan-8);
+}
+
+.info {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 1.5em;
+}
+
+.infoBlock {
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+}
+
+.infoBlock,
+.infoBlock a {
+    color: var(--conf-color-white);
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 23px;
+
+    transition: color 150ms ease;
+}
+
+.infoBlock a:hover {
+    color: var(--conf-color-grey-3);
+}
+
+@media (max-width: 768px) {
+    .info {
+        flex-direction: column;
+        align-items: start;
+        gap: 2em;
+    }
+
+    .infoBlock {
+        gap: 0.5em;
+    }
+}
