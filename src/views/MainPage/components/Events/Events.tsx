@@ -86,10 +86,9 @@ export const Events = () => {
   );
   const { error, data: events } = useEvents(eventFiltersUrlParams);
 
-  // onFiltersChange
   return (
     <ConstraintContainer className={cls.container}>
-      <EventFilters defaultFilters={eventFilters} setEventFilters={setEventFilters} />
+      <EventFilters defaultFilters={eventFilters} onFiltersChange={setEventFilters} />
       <EventList events={events} />
     </ConstraintContainer>
   );

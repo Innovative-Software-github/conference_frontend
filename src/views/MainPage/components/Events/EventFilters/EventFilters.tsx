@@ -20,10 +20,10 @@ const tagOptions = ['AI', 'Инфраструктура', 'Дизайн', 'Backe
 
 interface IEventFiltersProps {
   defaultFilters: IEventFilters;
-  setEventFilters: React.Dispatch<SetStateAction<IEventFilters>>;
+  onFiltersChange: (filters: IEventFilters) => void;
 }
 
-export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, setEventFilters }) => {
+export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, onFiltersChange }) => {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
 
   const { control, setValue, handleSubmit } = useForm<IEventFilters>({
@@ -32,7 +32,7 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, set
 
   const onSubmit = (eventFilters: IEventFilters) => {
     console.log(eventFilters);
-    setEventFilters(eventFilters);
+    onFiltersChange(eventFilters);
   };
 
   return (
