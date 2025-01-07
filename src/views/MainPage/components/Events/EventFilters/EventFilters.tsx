@@ -1,6 +1,6 @@
 'use client';
 
-import { Calendar, ComboGroup, MultiSelect } from 'ui-kit-conf/dist';
+import { Calendar, ComboGroup, Input, MultiSelect } from 'ui-kit-conf/dist';
 import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
 import { SetStateAction, useState } from 'react';
 import { Controller, useForm } from 'react-hook-form';
@@ -36,8 +36,8 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, onF
   };
 
   return (
-    <ContentLayout className={cls.fields}>
-      <form onSubmit={handleSubmit(onSubmit)}>
+    <ContentLayout>
+      <form className={cls.fields} onSubmit={handleSubmit(onSubmit)}>
         <section className={cls.mainFields}>
           <Controller
             name="location"
@@ -60,9 +60,9 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, onF
                 endDate={selectedEventDate.dateFinish}
                 onChangeEndDate={(endDate) => {
                   console.log(selectedEventDate);
-                  setValue('date', { ...selectedEventDate, dateFinish: endDate });
+                  onChange({ ...selectedEventDate, dateFinish: endDate } as IEventDate);
                 }}
-                onChangeStartDate={(startDate) => setValue('date', { ...selectedEventDate, dateStart: startDate })}
+                onChangeStartDate={(startDate) => ({ ...selectedEventDate, dateStart: startDate }) as IEventDate}
               />
             )}
           />
@@ -74,7 +74,7 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, onF
             </ComboGroup.Checkbox>
           ))}
         </ComboGroup>
-        <input type="submit" />
+        <Input value="Применить" type="submit" />
       </form>
     </ContentLayout>
   );

@@ -29,6 +29,7 @@ interface IEventsResponseMock {
 }
 
 function useEvents(...urlSearchParams: URLSearchParams[]): IEventsResponseMock {
+  // как обрабатывать ошибку? нужен тип IEventsResponse с полем ошибки и данных
   const [eventsResponse, setEventsResponse] = useState<IEventsResponseMock>({ data: eventsFallback });
   const router = useRouter();
   const pathName = usePathname();
@@ -48,6 +49,7 @@ function useEvents(...urlSearchParams: URLSearchParams[]): IEventsResponseMock {
     }
 
     fetchEvents();
+    console.log('urlSearchParams', ...urlSearchParams);
   }, [...urlSearchParams]);
 
   return eventsResponse;
@@ -78,7 +80,9 @@ function useUrlParams<T>(buildUrlParams: (entityToParams: T) => URLSearchParams,
   return entityUrlParams;
 }
 
-export const Events = () => {
+interface IEventsProps {}
+
+export const Events: React.FC<IEventsProps> = () => {
   const [eventFilters, setEventFilters] = useEventFilters();
   const eventFiltersUrlParams = useUrlParams(
     (eventFilters) => new FiltersUrlParamsBuilder().builder(eventFilters),
