@@ -4,9 +4,9 @@ import { Icon, IconType } from 'ui-kit-conf/dist';
 import Link from 'next/link';
 
 import { ConstraintContainer } from '@/ui/ConstraintContainer/ConstaintContainer';
+import { TELEGRAM_LINK } from '@/constants/Constants';
 
 import cls from './Footer.module.scss'
-import { TELEGRAM_LINK } from '@/constants/Constants';
 
 export const Footer = () => (
     <footer className={cls.footer}>
