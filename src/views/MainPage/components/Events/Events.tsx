@@ -1,8 +1,8 @@
 'use client';
 
 import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
-import { SetStateAction, useEffect, useMemo, useState } from 'react';
-import { useSearchParams } from 'next/navigation';
+import { SetStateAction, useEffect, useState } from 'react';
+import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { ConstraintContainer } from '@/ui/ConstraintContainer/ConstaintContainer';
 import { EventFilters } from './EventFilters/EventFilters';
 import { EventList } from './EventList/EventList';
@@ -28,16 +28,18 @@ interface IEventsResponseMock {
   data: IEventsResponse[];
 }
 
-function useEvents(eventFilters: IEventFilters): IEventsResponseMock {
+function useEvents(...urlSearchParams: URLSearchParams[]): IEventsResponseMock {
   const [eventsResponse, setEventsResponse] = useState<IEventsResponseMock>({ data: eventsFallback });
+  const router = useRouter();
+  const pathName = usePathname();
 
   useEffect(() => {
     async function fetchEvents() {
       try {
-        const filtersUrlParams = new FiltersUrlParamsBuilder().builder(eventFilters);
+        const concatenatedParamsString = urlSearchParams.map((params) => params.toString()).join('&');
+        const events = await getEvents(concatenatedParamsString);
 
-        console.log('filter params', filtersUrlParams);
-        const events = await getEvents(filtersUrlParams);
+        router.push(`${pathName}?${concatenatedParamsString}`);
 
         setEventsResponse((prev) => ({ ...prev, data: events }));
       } catch (e) {
@@ -46,15 +48,16 @@ function useEvents(eventFilters: IEventFilters): IEventsResponseMock {
     }
 
     fetchEvents();
-  }, [eventFilters]);
+  }, [...urlSearchParams]);
 
   return eventsResponse;
 }
 
 function useEventFilters(): [IEventFilters, React.Dispatch<SetStateAction<IEventFilters>>] {
   const params = useSearchParams();
+  const locationFilter = params.getAll('location').map((loc) => ({ key: loc, value: loc }) as ISelectOptions);
   const [eventFilters, setEventFilters] = useState<IEventFilters>({
-    location: params.getAll('location').map((loc) => ({ key: loc, value: loc }) as ISelectOptions) ?? [],
+    location: locationFilter ?? [],
     tags: [],
     date: {
       dateStart: null,
@@ -65,9 +68,20 @@ function useEventFilters(): [IEventFilters, React.Dispatch<SetStateAction<IEvent
   return [eventFilters, setEventFilters];
 }
 
+function useEventFiltersUrlParams(eventFilters: IEventFilters): URLSearchParams {
+  const [eventFiltersUrlParams, setEventFiltersUrlParams] = useState<URLSearchParams>(new URLSearchParams());
+
+  useEffect(() => {
+    setEventFiltersUrlParams(new FiltersUrlParamsBuilder().builder(eventFilters));
+  }, [eventFilters]);
+
+  return eventFiltersUrlParams;
+}
+
 export const Events = () => {
   const [eventFilters, setEventFilters] = useEventFilters();
-  const { error, data: events } = useEvents(eventFilters);
+  const eventFiltersUrlParams = useEventFiltersUrlParams(eventFilters);
+  const { error, data: events } = useEvents(eventFiltersUrlParams);
 
   // onFiltersChange
   return (
