@@ -5,7 +5,6 @@ import PopularConferencesSwiperContainer from './components/PopularConferencesSw
 import { EventList } from './components/EventList/EventList';
 import { EventFilters } from './components/EventFilters/EventFilters';
 import { IEventsResponse } from '../../services/events/interfaces';
-import { EventLocationForm } from '@/components/EventLocationForm/EventLocationForm';
 
 export const MainPage = () => {
   const labels = ['С++ Russia 2025', 'Хакатон IT INNO HACK | 28/2', 'Джедайские трюки Java by IT one'];
@@ -147,7 +146,6 @@ export const MainPage = () => {
         <EventList events={events} />
       </main>
       <footer>footerы</footer>
-      <EventLocationForm />
     </div>
   )
 }
