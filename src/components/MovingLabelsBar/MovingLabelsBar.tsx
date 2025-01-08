@@ -4,11 +4,9 @@ import React from 'react';
 
 import cls from './MovingLabelsBar.module.css';
 
-export interface IMovingLabelsBarProps {
-  labels: string[];
-}
+const labels = ['С++ Russia 2025', 'Хакатон IT INNO HACK | 28/2', 'Джедайские трюки Java by IT one'];
 
-export const MovingLabelsBar: React.FC<IMovingLabelsBarProps> = ({ labels }) => {
+export const MovingLabelsBar: React.FC = () => {
   const contentRef = React.useRef<HTMLDivElement | null>(null);
   const containerRef = React.useRef<HTMLDivElement | null>(null);
   const [animationDuration, setAnimationDuration] = React.useState<number>(10);

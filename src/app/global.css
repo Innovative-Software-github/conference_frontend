@@ -33,3 +33,11 @@ p {
   max-width: var(--container-width-desktop);
   padding: 0 1em;
 }
+
+ul {
+  all: unset;
+}
+
+li {
+  list-style-type: none;
+}

@@ -18,7 +18,7 @@ export const Header = () => {
     <ConstraintContainer>
       <header className={cls.header}>
         <Link href={ROUTES.home} className={cls.homeLink}>
-          <Icon type={IconType.Logotype} width={isMobile ? 121 : 141} height={31} isScalable />
+          <Icon type={IconType.Logotype} width={!isMobile ? 141 : 121} height={31} isScalable />
         </Link>
 
         <Input

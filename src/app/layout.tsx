@@ -12,7 +12,7 @@ import { Providers } from './providers';
 
 const robotoMono = Roboto_Mono({
   subsets: ['latin', 'cyrillic'],
-  weight: ['400', '700'],
+  weight: ['300', '400', '500'],
   display: 'swap',
 });
 
