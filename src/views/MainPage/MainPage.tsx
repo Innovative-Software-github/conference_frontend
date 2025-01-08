@@ -1,13 +1,11 @@
 import React from 'react'
-import { MovingLabelsBar } from '../../components/MovingLabelsBar/MovingLabelsBar';
-import { Header } from '../../components/Header/Header';
 import PopularConferencesSwiperContainer from './components/PopularConferencesSwiper/SwiperContainer';
 import { EventList } from './components/EventList/EventList';
 import { EventFilters } from './components/EventFilters/EventFilters';
 import { IEventsResponse } from '../../services/events/interfaces';
+import { Layout } from '@/ui/Layout/Layout';
 
 export const MainPage = () => {
-  const labels = ['С++ Russia 2025', 'Хакатон IT INNO HACK | 28/2', 'Джедайские трюки Java by IT one'];
   const slidesData = [
     {
       src: 'https://api.it-event-hub.ru/uploads/images/2025/4/productconf-2025-04-22-cover.webp',
@@ -137,15 +135,10 @@ export const MainPage = () => {
   ]
 
   return (
-    <div>
-      <MovingLabelsBar labels={labels} />
-      <Header />
-      <main>
-        <PopularConferencesSwiperContainer slides={slidesData} />
-        <EventFilters />
-        <EventList events={events} />
-      </main>
-      <footer>footerы</footer>
-    </div>
+    <Layout>
+      <PopularConferencesSwiperContainer slides={slidesData} />
+      <EventFilters />
+      <EventList events={events} />
+    </Layout>
   )
 }
