@@ -1,0 +1,55 @@
+.mainTitle {
+  font-weight: 500;
+  font-size: 18px;
+  color: var(--conf-color-grey-7);
+}
+
+.cityLabel {
+  display: flex;
+  gap: 8px;
+}
+.citySelect {
+  padding: 14px 0px;
+}
+
+.select {
+  width: 100%;
+}
+
+.tagging {
+  color: red;
+}
+
+// строка с 2 input
+
+.twoInputLine {
+  gap: 20px;
+  display: flex;
+}
+
+.leftBlock {
+  width: 50%;
+}
+
+.leftLabel {
+  display: flex;
+  gap: 8px;
+}
+
+.leftInput {
+  padding: 14px 0px;
+}
+
+.rightBlock {
+  width: 50%;
+}
+
+.rightLabel {
+  display: flex;
+  gap: 8px;
+}
+
+.rightInput {
+  padding: 14px 0px;
+}
+
