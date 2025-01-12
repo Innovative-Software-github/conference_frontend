@@ -3,8 +3,9 @@ import { MovingLabelsBar } from '../../components/MovingLabelsBar/MovingLabelsBa
 import { Header } from '../../components/Header/Header';
 import PopularConferencesSwiperContainer from './components/PopularConferencesSwiper/SwiperContainer';
 import { Events } from './components/Events/Events';
+import { IEventsResponse } from '@/services/events/interfaces';
 
-export const MainPage = () => {
+export const MainPage = ({ events }: { events: IEventsResponse[] }) => {
   const labels = ['С++ Russia 2025', 'Хакатон IT INNO HACK | 28/2', 'Джедайские трюки Java by IT one'];
   const slidesData = [
     {
@@ -36,7 +37,7 @@ export const MainPage = () => {
       <main>
         <PopularConferencesSwiperContainer slides={slidesData} />
         <Suspense>
-          <Events />
+          <Events defaultEvents={events} />
         </Suspense>
       </main>
       <footer>footerы</footer>

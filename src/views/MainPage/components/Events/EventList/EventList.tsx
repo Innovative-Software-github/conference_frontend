@@ -1,20 +1,16 @@
 import cls from './EventList.module.scss';
 import { EventCard } from '@/components/EventCard/EventCard';
 import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
-import { useEvents } from '@/hooks/events/useEvents';
+import { IEventsResponse } from '@/services/events/interfaces';
 
 export interface IEventListProps {
-  filtersUrlParams: URLSearchParams;
+  events: IEventsResponse[];
 }
 
-export const EventList: React.FC<IEventListProps> = ({ filtersUrlParams }) => {
-  const { data: events } = useEvents(filtersUrlParams);
-
-  return (
-    <ContentLayout className={cls.container}>
-      {events.map((event) => (
-        <EventCard className={cls.card} key={event.id} eventModel={event} />
-      ))}
-    </ContentLayout>
-  );
-};
+export const EventList: React.FC<IEventListProps> = ({ events }) => (
+  <ContentLayout className={cls.container}>
+    {events.map((event) => (
+      <EventCard className={cls.card} key={event.id} eventModel={event} />
+    ))}
+  </ContentLayout>
+);

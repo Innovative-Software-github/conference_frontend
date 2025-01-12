@@ -1,12 +1,13 @@
 'use client';
 
-import { ComboGroup, Input, MultiSelect } from 'ui-kit-conf/dist';
+import { Input, MultiSelect } from 'ui-kit-conf/dist';
 import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
-import { Controller, useForm } from 'react-hook-form';
-import { useState } from 'react';
+import { Controller } from 'react-hook-form';
+import { usePathname, useRouter } from 'next/navigation';
 import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
 import cls from './EventFilters.module.scss';
-import { IEventFilters } from '@/services/events/interfaces';
+import { IEventFilters, IEventsResponse } from '@/services/events/interfaces';
+import { useFilters } from './useFilters';
 
 const cities: ISelectOptions[] = [
   { key: 'Москва', value: 'Москва' },
@@ -16,24 +17,28 @@ const cities: ISelectOptions[] = [
   { key: 'Красноярск', value: 'Красноярск' },
 ];
 
-const tagOptions = ['AI', 'Инфраструктура', 'Дизайн', 'Backend', 'Frontend', 'Lead'];
+// const tagOptions = ['AI', 'Инфраструктура', 'Дизайн', 'Backend', 'Frontend', 'Lead'];
 
 interface IEventFiltersProps {
-  defaultFilters: IEventFilters;
-  onFiltersChange: (filters: IEventFilters) => void;
+  onFiltersApplied: (events: IEventsResponse[]) => void;
 }
 
-export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, onFiltersChange }) => {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+export const EventFilters: React.FC<IEventFiltersProps> = ({ onFiltersApplied }) => {
+  const router = useRouter();
+  const pathName = usePathname();
+  const { control, handleSubmit, applyFilters, buildFiltersUrlParams } = useFilters();
 
-  const { control, handleSubmit } = useForm<IEventFilters>({
-    defaultValues: defaultFilters,
-  });
+  async function onSubmit(eventFilters: IEventFilters) {
+    try {
+      const filtersUrlParams = buildFiltersUrlParams(eventFilters);
+      const events = await applyFilters(filtersUrlParams);
 
-  const onSubmit = (eventFilters: IEventFilters) => {
-    console.log(eventFilters);
-    onFiltersChange(eventFilters);
-  };
+      onFiltersApplied(events);
+      router.push(`${pathName}?${filtersUrlParams.toString()}`);
+    } catch (e) {
+      console.log('error handling logic');
+    }
+  }
 
   return (
     <ContentLayout>
@@ -68,13 +73,13 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ defaultFilters, onF
             )}
           /> */}
         </section>
-        <ComboGroup isSorted defaultIds={selectedTags} onChange={(tags) => setSelectedTags(tags)}>
+        {/* <ComboGroup isSorted defaultIds={selectedTags} onChange={(tags) => setSelectedTags(tags)}>
           {tagOptions.map((tag) => (
             <ComboGroup.Checkbox key={tag} id={tag}>
               {tag}
             </ComboGroup.Checkbox>
           ))}
-        </ComboGroup>
+        </ComboGroup> */}
         <Input value="Применить" type="submit" />
       </form>
     </ContentLayout>

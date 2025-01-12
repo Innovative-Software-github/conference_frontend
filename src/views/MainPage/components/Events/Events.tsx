@@ -1,26 +1,23 @@
 'use client';
 
-import { useMemo } from 'react';
+import { useState } from 'react';
 import { ConstraintContainer } from '@/ui/ConstraintContainer/ConstaintContainer';
 import { EventFilters } from './EventFilters/EventFilters';
 import { EventList } from './EventList/EventList';
 import cls from './Events.module.scss';
-import { FiltersUrlParamsBuilder } from '@/services/events/builders/filtersUrlParamsBuilder';
-import { useEventFilters } from '@/hooks/events/useEventFilters';
+import { IEventsResponse } from '@/services/events/interfaces';
 
-interface IEventsProps {}
+interface IEventsProps {
+  defaultEvents: IEventsResponse[];
+}
 
-export const Events: React.FC<IEventsProps> = () => {
-  const [eventFilters, setEventFilters] = useEventFilters();
-  const eventFultersUrlParams = useMemo<URLSearchParams>(
-    () => new FiltersUrlParamsBuilder().builder(eventFilters),
-    [eventFilters],
-  );
+export const Events: React.FC<IEventsProps> = ({ defaultEvents }) => {
+  const [events, setEvents] = useState<IEventsResponse[]>(defaultEvents);
 
   return (
     <ConstraintContainer className={cls.container}>
-      <EventFilters defaultFilters={eventFilters} onFiltersChange={setEventFilters} />
-      <EventList filtersUrlParams={eventFultersUrlParams} />
+      <EventFilters onFiltersApplied={setEvents} />
+      <EventList events={events} />
     </ConstraintContainer>
   );
 };

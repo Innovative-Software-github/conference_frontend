@@ -1,9 +1,9 @@
 import { IEventsResponse } from './interfaces';
 
-export async function getEvents(urlParams?: string): Promise<IEventsResponse[]> {
+export async function getEvents(urlParams?: URLSearchParams): Promise<IEventsResponse[]> {
   try {
-    console.log('request ', ` http://localhost:5050/events?${urlParams}`);
-    const eventListResponse = await fetch(`http://localhost:5050/events?${urlParams}`);
+    console.log('request ', ` http://localhost:5050/events?${urlParams?.toString()}`);
+    const eventListResponse = await fetch(`http://localhost:5050/events?${urlParams?.toString()}`);
     const events: IEventsResponse[] = await eventListResponse.json();
 
     return events;
