@@ -6,8 +6,8 @@ import { Controller } from 'react-hook-form';
 import { usePathname, useRouter } from 'next/navigation';
 import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
 import cls from './EventFilters.module.scss';
-import { IEventFilters, IEventsResponse } from '@/services/events/interfaces';
-import { useFilters } from './useFilters';
+import { IEventsResponse } from '@/services/events/interfaces';
+import { IEventFiltersForm, IEventFiltersParams, useFilters } from './useFilters';
 
 const cities: ISelectOptions[] = [
   { key: 'Москва', value: 'Москва' },
@@ -28,9 +28,15 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ onFiltersApplied })
   const pathName = usePathname();
   const { control, handleSubmit, applyFilters, buildFiltersUrlParams } = useFilters();
 
-  async function onSubmit(eventFilters: IEventFilters) {
+  async function onSubmit({ location, tags, date }: IEventFiltersForm) {
     try {
-      const filtersUrlParams = buildFiltersUrlParams(eventFilters);
+      const eventFiltersParams: IEventFiltersParams = {
+        location: location.map((loc) => loc.value),
+        tags,
+        dateStart: date.dateStart?.toISOString() ?? null,
+        dateFinish: date.dateFinish?.toISOString() ?? null,
+      };
+      const filtersUrlParams = buildFiltersUrlParams(eventFiltersParams);
       const events = await applyFilters(filtersUrlParams);
 
       onFiltersApplied(events);
