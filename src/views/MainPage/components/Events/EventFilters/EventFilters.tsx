@@ -55,6 +55,7 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ onFiltersApplied })
 
   // TODO: selectedOptions, onOptionClick - массив из id
   // TODO: поменять тип в Select на {id, title}
+  // TODO: поменять key -> id, id - тип number
   return (
     <ContentLayout>
       <form className={cls.fields} onSubmit={handleSubmit(onSubmit)}>

@@ -25,7 +25,7 @@ export interface IEventFiltersParams extends Record<string, string | string[] | 
 export function useFilters() {
   const params = useSearchParams();
 
-  // TODO: исправить тип, не надо title
+  // TODO: ui компонент должен отдавать только ids, потом убрать title
   function initCities(): IEventFiltersForm['cities'] {
     return params
       .getAll('city_ids')
