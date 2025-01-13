@@ -1,7 +1,8 @@
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
-import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
 import { getEvents } from '@/services/events/request';
+import { City, Track } from '@/services/events/interfaces';
+import { cities, tracks } from './EventFilters';
 
 export interface IEventDate {
   dateStart: Date | null;
@@ -9,32 +10,38 @@ export interface IEventDate {
 }
 
 export interface IEventFiltersForm {
-  location: ISelectOptions[];
-  tags: string[];
+  cities: City[];
+  tracks: Track[];
   date: IEventDate;
 }
 
 export interface IEventFiltersParams extends Record<string, string | string[] | undefined> {
-  location?: string | string[];
-  tags?: string | string[];
-  dateStart?: string;
-  dateFinish?: string;
+  city_ids?: string | string[];
+  track_ids?: string | string[];
+  start_date?: string;
+  end_date?: string;
 }
 
 export function useFilters() {
   const params = useSearchParams();
 
-  function initLocation(): IEventFiltersForm['location'] {
-    return params.getAll('location').map((location) => ({ key: location, value: location }));
+  // TODO: исправить тип, не надо title
+  function initCities(): IEventFiltersForm['cities'] {
+    return params
+      .getAll('city_ids')
+      .map((cityId) => ({ id: Number(cityId), title: cities.find((city) => city.id == cityId)!.title }));
   }
 
-  function initTags(): IEventFiltersForm['tags'] {
-    return params.getAll('tags');
+  function initTracks(): IEventFiltersForm['tracks'] {
+    return params
+      .getAll('track_ids')
+      .map((trackId) => ({ id: Number(trackId), title: tracks.find((track) => track.id == trackId)!.title }));
   }
+  //
 
   function initDate(): IEventFiltersForm['date'] {
-    const dateStart = params.get('dateStart');
-    const dateFinish = params.get('dateFinish');
+    const dateStart = params.get('start_date');
+    const dateFinish = params.get('end_date');
 
     return {
       dateStart: dateStart ? new Date(dateStart) : null,
@@ -44,8 +51,8 @@ export function useFilters() {
 
   const { control, handleSubmit } = useForm<IEventFiltersForm>({
     defaultValues: {
-      location: initLocation(),
-      tags: initTags(),
+      cities: initCities(),
+      tracks: initTracks(),
       date: initDate(),
     },
   });

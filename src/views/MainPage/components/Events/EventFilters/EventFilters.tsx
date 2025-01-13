@@ -1,24 +1,30 @@
 'use client';
 
 import { Input, MultiSelect } from 'ui-kit-conf/dist';
-import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
 import { Controller } from 'react-hook-form';
 import { usePathname, useRouter } from 'next/navigation';
 import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
 import cls from './EventFilters.module.scss';
-import { IEventsResponse } from '@/services/events/interfaces';
+import { City, IEventsResponse } from '@/services/events/interfaces';
 import { IEventFiltersForm, IEventFiltersParams, useFilters } from './useFilters';
 import { buildUrlParams } from '../buildUrlParams';
 
-const cities: ISelectOptions[] = [
-  { key: 'Москва', value: 'Москва' },
-  { key: 'Санкт-Петербург', value: 'Санкт-Петербург' },
-  { key: 'Казань', value: 'Казань' },
-  { key: 'Пермь', value: 'Пермь' },
-  { key: 'Красноярск', value: 'Красноярск' },
+// TODO: с сервера
+export const cities: City[] = [
+  { id: 1, title: 'Москва' },
+  { id: 2, title: 'Санкт-Петербург' },
+  { id: 3, title: 'Казань' },
+  { id: 4, title: 'Пермь' },
+  { id: 5, title: 'Красноярск' },
 ];
 
-// const tagOptions = ['AI', 'Инфраструктура', 'Дизайн', 'Backend', 'Frontend', 'Lead'];
+export const tracks = [
+  { id: 1, title: 'Backend' },
+  { id: 2, title: 'AI' },
+  { id: 3, title: 'Frontend' },
+  { id: 4, title: 'DevOps' },
+  { id: 5, title: 'Lead' },
+];
 
 interface IEventFiltersProps {
   onFiltersApplied: (events: IEventsResponse[]) => void;
@@ -29,13 +35,13 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ onFiltersApplied })
   const pathName = usePathname();
   const { control, handleSubmit, applyFilters } = useFilters();
 
-  async function onSubmit({ location, tags, date }: IEventFiltersForm) {
+  async function onSubmit({ cities, tracks, date }: IEventFiltersForm) {
     try {
       const eventFiltersParams: IEventFiltersParams = {
-        location: location.map((loc) => loc.value),
-        tags,
-        dateStart: date.dateStart?.toISOString(),
-        dateFinish: date.dateFinish?.toISOString(),
+        city_ids: cities.map((city) => `${city.id}`),
+        track_ids: tracks.map((track) => `${track.id}`),
+        start_date: date.dateStart?.toISOString(),
+        end_date: date.dateFinish?.toISOString(),
       };
       const filtersUrlParams = buildUrlParams(eventFiltersParams);
       const events = await applyFilters(filtersUrlParams);
@@ -47,19 +53,21 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ onFiltersApplied })
     }
   }
 
+  // TODO: selectedOptions, onOptionClick - массив из id
+  // TODO: поменять тип в Select на {id, title}
   return (
     <ContentLayout>
       <form className={cls.fields} onSubmit={handleSubmit(onSubmit)}>
         <section className={cls.mainFields}>
           <Controller
-            name="location"
+            name="cities"
             control={control}
             render={({ field: { onChange, value: selectedLocations } }) => (
               <MultiSelect
                 placeholder="Выберите города..."
-                options={cities}
-                selectedOptions={selectedLocations}
-                onOptionClick={(cities) => onChange(cities)}
+                options={cities.map((city) => ({ key: `${city.id}`, value: city.title }))}
+                selectedOptions={selectedLocations.map((city) => ({ key: `${city.id}`, value: city.title }))}
+                onOptionClick={(cities) => onChange(cities.map((city) => ({ id: city.key, title: city.value })))}
               />
             )}
           />

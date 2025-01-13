@@ -1,10 +1,18 @@
+interface IEventEntity {
+  id: number;
+  title: string;
+}
+
+export type City = IEventEntity;
+export type Track = IEventEntity;
+
 export interface IEventsResponse {
   id: number;
-  href: string;
-  imgLink?: string;
   title: string;
-  tags?: string[];
-  location: string;
-  dateStart: number;
-  dateFinish: number;
+  city: City;
+  tracks: Track[];
+  url: string;
+  price: number;
+  start_date: string;
+  end_date: string;
 }

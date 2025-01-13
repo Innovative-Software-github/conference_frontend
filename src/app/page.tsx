@@ -14,5 +14,7 @@ export default async function Home({ searchParams }: { searchParams: Promise<ISe
 
   const events = await getEvents(urlParams);
 
+  console.log(events);
+
   return <MainPage events={events} />;
 }

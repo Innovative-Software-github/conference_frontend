@@ -2,8 +2,7 @@ import { IEventsResponse } from './interfaces';
 
 export async function getEvents(urlParams?: URLSearchParams): Promise<IEventsResponse[]> {
   try {
-    console.log('request ', ` http://localhost:5050/events?${urlParams?.toString()}`);
-    const eventListResponse = await fetch(`http://localhost:5050/events?${urlParams?.toString()}`);
+    const eventListResponse = await fetch(`http://212.113.121.79:8000/api/v1/filter/events?${urlParams?.toString()}`);
     const events: IEventsResponse[] = await eventListResponse.json();
 
     return events;
