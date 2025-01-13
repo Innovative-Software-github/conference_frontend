@@ -8,6 +8,7 @@ import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
 import cls from './EventFilters.module.scss';
 import { IEventsResponse } from '@/services/events/interfaces';
 import { IEventFiltersForm, IEventFiltersParams, useFilters } from './useFilters';
+import { buildUrlParams } from '../buildUrlParams';
 
 const cities: ISelectOptions[] = [
   { key: 'Москва', value: 'Москва' },
@@ -26,17 +27,17 @@ interface IEventFiltersProps {
 export const EventFilters: React.FC<IEventFiltersProps> = ({ onFiltersApplied }) => {
   const router = useRouter();
   const pathName = usePathname();
-  const { control, handleSubmit, applyFilters, buildFiltersUrlParams } = useFilters();
+  const { control, handleSubmit, applyFilters } = useFilters();
 
   async function onSubmit({ location, tags, date }: IEventFiltersForm) {
     try {
       const eventFiltersParams: IEventFiltersParams = {
         location: location.map((loc) => loc.value),
         tags,
-        dateStart: date.dateStart?.toISOString() ?? null,
-        dateFinish: date.dateFinish?.toISOString() ?? null,
+        dateStart: date.dateStart?.toISOString(),
+        dateFinish: date.dateFinish?.toISOString(),
       };
-      const filtersUrlParams = buildFiltersUrlParams(eventFiltersParams);
+      const filtersUrlParams = buildUrlParams(eventFiltersParams);
       const events = await applyFilters(filtersUrlParams);
 
       onFiltersApplied(events);

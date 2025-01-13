@@ -14,11 +14,11 @@ export interface IEventFiltersForm {
   date: IEventDate;
 }
 
-export interface IEventFiltersParams {
-  location: string[];
-  tags: string[];
-  dateStart: string | null;
-  dateFinish: string | null;
+export interface IEventFiltersParams extends Record<string, string | string[] | undefined> {
+  location?: string | string[];
+  tags?: string | string[];
+  dateStart?: string;
+  dateFinish?: string;
 }
 
 export function useFilters() {
@@ -50,30 +50,11 @@ export function useFilters() {
     },
   });
 
-  // теперь у нас только массив или строка. сделать общее решение просто
-  function buildFiltersUrlParams(
-    eventFiltersParams: IEventFiltersParams,
-    defaultParams?: URLSearchParams,
-  ): URLSearchParams {
-    const params = new URLSearchParams(defaultParams);
-    const builders = {
-      setLocation: () => {
-        params.delete('location');
-        eventFiltersParams.location.forEach((loc) => params.append('location', loc));
-
-        return builders;
-      },
-      getParams: () => params,
-    };
-
-    return builders.setLocation().getParams();
-  }
-
   const applyFilters = async (filtersUrlParams: URLSearchParams) => {
     const events = await getEvents(filtersUrlParams);
 
     return events;
   };
 
-  return { control, handleSubmit, applyFilters, buildFiltersUrlParams };
+  return { control, handleSubmit, applyFilters };
 }

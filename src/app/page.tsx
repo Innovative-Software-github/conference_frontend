@@ -1,21 +1,16 @@
 import * as React from 'react';
 import { MainPage } from '../views/MainPage/MainPage';
 import { getEvents } from '@/services/events/request';
+import { buildUrlParams } from '@/views/MainPage/components/Events/buildUrlParams';
+import { IEventFiltersParams } from '@/views/MainPage/components/Events/EventFilters/useFilters';
 
-export default async function Home({
-  searchParams,
-}: {
-  searchParams: Promise<{ [key: string]: string | string[] | undefined }>;
-}) {
+// сюда далее добавляем | IPaginationParams
+type IServerUrlParams = IEventFiltersParams;
+
+export default async function Home({ searchParams }: { searchParams: Promise<IServerUrlParams> }) {
   const { location } = await searchParams;
 
-  const urlParams = new URLSearchParams();
-
-  if (location && typeof location === 'string') {
-    urlParams.set('location', location);
-  } else if (Array.isArray(location)) {
-    location.forEach((loc) => urlParams.append('location', loc));
-  }
+  const urlParams = buildUrlParams({ location });
 
   const events = await getEvents(urlParams);
 
