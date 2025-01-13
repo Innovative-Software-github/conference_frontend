@@ -8,9 +8,9 @@ import { IEventFiltersParams } from '@/views/MainPage/components/Events/EventFil
 type IServerUrlParams = IEventFiltersParams;
 
 export default async function Home({ searchParams }: { searchParams: Promise<IServerUrlParams> }) {
-  const { location } = await searchParams;
+  const { city_ids } = await searchParams;
 
-  const urlParams = buildUrlParams({ location });
+  const urlParams = buildUrlParams({ city_ids });
 
   const events = await getEvents(urlParams);
 
