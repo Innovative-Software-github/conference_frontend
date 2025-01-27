@@ -1,7 +1,7 @@
 import { useForm } from 'react-hook-form';
 import { useSearchParams } from 'next/navigation';
+import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
 import { getEvents } from '@/services/events/request';
-import { City, Track } from '@/services/events/interfaces';
 import { cities, tracks } from './EventFilters';
 
 export interface IEventDate {
@@ -10,8 +10,8 @@ export interface IEventDate {
 }
 
 export interface IEventFiltersForm {
-  cities: City[];
-  tracks: Track[];
+  cities: ISelectOptions[];
+  tracks: ISelectOptions[];
   date: IEventDate;
 }
 
@@ -29,13 +29,14 @@ export function useFilters() {
   function initCities(): IEventFiltersForm['cities'] {
     return params
       .getAll('city_ids')
-      .map((cityId) => ({ id: Number(cityId), title: cities.find((city) => city.id == cityId)!.title }));
+      .map((cityId) => ({ key: cityId, value: cities.find((city) => city.id === Number(cityId))?.title ?? '' }));
   }
 
   function initTracks(): IEventFiltersForm['tracks'] {
-    return params
-      .getAll('track_ids')
-      .map((trackId) => ({ id: Number(trackId), title: tracks.find((track) => track.id == trackId)!.title }));
+    return params.getAll('track_ids').map((trackId) => ({
+      key: trackId,
+      value: tracks.find((track) => track.id === Number(trackId))?.title ?? '',
+    }));
   }
   //
 

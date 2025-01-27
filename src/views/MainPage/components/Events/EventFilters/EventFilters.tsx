@@ -38,8 +38,8 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ onFiltersApplied })
   async function onSubmit({ cities, tracks, date }: IEventFiltersForm) {
     try {
       const eventFiltersParams: IEventFiltersParams = {
-        city_ids: cities.map((city) => `${city.id}`),
-        track_ids: tracks.map((track) => `${track.id}`),
+        city_ids: cities.map((city) => `${city.key}`),
+        track_ids: tracks.map((track) => `${track.key}`),
         start_date: date.dateStart?.toISOString(),
         end_date: date.dateFinish?.toISOString(),
       };
@@ -54,7 +54,7 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ onFiltersApplied })
   }
 
   // TODO: selectedOptions, onOptionClick - массив из id
-  // TODO: поменять тип в Select на {id, title}
+  // TODO: поменять тип в Select на {id, value}
   // TODO: поменять key -> id, id - тип number
   return (
     <ContentLayout>
@@ -67,8 +67,8 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({ onFiltersApplied })
               <MultiSelect
                 placeholder="Выберите города..."
                 options={cities.map((city) => ({ key: `${city.id}`, value: city.title }))}
-                selectedOptions={selectedLocations.map((city) => ({ key: `${city.id}`, value: city.title }))}
-                onOptionClick={(cities) => onChange(cities.map((city) => ({ id: city.key, title: city.value })))}
+                selectedOptions={selectedLocations}
+                onOptionClick={(cities) => onChange(cities)}
               />
             )}
           />
