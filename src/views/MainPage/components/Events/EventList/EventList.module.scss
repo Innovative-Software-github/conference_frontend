@@ -7,6 +7,10 @@
   padding: 1em;
 }
 
+.pagination {
+  justify-content: center;
+}
+
 @media (max-width: 1110px) {
   .container {
     grid-template-columns: repeat(3, calc(34.6667% - 25px));

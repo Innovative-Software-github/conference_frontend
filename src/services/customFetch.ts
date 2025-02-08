@@ -11,9 +11,8 @@ export interface IHttpRequestConfig {
   scheme?: TURIScheme;
   port?: number;
   contentType?: string;
-  isProtected?: boolean;
   withCredentials?: boolean;
-  withErrorHandling?: boolean;
+  fetchConfig?: RequestInit;
 }
 
 export type RequestDataValue = string | number | null | boolean | void | Array<RequestDataValue>;
@@ -22,40 +21,16 @@ export interface IRequestData {
   [key: string]: RequestDataValue | IRequestData;
 }
 
-interface IErrorResponse {
-  code: number;
-  message: string;
-}
+export interface IResponse<T> {
+  ok: boolean;
+  status: number;
+  data: T;
+};
 
-export interface IResponse {
-  response: Response | null;
-  error: IErrorResponse | null;
-}
-
-/**
- * Выполняет HTTP-запрос с указанными настройками и данными.
- *
- * @param {IHttpRequestConfig} settings - Настройки запроса
- * @param {TRequestPayload} [data] - Данные для отправки
- *
- * @returns {Promise<IResponse | Response>} Результат запроса
- * - Если withErrorHandling=true, возвращает объект {response, error}
- * - Если withErrorHandling=false, возвращает объект Response напрямую
- */
-export function customFetch<TRequestPayload = IRequestData>(
-  settings: IHttpRequestConfig & { withErrorHandling: true },
-  data?: TRequestPayload,
-): Promise<IResponse>;
-
-export function customFetch<TRequestPayload = IRequestData>(
-  settings: IHttpRequestConfig & { withErrorHandling?: false },
-  data?: TRequestPayload,
-): Promise<Response>;
-
-export async function customFetch<TRequestPayload = IRequestData>(
+export async function customFetch<TResponsePayload = unknown, TRequestPayload = IRequestData>(
   settings: IHttpRequestConfig,
   data?: TRequestPayload,
-): Promise<IResponse | Response> {
+): Promise<IResponse<TResponsePayload>> {
   const {
     path,
     method,
@@ -64,10 +39,10 @@ export async function customFetch<TRequestPayload = IRequestData>(
     port,
     contentType = 'application/json',
     withCredentials = false,
-    withErrorHandling = false,
+    fetchConfig,
   } = settings;
 
-  const makeRequest = async (): Promise<Response> => {
+  const makeRequest = async (): Promise<IResponse<TResponsePayload>> => {
     const host = process.env.NEXT_PUBLIC_API_URL;
 
     if (!host) {
@@ -95,50 +70,23 @@ export async function customFetch<TRequestPayload = IRequestData>(
       headers: combinedHeaders,
       credentials: withCredentials ? 'include' : 'omit',
       cache: 'no-store',
+      ...fetchConfig,
     });
 
-    return response;
-  };
-
-  if (withErrorHandling) {
-    try {
-      const response = await makeRequest();
-
-      if (!response.ok) {
-        let errorMessage = `Request failed with status ${response.status}`;
-
-        try {
-          const errorData = await response.json();
-
-          errorMessage = errorData.message || errorMessage;
-        } catch (error) {
-          throw error;
-        }
-
-        return {
-          response: null,
-          error: {
-            code: response.status,
-            message: errorMessage,
-          },
-        };
+    if (!response.ok) {
+      return {
+        ok: false,
+        status: response.status,
+        data: { error: await response.json() } as TResponsePayload,
       }
-
-      return {
-        response,
-        error: null,
-      };
-    } catch (e: any) {
-      return {
-        response: null,
-        error: {
-          code: e?.status || 500,
-          message:
-            e?.message || `Неизвестная ошибка запроса к сервису ${settings.path}`,
-        },
-      };
     }
-  }
+
+    return {
+      ok: response.ok,
+      status: response.status,
+      data: await response.json(),
+    };
+  };
 
   return makeRequest();
 }

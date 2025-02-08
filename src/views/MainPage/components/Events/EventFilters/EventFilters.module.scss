@@ -1,0 +1,25 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25em;
+}
+
+.section {
+  display: flex;
+  gap: 1em;
+}
+
+.checkboxContainer {
+  display: flex;
+  gap: 1em;
+}
+
+@media (max-width: 768px) {
+  .section {
+    flex-direction: column;
+  }
+
+  .checkboxContainer {
+    flex-direction: column;
+  }
+}

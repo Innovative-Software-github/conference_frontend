@@ -16,7 +16,7 @@ import { toast } from 'sonner';
 import { AuthenticationContainer } from '../AuthenticationContainer/AuthenticationContainer';
 import { ROUTES } from '../../../../../constants/Routes';
 import { createValidationRulesLogin, errorMessages } from './utils';
-import { ILoginRequest, ILoginResponse } from '../../../../../services/authentication/interfaces';
+import { ILoginRequest } from '../../../../../services/authentication/interfaces';
 import { login } from '../../../../../services/authentication/request';
 import { setServerCookie } from '../../../../../utils/cookies';
 
@@ -64,15 +64,12 @@ export const LoginForm = () => {
       const response = await login(data);
 
       if (!response.ok) {
-        const errorData = await response.json();
         const errorMessage = errorMessages[response.status] || 'Произошла ошибка при входе!';
 
         toast.error(errorMessage);
-        console.log('error:', errorData);
+        console.log('error:', response.data);
       } else {
-        const responseData = (await response.json()) as ILoginResponse;
-
-        setServerCookie('x-auth', responseData.token);
+        setServerCookie('x-auth', response.data.token);
 
         toast.success('Вы успешно вошли!');
         router.push(ROUTES.home);

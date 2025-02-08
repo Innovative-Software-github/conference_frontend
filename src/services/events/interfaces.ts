@@ -1,10 +1,12 @@
+import { ICityFiltersConfig, ITracksFiltersConfig } from '../static/filtersConfig/interfaces';
+
 export interface IEventsResponse {
   id: number;
-  href: string;
-  imgLink?: string;
   title: string;
-  tags?: string[];
-  location: string;
-  dateStart: number;
-  dateFinish: number;
-}
+  city: ICityFiltersConfig;
+  tracks: ITracksFiltersConfig[];
+  url: string;
+  price: number;
+  start_date: string;
+  end_date: string;
+};

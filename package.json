@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "mock-server": "cross-var json-server $npm_config_db_path --port $npm_config_port"
+    "mock-events": "json-server mocks/events-db.json --port 5050"
   },
   "dependencies": {
     "clsx": "^2.1.1",
@@ -18,7 +18,7 @@
     "react-responsive": "^10.0.0",
     "sonner": "^1.7.1",
     "swiper": "^11.1.15",
-    "ui-kit-conf": "^1.1.13-beta.4"
+    "ui-kit-conf": "^1.1.13-beta.11"
   },
   "devDependencies": {
     "@types/node": "^20",
@@ -34,7 +34,7 @@
     "eslint-plugin-jsx-a11y": "^6.10.0",
     "eslint-plugin-react": "^7.37.0",
     "eslint-plugin-storybook": "^0.9.0",
-    "json-server": "^1.0.0-beta.3",
+    "json-server": "^0.17.4",
     "prettier": "3.4.2",
     "sass": "^1.83.0",
     "typescript": "^5",
