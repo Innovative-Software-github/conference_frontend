@@ -77,7 +77,7 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
       return {
         ok: false,
         status: response.status,
-        data: { error: await response.json() } as TResponsePayload,
+        data: { error: await response.json().catch(() => ({})) } as TResponsePayload,
       }
     }
 
