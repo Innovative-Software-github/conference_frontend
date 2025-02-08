@@ -18,7 +18,7 @@ import { AuthenticationContainer } from '../AuthenticationContainer/Authenticati
 import cls from './RegistrationForm.module.css';
 import { ROUTES } from '../../../../../constants/Routes';
 import { createValidationRulesRegistration, errorMessages } from './utils';
-import { ILoginRequest, ILoginResponse, IRegistrationRequest } from '../../../../../services/authentication/interfaces';
+import { IRegistrationRequest } from '../../../../../services/authentication/interfaces';
 import { registration } from '../../../../../services/authentication/request';
 import { setServerCookie } from '../../../../../utils/cookies';
 
@@ -59,21 +59,18 @@ export const RegistrationForm = () => {
 
   const validationRules = React.useMemo(() => createValidationRulesRegistration(), []);
 
-  const onSubmit = async (data: ILoginRequest) => {
+  const onSubmit = async (data: IRegistrationRequest) => {
     try {
       setIsLoading(true);
       const response = await registration(data);
 
       if (!response.ok) {
-        const errorData = await response.json();
         const errorMessage = errorMessages[response.status] || 'Произошла ошибка при входе!';
 
         toast.error(errorMessage);
-        console.log('error:', errorData);
+        console.log('error:', response.data);
       } else {
-        const responseData = (await response.json()) as ILoginResponse;
-
-        setServerCookie('x-auth', responseData.token);
+        setServerCookie('x-auth', response.data.token);
 
         toast.success('Вы успешно вошли!');
         router.push(ROUTES.home);
@@ -88,7 +85,7 @@ export const RegistrationForm = () => {
 
   return (
     <AuthenticationContainer title="Регистрация">
-      <form className={cls.form} onSubmit={handleSubmit(onSubmit)}>
+      <form onSubmit={handleSubmit(onSubmit)}>
         <Controller
           name="email"
           control={control}

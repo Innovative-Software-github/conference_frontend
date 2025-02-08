@@ -1,13 +1,13 @@
 import { ApiPath } from '../apiPaths';
 import { customFetch } from '../customFetch';
-import { ILoginRequest } from './interfaces';
+import { ILoginRequest, ILoginResponse, IRegistrationRequest, IRegistrationResponse } from './interfaces';
 
-export const login = (data: ILoginRequest) => customFetch<ILoginRequest>(
+export const login = (data: ILoginRequest) => customFetch<ILoginResponse, ILoginRequest>(
   { path: ApiPath.auth.sign_in, method: 'POST' },
   data,
 );
 
-export const registration = (data: ILoginRequest) => customFetch<ILoginRequest>(
+export const registration = (data: IRegistrationRequest) => customFetch<IRegistrationResponse, IRegistrationRequest>(
   { path: ApiPath.auth.sign_up, method: 'POST' },
   data,
 );
