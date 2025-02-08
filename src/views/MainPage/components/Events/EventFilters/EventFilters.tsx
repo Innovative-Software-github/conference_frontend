@@ -1,102 +1,148 @@
 'use client';
 
-import { Input, MultiSelect } from 'ui-kit-conf/dist';
-import { Controller } from 'react-hook-form';
-import { usePathname, useRouter } from 'next/navigation';
+import { Button, Calendar, Checkbox, ComboGroup, FieldWrapper, Input, MultiSelect } from 'ui-kit-conf/dist';
+
 import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
+import { IFiltersConfig } from '../../../../../services/static/filtersConfig/interfaces';
+import { useEventFilters } from '../utils';
+import { IEventsResponse } from '../../../../../services/events/interfaces';
+import { getEvents } from '../../../../../services/events/request';
+
 import cls from './EventFilters.module.scss';
-import { City, IEventsResponse } from '@/services/events/interfaces';
-import { IEventFiltersForm, IEventFiltersParams, useFilters } from './useFilters';
-import { buildUrlParams } from '../buildUrlParams';
 
-// TODO: с сервера
-export const cities: City[] = [
-  { id: 1, title: 'Москва' },
-  { id: 2, title: 'Санкт-Петербург' },
-  { id: 3, title: 'Казань' },
-  { id: 4, title: 'Пермь' },
-  { id: 5, title: 'Красноярск' },
-];
-
-export const tracks = [
-  { id: 1, title: 'Backend' },
-  { id: 2, title: 'AI' },
-  { id: 3, title: 'Frontend' },
-  { id: 4, title: 'DevOps' },
-  { id: 5, title: 'Lead' },
-];
-
-interface IEventFiltersProps {
-  onFiltersApplied: (events: IEventsResponse[]) => void;
+export interface IEventFiltersProps {
+  filtersConfig: IFiltersConfig;
+  isLoadingEvents: boolean;
+  onChangeLoadingEvents: (value: boolean) => void;
+  onFiltersChange: (events: IEventsResponse[]) => void;
 }
 
-export const EventFilters: React.FC<IEventFiltersProps> = ({ onFiltersApplied }) => {
-  const router = useRouter();
-  const pathName = usePathname();
-  const { control, handleSubmit, applyFilters } = useFilters();
+export const EventFilters: React.FC<IEventFiltersProps> = ({
+  filtersConfig,
+  isLoadingEvents,
+  onChangeLoadingEvents,
+  onFiltersChange,
+}) => {
+  const {
+    citiesFilterConfig,
+    tracksFilterConfig,
+    formatsFilterConfig,
+  } = filtersConfig
 
-  async function onSubmit({ cities, tracks, date }: IEventFiltersForm) {
+  const {
+    filters,
+    updateFilterValue,
+    updateFilterArray,
+    applyFilters,
+  } = useEventFilters();
+
+  const handleSumbit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+
     try {
-      const eventFiltersParams: IEventFiltersParams = {
-        city_ids: cities.map((city) => `${city.key}`),
-        track_ids: tracks.map((track) => `${track.key}`),
-        start_date: date.dateStart?.toISOString(),
-        end_date: date.dateFinish?.toISOString(),
-      };
-      const filtersUrlParams = buildUrlParams(eventFiltersParams);
-      const events = await applyFilters(filtersUrlParams);
+      onChangeLoadingEvents(true);
+      const events = await getEvents(filters);
 
-      onFiltersApplied(events);
-      router.push(`${pathName}?${filtersUrlParams.toString()}`);
-    } catch (e) {
-      console.log('error handling logic');
+      onFiltersChange(events.data);
+      applyFilters();
+    } catch (error) {
+      // todo: выводить нотификацию
+      console.error(error);
+    }
+    finally {
+      onChangeLoadingEvents(false);
     }
   }
 
-  // TODO: selectedOptions, onOptionClick - массив из id
-  // TODO: поменять тип в Select на {id, value}
-  // TODO: поменять key -> id, id - тип number
   return (
     <ContentLayout>
-      <form className={cls.fields} onSubmit={handleSubmit(onSubmit)}>
-        <section className={cls.mainFields}>
-          <Controller
-            name="cities"
-            control={control}
-            render={({ field: { onChange, value: selectedLocations } }) => (
-              <MultiSelect
-                placeholder="Выберите города..."
-                options={cities.map((city) => ({ key: `${city.id}`, value: city.title }))}
-                selectedOptions={selectedLocations}
-                onOptionClick={(cities) => onChange(cities)}
-              />
-            )}
-          />
+      <form className={cls.container} onSubmit={(e) => handleSumbit(e)}>
+        <section className={cls.section}>
+          <FieldWrapper type='info' label='Город'>
+            <MultiSelect
+              placeholder='Выберите города...'
+              options={citiesFilterConfig}
+              selectedOptions={filters.city_ids}
+              // todo, порешать с типизацией
+              onOptionClick={(optionIds) => updateFilterArray('city_ids', optionIds as string[])}
+            />
+          </FieldWrapper>
 
-          {/* <Controller  Ошибки из-за onChange в консоли с Suspense
-            name="date"
-            control={control}
-            render={({ field: { onChange, value: selectedEventDate } }) => (
-              <Calendar
-                startDate={selectedEventDate.dateStart}
-                endDate={selectedEventDate.dateFinish}
-                onChangeEndDate={(endDate) => {
-                  console.log(selectedEventDate);
-                  onChange({ ...selectedEventDate, dateFinish: endDate } as IEventDate);
-                }}
-                onChangeStartDate={(startDate) => ({ ...selectedEventDate, dateStart: startDate }) as IEventDate}
-              />
-            )}
-          /> */}
+          <FieldWrapper type='info' label='Дата'>
+            {/* todo: переделать Calendar на input */}
+            <Calendar
+              startDate={
+                filters.start_date
+                  ? new Date(filters.start_date)
+                  : null
+              }
+              endDate={
+                filters.end_date
+                  ? new Date(filters.end_date)
+                  : null
+              }
+
+              onChangeStartDate={(date) => {
+                updateFilterValue('start_date', date?.toISOString().split('T')[0] || '');
+              }}
+              onChangeEndDate={(date) => {
+                updateFilterValue('end_date', date?.toISOString().split('T')[0] || '');
+              }}
+            />
+          </FieldWrapper>
+
+          <FieldWrapper type='info' label='Цена билета'>
+            <Input
+              value={filters.max_price}
+              placeholder='До какой суммы искать? :->'
+              onChange={(event) => {
+                let value = event.target.value.replace(/\D/g, '');
+
+                value = value.replace(/^0+/, '');
+                updateFilterValue('max_price', value);
+              }}
+
+            />
+          </FieldWrapper>
         </section>
-        {/* <ComboGroup isSorted defaultIds={selectedTags} onChange={(tags) => setSelectedTags(tags)}>
-          {tagOptions.map((tag) => (
-            <ComboGroup.Checkbox key={tag} id={tag}>
-              {tag}
-            </ComboGroup.Checkbox>
-          ))}
-        </ComboGroup> */}
-        <Input value="Применить" type="submit" />
+        <section className={cls.section}>
+          <FieldWrapper type='info' label='Выберите направление'>
+            <ComboGroup
+              isSorted
+              defaultIds={filters.track_ids}
+              onChange={(selectedIds) => updateFilterArray('track_ids', selectedIds)}
+            >
+              {tracksFilterConfig.map((track) => (
+                <ComboGroup.Checkbox
+                  key={track.title}
+                  id={String(track.id)}
+                >
+                  {track.title}
+                </ComboGroup.Checkbox>
+              ))}
+            </ComboGroup>
+          </FieldWrapper>
+        </section>
+        <section className={cls.section}>
+          <FieldWrapper type='info' label='Формат'>
+            <div className={cls.checkboxContainer}>
+              {formatsFilterConfig.map((format) => (
+                <Checkbox
+                  key={format.title}
+                  label={format.title}
+                  checked
+                />
+              ))}
+            </div>
+          </FieldWrapper>
+        </section>
+        <Button
+          type="submit"
+          variant='default'
+          isLoading={isLoadingEvents}
+        >
+          Применить
+        </Button>
       </form>
     </ContentLayout>
   );

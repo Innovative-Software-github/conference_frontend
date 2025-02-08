@@ -1,18 +1,12 @@
-interface IEventEntity {
-  id: number;
-  title: string;
-}
-
-export type City = IEventEntity;
-export type Track = IEventEntity;
+import { ICityFiltersConfig, ITracksFiltersConfig } from '../static/filtersConfig/interfaces';
 
 export interface IEventsResponse {
   id: number;
   title: string;
-  city: City;
-  tracks: Track[];
+  city: ICityFiltersConfig[];
+  tracks: ITracksFiltersConfig[];
   url: string;
   price: number;
   start_date: string;
   end_date: string;
-}
+};

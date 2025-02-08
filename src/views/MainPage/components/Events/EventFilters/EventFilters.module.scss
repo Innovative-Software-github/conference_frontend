@@ -1,14 +1,15 @@
-.fields {
+.container {
   display: flex;
   flex-direction: column;
   gap: 1.25em;
 }
 
-.mainFields {
+.section {
   display: flex;
   gap: 1em;
 }
 
-.mainFields > * {
-  flex: 1;
+.checkboxContainer {
+  display: flex;
+  gap: 1em;
 }

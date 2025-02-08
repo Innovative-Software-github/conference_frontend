@@ -1,18 +1,20 @@
 import * as React from 'react';
 import { MainPage } from '../views/MainPage/MainPage';
-import { getEvents } from '@/services/events/request';
-import { buildUrlParams } from '@/views/MainPage/components/Events/buildUrlParams';
-import { IEventFiltersParams } from '@/views/MainPage/components/Events/EventFilters/useFilters';
+import { fetchFiltersConfig } from '../services/static/filtersConfig/serverAction';
+import { getEvents } from '../services/events/request';
 
-// сюда далее добавляем | IPaginationParams
-type IServerUrlParams = IEventFiltersParams;
+export const dynamic = 'force-dynamic';
 
-export default async function Home({ searchParams }: { searchParams: Promise<IServerUrlParams> }) {
-  const urlParams = buildUrlParams(await searchParams);
+export default async function Home({
+  searchParams,
+}: any) {
+  const filtersConfig = await fetchFiltersConfig();
+  const events = await getEvents(await searchParams);
 
-  const events = await getEvents(urlParams);
+  console.log(await searchParams)
 
-  console.log(events);
-
-  return <MainPage events={events} />;
+  return <MainPage
+    events={events.data}
+    filtersConfig={filtersConfig}
+  />;
 }
