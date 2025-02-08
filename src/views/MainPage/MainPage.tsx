@@ -16,7 +16,7 @@ export const MainPage: React.FC<IMainPage> = ({
   filtersConfig,
 }) => (
   <div>
-    <MovingLabelsBar labels={labels} />
+    <MovingLabelsBar />
     <Header />
     <main>
       <PopularConferencesSwiperContainer slides={slidesData} />
