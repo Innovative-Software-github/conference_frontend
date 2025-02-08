@@ -4,7 +4,7 @@ import PopularConferencesSwiperContainer from './components/PopularConferencesSw
 import { Events } from './components/Events/Events';
 import { IEventsResponse } from '@/services/events/interfaces';
 import { IFiltersConfig } from '../../services/static/filtersConfig/interfaces';
-import { labels, slidesData } from './todo:delete';
+import { slidesData } from './todo:delete';
 
 export interface IMainPage {
   events: IEventsResponse[];
