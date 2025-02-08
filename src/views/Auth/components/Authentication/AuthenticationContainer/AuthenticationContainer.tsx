@@ -20,7 +20,7 @@ export const AuthenticationContainer: React.FC<IAuthenticationContainer> = ({ ti
   return (
     <div className={cls.container}>
       <Link href={ROUTES.home}>
-        <Icon type={IconType.Logotype} width={isMobile ? 343 : 521} height={isMobile ? 32 : 41} />
+        <Icon type={IconType.Logotype} width={!isMobile ? 521 : 343} height={!isMobile ? 41 : 32} />
       </Link>
 
       <ContentLayout className={cls.contentContainer}>
