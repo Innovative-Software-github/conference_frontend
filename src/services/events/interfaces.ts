@@ -3,7 +3,7 @@ import { ICityFiltersConfig, ITracksFiltersConfig } from '../static/filtersConfi
 export interface IEventsResponse {
   id: number;
   title: string;
-  city: ICityFiltersConfig[];
+  city: ICityFiltersConfig;
   tracks: ITracksFiltersConfig[];
   url: string;
   price: number;

@@ -2,12 +2,13 @@
 
 import { Tag } from 'ui-kit-conf/dist';
 
-import cls from './EventTracks.module.scss';
-import { Track } from '@/services/events/interfaces';
 import { useEventTracksPresentation } from './utils';
+import { ITracksFiltersConfig } from '../../../services/static/filtersConfig/interfaces';
+
+import cls from './EventTracks.module.scss';
 
 export interface IEventTracksProps {
-  tracks: Track[];
+  tracks: ITracksFiltersConfig[];
   visibleTracksNumber?: number;
 }
 

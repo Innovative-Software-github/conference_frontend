@@ -1,12 +1,16 @@
 import * as React from 'react';
-import { Track } from '@/services/events/interfaces';
+import { ITracksFiltersConfig } from '../../../services/static/filtersConfig/interfaces';
+
 
 export interface IEventTracksPresentation {
   visibleTracks: string[];
   hiddenTracksNumber: number;
 }
 
-export function useEventTracksPresentation(tracks: Track[], visibleTracksNumber: number): IEventTracksPresentation {
+export function useEventTracksPresentation(
+  tracks: ITracksFiltersConfig[],
+  visibleTracksNumber: number,
+): IEventTracksPresentation {
   const eventTracksPresentation = React.useMemo<IEventTracksPresentation>(
     () => ({
       visibleTracks: tracks.slice(0, visibleTracksNumber).map((track) => track.title),
