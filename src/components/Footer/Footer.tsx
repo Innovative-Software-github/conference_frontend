@@ -10,8 +10,8 @@ import cls from './Footer.module.scss'
 
 export const Footer = () => (
     <footer className={cls.footer}>
-        <ConstraintContainer className={cls.container}>
-            <div className={cls.logo}>
+        <ConstraintContainer>
+            <div>
                 <Icon type={IconType.Logotype_white} width={180} height={20} isScalable />
             </div>
 

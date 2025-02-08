@@ -5,6 +5,7 @@ import { Events } from './components/Events/Events';
 import { IEventsResponse } from '@/services/events/interfaces';
 import { IFiltersConfig } from '../../services/static/filtersConfig/interfaces';
 import { slidesData } from './todo:delete';
+import { Footer } from '../../components/Footer/Footer';
 
 export interface IMainPage {
   events: IEventsResponse[];
@@ -22,6 +23,6 @@ export const MainPage: React.FC<IMainPage> = ({
       <PopularConferencesSwiperContainer slides={slidesData} />
       <Events defaultEvents={events} filtersConfig={filtersConfig} />
     </main>
-    <footer>footerы</footer>
+    <Footer />
   </div>
 );
