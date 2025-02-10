@@ -1,0 +1,25 @@
+.thumbnails {
+  display: flex;
+  gap: 1em;
+  margin-top: 1em;
+}
+
+.thumbnailsButton {
+  all: unset;
+  position: relative;
+  overflow: hidden;
+  width: 110px;
+  height: 68px;
+  border-radius: 10px;
+  cursor: pointer;
+
+  transition: filter 150ms ease;
+}
+
+.thumbnailsButton:hover {
+  filter: brightness(90%);
+}
+
+.activeImage {
+  outline: 2px solid var(--conf-color-cyan-7)
+}

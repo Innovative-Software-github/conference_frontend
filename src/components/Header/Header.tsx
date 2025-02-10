@@ -10,6 +10,7 @@ import { MediaQuery } from '../../constants/MediaQuery';
 
 import cls from './Header.module.scss';
 import { ConstraintContainer } from '@/ui/ConstraintContainer/ConstaintContainer';
+import { SquareLink } from '../../ui/SquareLink/SquareLink';
 
 export const Header = () => {
   const isMobile = useMediaQuery({ maxWidth: MediaQuery.BigMobile });
@@ -26,18 +27,12 @@ export const Header = () => {
           placeholder="Найти событие"
           elPrefix={<Icon type={IconType.Search_20} width={20} height={20} />}
         />
-
-        <Link href={ROUTES.createEvent} className={cls.link}>
-          <div className={cls.linkBlock}>
-            <Icon type={IconType.Plus_20} width={20} height={20} />
-          </div>
-        </Link>
-
-        <Link href={ROUTES.profile} className={cls.link}>
-          <div className={cls.linkBlock}>
-            <Icon type={IconType.Profile_20} width={20} height={20} />
-          </div>
-        </Link>
+        <SquareLink href={ROUTES.createEvent} className={cls.link}>
+          <Icon type={IconType.Plus_20} width={20} height={20} />
+        </SquareLink>
+        <SquareLink href={ROUTES.profile} className={cls.link}>
+          <Icon type={IconType.Profile_20} width={20} height={20} />
+        </SquareLink>
       </header>
     </ConstraintContainer>
   );
