@@ -40,27 +40,6 @@
   margin-left: 14px;
 }
 
-.linkBlock {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-
-  width: 48px;
-  height: 48px;
-  border: 1px solid var(--conf-color-grey-2);
-  border-radius: 14px;
-  color: var(--conf-color-grey-6);
-
-  cursor: pointer;
-
-  transition: background 150ms ease;
-}
-
-.linkBlock:hover {
-  background: var(--conf-color-grey-1);
-  border-color: var(--conf-color-grey-2);
-}
-
 @media (max-width: 768px) {
   .homeLink {
     margin-right: auto;

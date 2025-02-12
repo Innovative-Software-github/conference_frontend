@@ -1,0 +1,50 @@
+.image {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  width: 100%;
+  height: 458px;
+
+  & img {
+    object-fit: fill;
+  }
+}
+
+.customSwiperSlide {
+  position: relative;
+  overflow: hidden;
+  border-radius: 16px;
+  width: 636px;
+  height: 458px;
+  transition: opacity 300ms ease-in-out;
+}
+
+@media (max-width: 1024px) {
+  .image {
+    height: 350px;
+  }
+
+  .customSwiperSlide {
+    height: 350px;
+  }
+}
+
+@media (max-width: 768px) {
+  .image {
+    height: 311px;
+  }
+
+  .customSwiperSlide {
+    height: 311px;
+  }
+}
+
+@media (max-width: 480px) {
+  .image {
+    height: 211px;
+  }
+
+  .customSwiperSlide {
+    height: 211px;
+  }
+}
