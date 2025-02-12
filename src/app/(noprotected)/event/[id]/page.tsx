@@ -1,15 +1,11 @@
 import * as React from 'react';
-import { EventPage } from '../../../../views/EventPage/EventPage';
 import { getEvents } from '../../../../services/events/request';
-
-export interface IEvent {
-  id: Promise<{ id: string }>
-}
+import { EventPage } from '../../../../views/EventPage/EventPage';
 
 export default async function Event({
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   id,
-}: IEvent) {
-  console.log(id);
+}: any) {
   const similarEvents = await getEvents(); // TODO: ЗАМЕНИТЬ НА ВЕРНУЮ РУЧКУ
 
   return <EventPage
