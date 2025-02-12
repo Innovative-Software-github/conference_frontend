@@ -1,0 +1,28 @@
+.wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.itemWrapper+.itemWrapper {
+  margin-top: 14px;
+}
+
+.title {
+  color: var(--conf-color-grey-4);
+  font-size: 16px;
+  font-weight: 400;
+  line-height: 20px;
+  margin-bottom: 4px;
+}
+
+.children {
+  color: var(--conf-color-grey-7);
+  font-size: 16px;
+  font-weight: 500;
+  line-height: 20px;
+}
+
+.button {
+  margin-top: 20px;
+}

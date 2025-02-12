@@ -8,24 +8,24 @@ import cls from './ImageGalleryThumbnails.module.scss';
 
 export interface IImageGalleryThumbnails {
   images: string[];
-  selectedImage: string;
-  onSelectImage: (image: string) => void;
+  selectedImage: number;
+  onSlideChange: (image: number) => void;
 }
 
 export const ImageGalleryThumbnails: React.FC<IImageGalleryThumbnails> = ({
   images,
   selectedImage,
-  onSelectImage,
+  onSlideChange,
 }) => (
   <div className={cls.thumbnails}>
-    {images.map((image) => (
+    {images.map((image, index) => (
       <button
         key={image}
         type='button'
         className={clsx(cls.thumbnailsButton, {
-          [cls.activeImage]: selectedImage === image,
+          [cls.activeImage]: selectedImage === index,
         })}
-        onClick={() => onSelectImage(image)}
+        onClick={() => onSlideChange(index)}
       >
         <Image
           src={image}
