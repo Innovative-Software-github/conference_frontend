@@ -1,19 +1,11 @@
-.container {
-  margin-top: 48px;
-}
-
-.contentWrapper {
+.splitContainer {
   display: grid;
   grid-template-columns: 60% auto;
   gap: 1em;
 }
 
 @media (max-width: 768px) {
-  .container {
-    margin-top: 32px;
-  }
-
-  .contentWrapper {
+  .splitContainer {
     grid-template-columns: 100%;
   }
 }

@@ -3,8 +3,22 @@
   border-radius: 16px;
   background: var(--conf-color-white);
   border: 1px solid var(--conf-color-grey-2);
+}
 
-  @media (max-width: 768px) {
+.title {
+  color: var(--conf-color-grey-7);
+  font-size: 18px;
+  line-height: 26px;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .layout {
     padding: 16px;
+  }
+
+  .title {
+    font-size: 16px;
+    line-height: 23px;
   }
 }
