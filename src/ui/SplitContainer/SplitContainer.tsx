@@ -28,11 +28,11 @@ export const SplitContainer: React.FC<ISplitContainerProps> = ({
   leftContent,
   rightContent,
 }) => (
-  <>
+  <div>
     {title && <Title>{title}</Title>}
     <div className={clsx(cls.splitContainer, className)}>
       {leftContent}
       {rightContent}
     </div>
-  </>
+  </div>
 );

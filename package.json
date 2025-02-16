@@ -18,7 +18,7 @@
     "react-responsive": "^10.0.0",
     "sonner": "^1.7.1",
     "swiper": "^11.1.15",
-    "ui-kit-conf": "^1.1.16-beta.0"
+    "ui-kit-conf": "^1.1.16-beta.5"
   },
   "devDependencies": {
     "@types/node": "^20",

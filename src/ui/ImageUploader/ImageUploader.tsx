@@ -19,17 +19,19 @@ const SUPPORTED_EXTENSIONS_REGEXP = new RegExp(`\.(${SUPPORTED_EXTENSIONS.join('
 
 export interface IImageUploader {
   className?: string;
-  onImageSelect: (file: File) => void;
+  defaultImage?: string;
+  onImageSelect?: (file: File) => void;
   onImageDelete?: () => void;
 }
 
 export const ImageUploader: React.FC<IImageUploader> = ({
   className,
+  defaultImage,
   onImageSelect,
   onImageDelete,
 }) => {
   const inputRef = React.useRef<HTMLInputElement>(null);
-  const [previewUrl, setPreviewUrl] = React.useState<string>('');
+  const [previewUrl, setPreviewUrl] = React.useState<string>(defaultImage || '');
   const [loading, setLoading] = React.useState<boolean>(false);
 
   const handleImageUpload = (e: React.ChangeEvent<HTMLInputElement>) => {

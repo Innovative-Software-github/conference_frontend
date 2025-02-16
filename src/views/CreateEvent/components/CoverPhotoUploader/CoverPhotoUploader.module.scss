@@ -1,3 +1,13 @@
 .container {
-  overflow: hidden;
+  overflow-x: auto;
+}
+
+.imagesContainer {
+  display: flex;
+  gap: 1em;
+}
+
+.imageUploader {
+  min-width: 280px;
+  height: 180px;
 }
