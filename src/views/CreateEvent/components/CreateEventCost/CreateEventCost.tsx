@@ -6,7 +6,7 @@ import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropd
 import clsx from 'clsx';
 import { ContentLayout } from '../../../../ui/ContentLayout/ContentLayout'
 import { IEventCreateRequest } from '../../../../services/events/interfaces';
-import { createValidationRulesEventCost } from './utils';
+// import { createValidationRulesEventCost } from './utils';
 import { CreateEventFormat } from './CreateEventFormat/CreateEventFormat';
 import { TICKET_PRICE_VALUES } from './delete';
 

@@ -4,10 +4,8 @@ import { ImageGallery } from './ImageGallery/ImageGallery'
 import { EventLogistics } from './EventLogistics/EventLogistics'
 import { SplitContainer } from '../../../../ui/SplitContainer/SplitContainer';
 
-import cls from './EventTopSection.module.scss';
-
 export const EventTopSection: React.FC = () => (
-  <ConstraintContainer className={cls.container}>
+  <ConstraintContainer>
     <SplitContainer
       title='Yandex Scale 2024'
       leftContent={<ImageGallery />}
