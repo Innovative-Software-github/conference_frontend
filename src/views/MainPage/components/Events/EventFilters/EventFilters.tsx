@@ -1,6 +1,8 @@
 'use client';
 
-import { Button, Calendar, Checkbox, ComboGroup, FieldWrapper, Input, MultiSelect } from 'ui-kit-conf/dist';
+import {
+  Button, Checkbox, ComboGroup, FieldWrapper, Input, MultiSelect,
+} from 'ui-kit-conf/dist';
 
 import { ContentLayout } from '@/ui/ContentLayout/ContentLayout';
 import { IFiltersConfig } from '../../../../../services/static/filtersConfig/interfaces';
@@ -9,6 +11,7 @@ import { IEventsResponse } from '../../../../../services/events/interfaces';
 import { getEvents } from '../../../../../services/events/request';
 
 import cls from './EventFilters.module.scss';
+import { normalizeDate } from '../../../../../utils/normilizers';
 
 export interface IEventFiltersProps {
   filtersConfig: IFiltersConfig;
@@ -68,25 +71,26 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({
             />
           </FieldWrapper>
 
-          <FieldWrapper type='info' label='Дата'>
+          <FieldWrapper type='info' label='Дата начала'>
             {/* todo: переделать Calendar на input */}
-            <Calendar
-              startDate={
-                filters.start_date
-                  ? new Date(filters.start_date)
-                  : null
-              }
-              endDate={
-                filters.end_date
-                  ? new Date(filters.end_date)
-                  : null
-              }
-
-              onChangeStartDate={(date) => {
-                updateFilterValue('start_date', date?.toISOString().split('T')[0] || '');
+            <Input
+              placeholder='Дата начала'
+              value={filters.start_date}
+              onChange={(e) => {
+                console.log(normalizeDate(e.target.value))
+                updateFilterValue('start_date', normalizeDate(e.target.value))
               }}
-              onChangeEndDate={(date) => {
-                updateFilterValue('end_date', date?.toISOString().split('T')[0] || '');
+            />
+          </FieldWrapper>
+
+          <FieldWrapper type='info' label='Дата конца'>
+            {/* todo: переделать Calendar на input */}
+            <Input
+              placeholder='Дата конца'
+              value={filters.end_date}
+              onChange={(e) => {
+                console.log(normalizeDate(e.target.value))
+                updateFilterValue('end_date', normalizeDate(e.target.value))
               }}
             />
           </FieldWrapper>
@@ -94,7 +98,7 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({
           <FieldWrapper type='info' label='Цена билета'>
             <Input
               value={filters.max_price}
-              placeholder='До какой суммы искать? :->'
+              placeholder='До какой суммы искать?'
               onChange={(event) => {
                 let value = event.target.value.replace(/\D/g, '');
 

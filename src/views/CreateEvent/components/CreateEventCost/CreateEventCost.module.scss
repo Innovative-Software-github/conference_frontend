@@ -1,0 +1,15 @@
+.costsFields {
+  display: flex;
+  gap: 1em;
+  padding-bottom: 1em;
+}
+
+.withoutPadding {
+  padding-bottom: 0;
+}
+
+@media (max-width: 1024px) {
+  .costsFields {
+    flex-direction: column;
+  }
+}

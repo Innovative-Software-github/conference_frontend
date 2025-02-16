@@ -1,0 +1,51 @@
+.imageUploader {
+  all: unset;
+
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  background: var(--conf-color-grey-1);
+
+  border: 1px dashed var(--conf-color-grey-5);
+  border-radius: 16px;
+
+  cursor: pointer;
+  transition: background 150ms ease;
+}
+
+.imageUploader:hover {
+  background: var(--conf-color-grey-2);
+}
+
+.icon {
+  color: var(--conf-color-grey-3);
+}
+
+.fileInput {
+  display: none;
+}
+
+.image {
+  border-radius: 16px;
+  object-fit: fill;
+}
+
+.closeButton {
+  all: unset;
+  display: none;
+  position: absolute;
+  top: 5%;
+  right: 5%;
+  color: var(--conf-color-grey-7);
+  transition: color 150ms ease;
+}
+
+.imageUploader:hover .closeButton {
+  display: block;
+}
+
+.closeButton:hover {
+  color: var(--conf-color-grey-9);
+}

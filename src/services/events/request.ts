@@ -1,6 +1,6 @@
 import { ApiPath } from '../apiPaths';
 import { customFetch } from '../customFetch';
-import { IEventsResponse } from './interfaces';
+import { IEventCreateRequest, IEventsResponse } from './interfaces';
 
 export const getEvents = (queryParams?: Record<string, any>) => customFetch<IEventsResponse[]>(
   {
@@ -8,4 +8,12 @@ export const getEvents = (queryParams?: Record<string, any>) => customFetch<IEve
     method: 'GET',
   },
   queryParams,
+);
+
+export const createEvent = (data: IEventCreateRequest) => customFetch<null, IEventCreateRequest>(
+  {
+    path: ApiPath.events.event_create,
+    method: 'POST',
+  },
+  data,
 );

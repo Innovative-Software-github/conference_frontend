@@ -20,7 +20,7 @@ export const EventList: React.FC<IEventListProps> = ({
   if (!events?.length) {
     return (
       <ContentLayout>
-        <p>Нет событий, TODO: Сделать обработку</p>
+        <p>События не найдены</p>
       </ContentLayout>
     )
   }
@@ -44,6 +44,7 @@ export const EventList: React.FC<IEventListProps> = ({
           />
         ))}
       </div>
+      {/* todo: подключить пагинацию */}
       <Pagination
         className={cls.pagination}
         count={events.length}
