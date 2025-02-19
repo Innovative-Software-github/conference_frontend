@@ -7,12 +7,18 @@ import { useMediaQuery } from 'react-responsive';
 
 import { ROUTES } from '../../constants/Routes';
 import { MediaQuery } from '../../constants/MediaQuery';
-
-import cls from './Header.module.scss';
 import { ConstraintContainer } from '@/ui/ConstraintContainer/ConstaintContainer';
 import { SquareLink } from '../../ui/SquareLink/SquareLink';
 
-export const Header = () => {
+import cls from './Header.module.scss';
+
+export interface IHeader {
+  isUserAuth?: boolean;
+}
+
+export const Header: React.FC<IHeader> = ({
+  isUserAuth,
+}) => {
   const isMobile = useMediaQuery({ maxWidth: MediaQuery.BigMobile });
 
   return (
@@ -30,7 +36,7 @@ export const Header = () => {
         <SquareLink href={ROUTES.createEvent} className={cls.link}>
           <Icon type={IconType.Plus_20} width={20} height={20} />
         </SquareLink>
-        <SquareLink href={ROUTES.profile} className={cls.link}>
+        <SquareLink href={ROUTES.profile} className={cls.link} isLocked={isUserAuth}>
           <Icon type={IconType.Profile_20} width={20} height={20} />
         </SquareLink>
       </header>

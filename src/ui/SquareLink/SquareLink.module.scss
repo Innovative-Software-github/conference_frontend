@@ -19,3 +19,8 @@
   background: var(--conf-color-grey-1);
   border-color: var(--conf-color-grey-2);
 }
+
+.locked {
+  pointer-events: none;
+  background: var(--conf-color-grey-1);
+}

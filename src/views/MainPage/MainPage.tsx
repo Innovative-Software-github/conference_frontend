@@ -6,19 +6,23 @@ import { IEventsResponse } from '@/services/events/interfaces';
 import { IFiltersConfig } from '../../services/static/filtersConfig/interfaces';
 import { slidesData } from './todo:delete';
 import { Footer } from '../../components/Footer/Footer';
+import { ICurrentUserResponse } from '../../services/user/interfaces';
+import { IResponse } from '../../services/customFetch';
 
 export interface IMainPage {
+  currentUser: IResponse<ICurrentUserResponse>;
   events: IEventsResponse[];
   filtersConfig: IFiltersConfig;
 };
 
 export const MainPage: React.FC<IMainPage> = ({
+  currentUser,
   events,
   filtersConfig,
 }) => (
   <div>
     <MovingLabelsBar />
-    <Header />
+    <Header isUserAuth={currentUser.ok} />
     <main>
       <PopularConferencesSwiperContainer slides={slidesData} />
       <Events defaultEvents={events} filtersConfig={filtersConfig} />

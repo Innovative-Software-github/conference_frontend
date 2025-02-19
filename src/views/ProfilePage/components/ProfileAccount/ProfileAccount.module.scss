@@ -1,0 +1,33 @@
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: 2em;
+  width: 60%;
+}
+
+.title {
+  color: var(--conf-color-grey-5);
+  font-size: 16px;
+  line-height: 20px;
+  font-weight: 500;
+  margin-bottom: 1em;
+  text-transform: uppercase;
+}
+
+.block {
+  color: inherit;
+}
+
+.changePassportFieldWrapper+.changePassportFieldWrapper {
+  margin-top: 0.7em;
+}
+
+.button {
+  width: fit-content;
+  color: var(--conf-color-red-7);
+  padding: 0;
+}
+
+.eyeIcon {
+  color: var(--conf-color-grey-7);
+}

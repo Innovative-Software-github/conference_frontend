@@ -23,9 +23,18 @@ export async function getServerCookie(key: string): Promise<RequestCookie | unde
 export async function setServerCookie(
   key: string,
   value: string,
-  // TODO определить тип для параметра
-  options?: any,
+  options?: {
+    httpOnly?: boolean;
+    expires?: Date;
+    maxAge?: number;
+    path?: string;
+    secure?: boolean;
+    sameSite?: 'lax' | 'strict' | 'none';
+  },
 ): Promise<void> {
   // Устанавливаем куки
-  (await cookies()).set(key, value, options);
+  (await cookies()).set(key, value, {
+    httpOnly: true,
+    ...options,
+  });
 }

@@ -11,7 +11,3 @@ export const registration = (data: IRegistrationRequest) => customFetch<IRegistr
   { path: ApiPath.auth.sign_up, method: 'POST' },
   data,
 );
-
-export const checkAuthToken = () => customFetch(
-  { path: ApiPath.auth.check_token_valid, method: 'POST' },
-);
