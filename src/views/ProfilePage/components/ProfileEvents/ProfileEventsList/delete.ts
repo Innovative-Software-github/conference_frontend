@@ -1,7 +1,7 @@
-import { IEventsResponse } from '../../../../../services/events/interfaces';
+// import { IEventsResponse } from '../../../../../services/events/interfaces';
 
 /* eslint-disable max-len */
-export const DEFAULT_MOCK_EVENTS_LIST: IEventsResponse[] = [
+export const DEFAULT_MOCK_EVENTS_LIST: any[] = [
   {
     id: 1,
     title: 'INFOSTART TEAMLEAD & CIO EVENT 2025',
