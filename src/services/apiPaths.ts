@@ -9,7 +9,7 @@ export const ApiPath = {
     sign_verify: '/auth/verify',
     sign_resetPassport: '/auth/reset-password',
     sign_changeEmail: '/auth/change-mail',
-    auth_current: '/api/v1/auth/current'
+    auth_current: '/api/v1/auth/current',
   },
 
   /* Ручки для событий */

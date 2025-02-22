@@ -10,15 +10,18 @@ import { AccountNavigationTabs, ITabConfig } from './components/AccountNavigatio
 import { ProfileAccount } from './components/ProfileAccount/ProfileAccount';
 import { ProfileEvents } from './components/ProfileEvents/ProfileEvents';
 import { ProfileCommunity } from './components/ProfileCommunity/ProfileCommunity';
+import { IEventsResponse } from '../../services/events/interfaces';
 
 import cls from './ProfilePage.module.scss';
 
 export interface IProfilePage {
   currentUser: IResponse<ICurrentUserResponse>;
+  eventsList: IResponse<IEventsResponse[]>;
 }
 
 export const ProfilePage: React.FC<IProfilePage> = ({
   currentUser,
+  eventsList,
 }) => {
   const navigationTabs: ITabConfig[] = [
     {
@@ -29,7 +32,7 @@ export const ProfilePage: React.FC<IProfilePage> = ({
     {
       id: 1,
       label: 'Мои события',
-      content: <ProfileEvents />,
+      content: <ProfileEvents eventsList={eventsList.data} />,
     },
     {
       id: 2,

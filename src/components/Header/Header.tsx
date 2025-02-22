@@ -2,7 +2,7 @@
 
 import React from 'react';
 import Link from 'next/link';
-import { Icon, IconType, Input } from 'ui-kit-conf/dist';
+import { Dropdown, Icon, IconType, Input } from 'ui-kit-conf/dist';
 import { useMediaQuery } from 'react-responsive';
 
 import { ROUTES } from '../../constants/Routes';
@@ -11,6 +11,7 @@ import { ConstraintContainer } from '@/ui/ConstraintContainer/ConstaintContainer
 import { SquareLink } from '../../ui/SquareLink/SquareLink';
 
 import cls from './Header.module.scss';
+import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
 
 export interface IHeader {
   isUserAuth?: boolean;
@@ -36,7 +37,7 @@ export const Header: React.FC<IHeader> = ({
         <SquareLink href={ROUTES.createEvent} className={cls.link}>
           <Icon type={IconType.Plus_20} width={20} height={20} />
         </SquareLink>
-        <SquareLink href={ROUTES.profile} className={cls.link} isLocked={isUserAuth}>
+        <SquareLink href={ROUTES.profile.index} className={cls.link} isLocked={isUserAuth}>
           <Icon type={IconType.Profile_20} width={20} height={20} />
         </SquareLink>
       </header>

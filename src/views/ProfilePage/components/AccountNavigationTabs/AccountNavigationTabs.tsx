@@ -1,9 +1,9 @@
 'use client'
 
 import * as React from 'react'
-import clsx from 'clsx';
 
 import cls from './AccountNavigationTabs.module.scss';
+import { AccountNavigationTabsItems } from './AccountNavigationTabsItems';
 
 export interface ITabConfig {
   id: number;
@@ -24,20 +24,11 @@ export const AccountNavigationTabs: React.FC<IAccountNavigationTabs> = ({
 
   return (
     <div className={cls.container}>
-      <div className={cls.sidebar}>
-        {navigationTabs.map((tab) => (
-          <button
-            key={tab.id}
-            type='button'
-            className={clsx(cls.sidebarButton, {
-              [cls.sidebarButtonActive]: tab.id === activeTabId,
-            })}
-            onClick={() => setActiveTabId(tab.id)}
-          >
-            {tab.label}
-          </button>
-        ))}
-      </div>
+      <AccountNavigationTabsItems
+        navigationTabs={navigationTabs}
+        activeTabId={activeTabId}
+        onChangeActiveTabId={setActiveTabId}
+      />
       <div className={cls.content}>{activeTab?.content}</div>
     </div>
   )
