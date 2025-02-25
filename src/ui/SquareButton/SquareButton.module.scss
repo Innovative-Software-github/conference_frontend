@@ -1,0 +1,26 @@
+.squareButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  min-width: 48px;
+  height: 48px;
+  background: var(--conf-color-white);
+  border: 1px solid var(--conf-color-grey-2);
+  border-radius: 14px;
+  color: var(--conf-color-grey-6);
+
+  cursor: pointer;
+
+  transition: background 150ms ease;
+}
+
+.squareButton:hover {
+  background: var(--conf-color-grey-1);
+  border-color: var(--conf-color-grey-2);
+}
+
+.locked {
+  pointer-events: none;
+  background: var(--conf-color-grey-1);
+}

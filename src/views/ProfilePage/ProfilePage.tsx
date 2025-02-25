@@ -13,29 +13,32 @@ import { ProfileCommunity } from './components/ProfileCommunity/ProfileCommunity
 import { IEventsResponse } from '../../services/events/interfaces';
 
 import cls from './ProfilePage.module.scss';
+import { IProfileSections } from '../../app/(protected)/profile/page';
 
 export interface IProfilePage {
   currentUser: IResponse<ICurrentUserResponse>;
   eventsList: IResponse<IEventsResponse[]>;
+  selectedSection: IProfileSections;
 }
 
 export const ProfilePage: React.FC<IProfilePage> = ({
   currentUser,
   eventsList,
+  selectedSection,
 }) => {
   const navigationTabs: ITabConfig[] = [
     {
-      id: 0,
+      id: 'account',
       label: 'Аккаунт',
       content: <ProfileAccount currentUser={currentUser.data} />,
     },
     {
-      id: 1,
+      id: 'events',
       label: 'Мои события',
       content: <ProfileEvents eventsList={eventsList.data} />,
     },
     {
-      id: 2,
+      id: 'communities',
       label: 'Мои сообщества',
       content: <ProfileCommunity />,
     },
@@ -48,7 +51,7 @@ export const ProfilePage: React.FC<IProfilePage> = ({
       <main className={cls.main}>
         <ConstraintContainer>
           <Title>Личный кабинет</Title>
-          <AccountNavigationTabs navigationTabs={navigationTabs} />
+          <AccountNavigationTabs navigationTabs={navigationTabs} selectedSection={selectedSection} />
         </ConstraintContainer>
       </main>
       <Footer />

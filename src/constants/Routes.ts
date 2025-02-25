@@ -4,9 +4,8 @@ export const ROUTES = {
   registation: 'registration',
   createEvent: '/create-event',
   profile: {
-    index: '/profile',
-    account: '/profile/account',
-    events: '/profile/events',
-    communities: '/profile/communities',
+    index: '/profile/?section=account',
+    events: '/profile?section=events',
+    communities: '/profile?section=communities',
   },
 } as const;

@@ -1,5 +1,6 @@
 .container {
-  padding: 0 16px;
+  position: relative;
+  padding-bottom: 3em;
 }
 
 .header {
@@ -8,7 +9,7 @@
   border: 1px solid var(--conf-color-grey-2);
   border-radius: 50px;
   height: 78px;
-  margin: 12px auto 3em auto;
+  margin: 12px auto 0 auto;
   overflow: hidden;
 
   display: flex;

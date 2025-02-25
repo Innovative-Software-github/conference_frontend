@@ -72,24 +72,20 @@ export const EventFilters: React.FC<IEventFiltersProps> = ({
           </FieldWrapper>
 
           <FieldWrapper type='info' label='Дата начала'>
-            {/* todo: переделать Calendar на input */}
             <Input
               placeholder='Дата начала'
               value={filters.start_date}
               onChange={(e) => {
-                console.log(normalizeDate(e.target.value))
                 updateFilterValue('start_date', normalizeDate(e.target.value))
               }}
             />
           </FieldWrapper>
 
           <FieldWrapper type='info' label='Дата конца'>
-            {/* todo: переделать Calendar на input */}
             <Input
               placeholder='Дата конца'
               value={filters.end_date}
               onChange={(e) => {
-                console.log(normalizeDate(e.target.value))
                 updateFilterValue('end_date', normalizeDate(e.target.value))
               }}
             />

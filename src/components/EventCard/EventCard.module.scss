@@ -1,5 +1,7 @@
 .card {
   width: 100%;
+  min-height: 460px;
+  max-height: 460px;
   border: 1px solid var(--conf-color-grey-2);
   background: var(--conf-color-white);
   border-radius: 16px;
@@ -17,10 +19,6 @@
   margin-top: 1em;
   font-size: 1.125rem;
   font-weight: 500;
-}
-
-.footer {
-  margin-top: 2.5em;
 }
 
 .location {
