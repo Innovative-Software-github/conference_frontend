@@ -1,6 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { checkAuthToken } from './services/authentication/request';
 import { ROUTES } from './constants/Routes';
+import { getUser } from './services/user/request';
 
 const protectedRoutes = ['/profile']; // Список защищенных маршрутов
 const authPages = ['/login', '/registration']; // Страницы, доступ к которым запрещен аутентифицированным пользователям
@@ -20,7 +20,7 @@ export async function middleware(request: NextRequest) {
       if (!token) {
         isAuthenticated = false;
       } else {
-        const response = await checkAuthToken();
+        const response = await getUser();
 
         if (response.ok) {
           isAuthenticated = true;

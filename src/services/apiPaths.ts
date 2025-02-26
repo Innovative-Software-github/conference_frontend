@@ -4,12 +4,12 @@ export const ApiPath = {
 
   /* Ручки для регистрации/аутентификации */
   auth: {
-    check_token_valid: '/auth/dev/token/valid',
-    sign_in: '/auth/sign-in',
-    sign_up: '/auth/sign-up',
-    sign_verify: '/auth/verify',
-    sign_resetPassport: '/auth/reset-password',
-    sign_changeEmail: '/auth/change-mail',
+    sign_in: '/api/v1/auth/sign-in',
+    sign_up: '/api/v1/auth/sign-up',
+    sign_verify: '/api/v1/auth/verify',
+    sign_resetPassport: '/api/v1/auth/reset-password',
+    sign_changeEmail: '/api/v1/auth/change-mail',
+    auth_current: '/api/v1/auth/current',
   },
 
   /* Ручки для событий */

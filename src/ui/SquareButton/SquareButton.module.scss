@@ -1,4 +1,4 @@
-.squareLink {
+.squareButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -15,7 +15,7 @@
   transition: background 150ms ease;
 }
 
-.squareLink:hover {
+.squareButton:hover {
   background: var(--conf-color-grey-1);
   border-color: var(--conf-color-grey-2);
 }
