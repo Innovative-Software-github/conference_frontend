@@ -1,6 +1,6 @@
 .container {
   position: relative;
-  padding-bottom: 3em;
+  padding-bottom: 2em;
 }
 
 .header {
@@ -42,10 +42,6 @@
 }
 
 @media (max-width: 768px) {
-  .header {
-    margin-bottom: 2em;
-  }
-
   .homeLink {
     margin-right: auto;
   }

@@ -1,12 +1,50 @@
 .container {
   position: absolute;
   right: 0;
-  top: 100%;
+  top: 70%;
+
   display: flex;
   flex-direction: column;
-  z-index: 100000;
-  background: red;
-  font-size: white;
+
   width: 300px;
-  height: 100px;
+
+  background: var(--conf-color-white);
+  box-shadow: 0px 0px 12px 0px #0000001F;
+  border-radius: 16px;
+  border: 1px solid var(--conf-color-grey-2);
+
+  visibility: hidden;
+  opacity: 0;
+
+  z-index: 100000;
+
+  transition: opacity 150ms ease, visibility 150ms ease;
+}
+
+.isOpen {
+  opacity: 1;
+  visibility: visible;
+}
+
+.link {
+  padding: 14px 16px;
+  transition: color 150ms ease;
+}
+
+.link:hover {
+  color: var(--conf-color-cyan-7)
+}
+
+.link:active {
+  color: var(--conf-color-cyan-8)
+}
+
+.activeLink {
+  color: var(--conf-color-cyan-7)
+}
+
+@media (max-width: 768px) {
+  .container {
+    top: 57%;
+  }
 }

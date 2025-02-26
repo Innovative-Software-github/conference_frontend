@@ -15,7 +15,7 @@ export interface IHeaderMenu {
 export const HeaderMenu: React.FC<IHeaderMenu> = ({
   isUserAuth,
 }) => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(true);
+  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
 
   return (
     <div>
@@ -27,6 +27,7 @@ export const HeaderMenu: React.FC<IHeaderMenu> = ({
       <HeaderDropdown
         isOpen={isMenuOpen}
         options={isUserAuth ? DEFAUL_ROUTES_DROPDOWN_MENU : DEFAUL_ROUTES_DROPDOWN_MENU_NOT_AUTH}
+        onCloseMenu={() => setIsMenuOpen(false)}
       />
     </div >
   )

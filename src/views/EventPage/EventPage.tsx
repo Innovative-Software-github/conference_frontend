@@ -8,17 +8,21 @@ import { IEventsResponse } from '../../services/events/interfaces'
 import { SocialShare } from './components/SocialShare/SocialShare'
 import { EventDetails } from './components/EventDetails/EventDetails'
 import { EventTopSection } from './components/EventTopSection/EventTopSection'
+import { ICurrentUserResponse } from '../../services/user/interfaces'
+import { IResponse } from '../../services/customFetch'
 
 export interface IEventPage {
+  currentUser: IResponse<ICurrentUserResponse>;
   similarEvents: IEventsResponse[];
 }
 
 export const EventPage: React.FC<IEventPage> = ({
+  currentUser,
   similarEvents,
 }) => (
   <div>
     <MovingLabelsBar />
-    <Header />
+    <Header isUserAuth={currentUser.ok} />
     <main>
       <EventTopSection />
       <EventDetails eventInfo={null} />

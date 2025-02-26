@@ -7,6 +7,8 @@ import { IProfileSections } from '../../../../app/(protected)/profile/page';
 
 import cls from './AccountNavigationTabs.module.scss';
 
+export const DEFAULT_PROFILE_QUERY_SECTION = 'section';
+
 export interface IAccountNavigationTabsItems {
   navigationTabs: ITabConfig[];
   activeTabId: IProfileSections;
@@ -20,7 +22,7 @@ export const AccountNavigationTabsItems: React.FC<IAccountNavigationTabsItems> =
   const pathname = usePathname();
 
   const handleTabClick = (id: IProfileSections) => {
-    router.push(`${pathname}?section=${id}`);
+    router.push(`${pathname}?${DEFAULT_PROFILE_QUERY_SECTION}=${id}`);
   };
 
   return (

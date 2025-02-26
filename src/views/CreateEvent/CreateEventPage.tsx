@@ -21,12 +21,16 @@ import { CreateEventLocation } from './components/CreateEventLocation/CreateEven
 import { MediaQuery } from '../../constants/MediaQuery'
 
 import cls from './CreateEventPage.module.scss';
+import { IResponse } from '../../services/customFetch'
+import { ICurrentUserResponse } from '../../services/user/interfaces'
 
 export interface ICreateEventPage {
+  currentUser: IResponse<ICurrentUserResponse>
   filtersConfig: IFiltersConfig;
 }
 
 export const CreateEventPage: React.FC<ICreateEventPage> = ({
+  currentUser,
   filtersConfig,
 }) => {
   const isMobile = useMediaQuery({ maxWidth: MediaQuery.BigMobile });
@@ -52,13 +56,10 @@ export const CreateEventPage: React.FC<ICreateEventPage> = ({
     console.log(data);
   }
 
-  console.log(isValid);
-
-
   return (
     <div>
       <MovingLabelsBar />
-      <Header />
+      <Header isUserAuth={currentUser.ok} />
       <main>
         <ConstraintContainer className={cls.container}>
           <SplitContainer
