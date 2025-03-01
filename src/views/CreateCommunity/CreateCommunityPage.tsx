@@ -18,6 +18,11 @@ import { defaultCreateCommunityValues } from './utils';
 import { SplitContainer } from '../../ui/SplitContainer/SplitContainer';
 import { CreateCommunityForm } from './components/CreateCommunityForm/CreateCommunityForm';
 import { ContentLayout } from '../../ui/ContentLayout/ContentLayout';
+import { createCommunity } from '@/services/communities/request';
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
+import { ROUTES } from '@/constants/Routes';
+import { Title } from '@/ui/Title/Title';
 
 export interface ICreateEventPage {
   currentUser: IResponse<ICurrentUserResponse>
@@ -26,6 +31,8 @@ export interface ICreateEventPage {
 export const CreateCommunityPage: React.FC<ICreateEventPage> = ({
   currentUser,
 }) => {
+  const router = useRouter();
+
   const {
     control,
     handleSubmit,
@@ -36,8 +43,21 @@ export const CreateCommunityPage: React.FC<ICreateEventPage> = ({
     defaultValues: defaultCreateCommunityValues,
   });
 
-  const onSumbit = (data: ICommunityCreateRequest) => {
-    console.log(data, errors);
+  const onSumbit = async (data: ICommunityCreateRequest) => {
+    try {
+      const response = await createCommunity(data);
+
+      if (!response.ok) {
+        toast.error('Что - то пошло не так')
+
+        return
+      }
+
+      toast.success('Событие создано успешно')
+      router.push(ROUTES.home);
+    } catch (error) {
+      toast.error('Произошла ошибка сервера, попробуйте позже')
+    }
   }
 
   return (
@@ -46,28 +66,21 @@ export const CreateCommunityPage: React.FC<ICreateEventPage> = ({
       <Header isUserAuth={currentUser.ok} />
       <main className={cls.main}>
         <ConstraintContainer className={cls.contentContainer}>
-          <SplitContainer
-            title='Создать сообщество'
-            leftContent={<CoverPhotoUploader control={control} />}
-            rightContent={null}
-          />
-          <SplitContainer
-            leftContent={<CreateCommunityForm control={control} errors={errors} />}
-            rightContent={null}
-          />
-          <SplitContainer
-            leftContent={
-              <ContentLayout>
-                <Button
-                  variant='default'
-                  onClick={handleSubmit(onSumbit)}
-                >
-                  Сохранить
-                </Button>
-              </ContentLayout>
-            }
-            rightContent={null}
-          />
+          <Title>Создать сообщество</Title>
+          <ContentLayout title='Обложка' className={cls.layout}>
+            <CoverPhotoUploader control={control} />
+          </ContentLayout>
+          <ContentLayout title='Описание сообщества' className={cls.layout}>
+            <CreateCommunityForm control={control} errors={errors} />
+          </ContentLayout>
+          <ContentLayout className={cls.layout}>
+            <Button
+              variant='default'
+              onClick={handleSubmit(onSumbit)}
+            >
+              Сохранить
+            </Button>
+          </ContentLayout>
         </ConstraintContainer>
       </main>
       <Footer />

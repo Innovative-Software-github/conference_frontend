@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { ROUTES } from './constants/Routes';
 import { getUser } from './services/user/request';
 
-const protectedRoutes = ['/profile']; // Список защищенных маршрутов
+const protectedRoutes = ['/profile', '/create-event', '/create-community']; // Список защищенных маршрутов
 const authPages = ['/login', '/registration']; // Страницы, доступ к которым запрещен аутентифицированным пользователям
 
 export async function middleware(request: NextRequest) {

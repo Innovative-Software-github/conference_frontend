@@ -20,9 +20,7 @@ export const CreateCommunityForm: React.FC<ICreateCommunityForm> = ({
   const validationRules = React.useMemo(() => createValidationRulesCommunityForm(), []);
 
   return (
-    <ContentLayout
-      title='Описание сообщества'
-    >
+    <>
       <Controller
         name="title"
         rules={validationRules.title}
@@ -79,6 +77,6 @@ export const CreateCommunityForm: React.FC<ICreateCommunityForm> = ({
             />
           </FieldWrapper>
         )} />
-    </ContentLayout>
+    </>
   )
 }

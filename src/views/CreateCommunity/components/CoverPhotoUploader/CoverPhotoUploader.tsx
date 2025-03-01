@@ -36,22 +36,17 @@ export const CoverPhotoUploader: React.FC<ICoverPhotoUploader> = ({
   }
 
   return (
-    <ContentLayout
-      title='Обложка'
-      className={cls.container}
-    >
-      <div className={cls.imagesContainer}>
-        <Controller
-          name="picture_id"
-          control={control}
-          render={({ field }) => (
-            <ImageUploader
-              className={cls.imageUploader}
-              onImageSelect={(file) => sendCommunityPicture(file, field.onChange)}
-            />
-          )}
-        />
-      </div>
-    </ContentLayout>
+    <div className={cls.imagesContainer}>
+      <Controller
+        name="picture_id"
+        control={control}
+        render={({ field }) => (
+          <ImageUploader
+            className={cls.imageUploader}
+            onImageSelect={(file) => sendCommunityPicture(file, field.onChange)}
+          />
+        )}
+      />
+    </div>
   );
 }
