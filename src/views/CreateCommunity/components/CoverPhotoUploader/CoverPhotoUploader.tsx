@@ -4,7 +4,6 @@ import * as React from 'react'
 import { Control, Controller } from 'react-hook-form';
 
 import { toast } from 'sonner';
-import { ContentLayout } from '../../../../ui/ContentLayout/ContentLayout';
 import { ImageUploader } from '../../../../ui/ImageUploader/ImageUploader';
 import { ICommunityCreateRequest } from '../../../../services/communities/interfaces';
 
@@ -37,6 +36,7 @@ export const CoverPhotoUploader: React.FC<ICoverPhotoUploader> = ({
 
   return (
     <div className={cls.imagesContainer}>
+      {/* todo: сделать валидацию для фотографии */}
       <Controller
         name="picture_id"
         control={control}
@@ -44,6 +44,7 @@ export const CoverPhotoUploader: React.FC<ICoverPhotoUploader> = ({
           <ImageUploader
             className={cls.imageUploader}
             onImageSelect={(file) => sendCommunityPicture(file, field.onChange)}
+            onImageDelete={() => field.onChange(null)}
           />
         )}
       />

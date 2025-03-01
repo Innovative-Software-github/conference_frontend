@@ -2,7 +2,6 @@ import * as React from 'react'
 import { FieldWrapper, Input, Textarea } from 'ui-kit-conf/dist';
 import { Control, Controller, FieldErrors } from 'react-hook-form';
 
-import { ContentLayout } from '../../../../ui/ContentLayout/ContentLayout';
 import { ICommunityCreateRequest } from '../../../../services/communities/interfaces';
 import { createValidationRulesCommunityForm } from './utils';
 

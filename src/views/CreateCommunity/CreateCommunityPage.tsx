@@ -2,8 +2,10 @@
 
 import * as React from 'react'
 import { useForm } from 'react-hook-form';
-
+import { toast } from 'sonner';
+import { useRouter } from 'next/navigation';
 import { Button } from 'ui-kit-conf/dist';
+
 import { ICurrentUserResponse } from '../../services/user/interfaces';
 import { IResponse } from '../../services/customFetch';
 import { MovingLabelsBar } from '../../components/MovingLabelsBar/MovingLabelsBar';
@@ -12,15 +14,11 @@ import { Footer } from '../../components/Footer/Footer';
 import { ConstraintContainer } from '../../ui/ConstraintContainer/ConstaintContainer';
 import { CoverPhotoUploader } from './components/CoverPhotoUploader/CoverPhotoUploader';
 import { ICommunityCreateRequest } from '../../services/communities/interfaces';
-
 import cls from './CreateCommunityPage.module.scss';
 import { defaultCreateCommunityValues } from './utils';
-import { SplitContainer } from '../../ui/SplitContainer/SplitContainer';
 import { CreateCommunityForm } from './components/CreateCommunityForm/CreateCommunityForm';
 import { ContentLayout } from '../../ui/ContentLayout/ContentLayout';
 import { createCommunity } from '@/services/communities/request';
-import { toast } from 'sonner';
-import { useRouter } from 'next/navigation';
 import { ROUTES } from '@/constants/Routes';
 import { Title } from '@/ui/Title/Title';
 
