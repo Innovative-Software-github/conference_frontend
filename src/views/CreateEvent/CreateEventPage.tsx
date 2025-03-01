@@ -57,50 +57,52 @@ export const CreateEventPage: React.FC<ICreateEventPage> = ({
   }
 
   return (
-    <div>
+    <>
       <MovingLabelsBar />
       <Header isUserAuth={currentUser.ok} />
       <main>
-        <ConstraintContainer className={cls.container}>
-          <SplitContainer
-            title='Предложить событие'
-            leftContent={
-              <CoverPhotoUploader
-                control={control}
-              />
-            }
-            rightContent={
-              <TagSelector
-                control={control}
-                tracksFilterConfig={filtersConfig.tracksFilterConfig}
-              />
-            }
-          />
-          <SplitContainer
-            leftContent={
-              <CreateEventDescription control={control} errors={errors} />
-            }
-            rightContent={
-              <div className={cls.sectionsContainer}>
-                <CreateEventCost control={control} errors={errors} ticketTypeValue={ticketTypeValue} />
-                {!isMobile ? <SumbitButtons isFormValid={isValid} /> : null}
-              </div>
-            }
-          />
-          <SplitContainer
-            leftContent={
-              <CreateEventLocation
-                citiesFilterConfig={filtersConfig.citiesFilterConfig}
-                control={control}
-                errors={errors}
-              />
-            }
-            rightContent={isMobile ? <SumbitButtons isFormValid={isValid} /> : null}
-          />
-        </ConstraintContainer>
-        <button type='button' onClick={handleSubmit(onSubmit)}>click</button>
+        <form>
+          <ConstraintContainer className={cls.container}>
+            <SplitContainer
+              title='Предложить событие'
+              leftContent={
+                <CoverPhotoUploader
+                  control={control}
+                />
+              }
+              rightContent={
+                <TagSelector
+                  control={control}
+                  tracksFilterConfig={filtersConfig.tracksFilterConfig}
+                />
+              }
+            />
+            <SplitContainer
+              leftContent={
+                <CreateEventDescription control={control} errors={errors} />
+              }
+              rightContent={
+                <div className={cls.sectionsContainer}>
+                  <CreateEventCost control={control} errors={errors} ticketTypeValue={ticketTypeValue} />
+                  {!isMobile ? <SumbitButtons isFormValid={isValid} /> : null}
+                </div>
+              }
+            />
+            <SplitContainer
+              leftContent={
+                <CreateEventLocation
+                  citiesFilterConfig={filtersConfig.citiesFilterConfig}
+                  control={control}
+                  errors={errors}
+                />
+              }
+              rightContent={isMobile ? <SumbitButtons isFormValid={isValid} /> : null}
+            />
+          </ConstraintContainer>
+          <button type='button' onClick={handleSubmit(onSubmit)}>click</button>
+        </form>
       </main>
       <Footer />
-    </div>
+    </>
   )
 }

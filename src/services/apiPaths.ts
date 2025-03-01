@@ -20,11 +20,21 @@ export const ApiPath = {
     get_events: '/api/v1/filter/events',
   },
 
+  /* Ручки для сообществ */
+  community: {
+    community_create: '/api/v1/api/community',
+  },
+
   /* Ручки для конфига фильтров */
   filtersData: {
     cities: '/api/v1/api/city',
     tracks: '/api/v1/api/track',
     formats: '/api/v1/api/format',
     community: '/api/v1/api/community',
+  },
+
+  pictures: {
+    event: '/api/v1/api/picture/event',
+    community: '/api/v1/api/picture/community',
   },
 } as const;

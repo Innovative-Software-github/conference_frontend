@@ -1,0 +1,26 @@
+.container {
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+.main {
+  flex: 1;
+}
+
+.contentContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.layout {
+  width: 60%;
+}
+
+@media (max-width: 768px) {
+  .layout {
+    width: 100%;
+  }
+}
