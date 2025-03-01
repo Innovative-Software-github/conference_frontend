@@ -1,5 +1,6 @@
 import { ApiPath } from '../apiPaths';
 import { customFetch } from '../customFetch';
+import { IPostCommunityPictureResponse } from './interfaces';
 
 export const postEventPicture = (file: File) => customFetch<string, File>(
   {
@@ -9,7 +10,7 @@ export const postEventPicture = (file: File) => customFetch<string, File>(
   file,
 );
 
-export const postCommunityPicture = (file: File) => customFetch<string, File>(
+export const postCommunityPicture = (file: FormData) => customFetch<IPostCommunityPictureResponse, FormData>(
   {
     path: ApiPath.pictures.community,
     method: 'POST',

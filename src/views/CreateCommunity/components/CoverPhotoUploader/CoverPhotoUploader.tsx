@@ -18,16 +18,18 @@ export interface ICoverPhotoUploader {
 export const CoverPhotoUploader: React.FC<ICoverPhotoUploader> = ({
   control,
 }) => {
-  const sendCommunityPicture = async (pictureFile: File) => {
-    console.log(pictureFile);
+  const sendCommunityPicture = async (
+    pictureFile: File,
+    onChange: (pictureId: number) => void,
+  ) => {
     try {
       const formData = new FormData();
 
       formData.append('file', pictureFile);
 
-      const pictureId = await postCommunityPicture(formData);
+      const pictureId = (await postCommunityPicture(formData)).data.id;
 
-      console.log(pictureId);
+      onChange(pictureId)
     } catch (error) {
       toast.error('Не получилось загрузить фотографию, произошла ошибка')
     }
@@ -45,7 +47,7 @@ export const CoverPhotoUploader: React.FC<ICoverPhotoUploader> = ({
           render={({ field }) => (
             <ImageUploader
               className={cls.imageUploader}
-              onImageSelect={(file) => sendCommunityPicture(file)}
+              onImageSelect={(file) => sendCommunityPicture(file, field.onChange)}
             />
           )}
         />

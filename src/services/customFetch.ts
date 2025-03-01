@@ -54,7 +54,9 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
     if (data && !(data instanceof FormData)) {
       query = method === 'GET' ? `?${stringifySearchParams(data)}` : '';
       body = method !== 'GET' ? JSON.stringify(data) : undefined;
-    } else if (data instanceof FormData) {
+    }
+
+    if (data instanceof FormData) {
       body = data;
     }
 
