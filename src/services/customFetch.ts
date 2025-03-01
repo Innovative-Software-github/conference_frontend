@@ -43,14 +43,20 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
   } = settings;
 
   const makeRequest = async (): Promise<IResponse<TResponsePayload>> => {
+    let query = '';
+    let body;
     const host = process.env.NEXT_PUBLIC_API_URL;
 
     if (!host) {
       throw new Error('Backend host is not defined');
     }
 
-    const query = data && method === 'GET' ? `?${stringifySearchParams(data)}` : '';
-    const body = data && method !== 'GET' ? JSON.stringify(data) : undefined;
+    if (data && !(data instanceof FormData)) {
+      query = method === 'GET' ? `?${stringifySearchParams(data)}` : '';
+      body = method !== 'GET' ? JSON.stringify(data) : undefined;
+    } else if (data instanceof FormData) {
+      body = data;
+    }
 
     const url = `${scheme}://${host}${port ? `:${port}` : ''}${path}${query}`;
 
@@ -58,11 +64,16 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
 
     const headersObject = Array.isArray(headers) ? Object.fromEntries(headers) : headers || {};
 
+    // Создаем копию заголовков без 'Content-Type', если data instanceof FormData
     const combinedHeaders: Record<string, string> = {
       ...headersObject,
-      'Content-Type': contentType,
       'x-auth': (await authHeader)?.value ?? '',
     };
+
+    // Если тело запроса не FormData и 'Content-Type' не установлен, устанавливаем его
+    if (!(data instanceof FormData) && !combinedHeaders['Content-Type']) {
+      combinedHeaders['Content-Type'] = contentType ?? 'application/json';
+    }
 
     const response = await fetch(url, {
       method,
@@ -78,7 +89,7 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
         ok: false,
         status: response.status,
         data: { error: await response.json().catch(() => ({})) } as TResponsePayload,
-      }
+      };
     }
 
     return {
@@ -87,6 +98,7 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
       data: await response.json(),
     };
   };
+
 
   return makeRequest();
 }

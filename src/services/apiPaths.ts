@@ -27,4 +27,9 @@ export const ApiPath = {
     formats: '/api/v1/api/format',
     community: '/api/v1/api/community',
   },
+
+  pictures: {
+    event: '/api/v1/api/picture/event',
+    community: '/api/v1/api/picture/community',
+  },
 } as const;
