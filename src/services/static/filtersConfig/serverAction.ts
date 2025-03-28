@@ -8,9 +8,9 @@ export async function fetchFiltersConfig(): Promise<IFiltersConfig> {
   const community = await getCommunityFilters();
 
   return {
-    citiesFilterConfig: cities.data.cities || {},
-    tracksFilterConfig: tracks.data.tracks || {},
-    formatsFilterConfig: formats.data.formats || {},
-    communityFilterConfig: community.data.community || {},
+    citiesFilterConfig: cities.data.cities || [{}],
+    tracksFilterConfig: tracks.data.tracks || [{}],
+    formatsFilterConfig: formats.data.formats || [{}],
+    communityFilterConfig: community.data.community || [{}],
   };
 }

@@ -4,7 +4,7 @@ export const ApiPath = {
 
   /* Ручки для регистрации/аутентификации */
   auth: {
-    sign_in: '/api/v1/auth/sign-in',
+    sign_in: '/api/auth/v1/sign-in',
     sign_up: '/api/v1/auth/sign-up',
     sign_verify: '/api/v1/auth/verify',
     sign_resetPassport: '/api/v1/auth/reset-password',

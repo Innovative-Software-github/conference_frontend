@@ -62,14 +62,14 @@ export async function customFetch<TResponsePayload = unknown, TRequestPayload = 
 
     const url = `${scheme}://${host}${port ? `:${port}` : ''}${path}${query}`;
 
-    const authHeader = getServerCookie('x-auth');
+    const authHeader = getServerCookie('authorization');
 
     const headersObject = Array.isArray(headers) ? Object.fromEntries(headers) : headers || {};
 
     // Создаем копию заголовков без 'Content-Type', если data instanceof FormData
     const combinedHeaders: Record<string, string> = {
       ...headersObject,
-      'x-auth': (await authHeader)?.value ?? '',
+      'authorization': (await authHeader)?.value ?? '',
     };
 
     // Если тело запроса не FormData и 'Content-Type' не установлен, устанавливаем его
