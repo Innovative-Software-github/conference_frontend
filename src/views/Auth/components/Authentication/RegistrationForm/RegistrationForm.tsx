@@ -60,6 +60,8 @@ export const RegistrationForm = () => {
   const validationRules = React.useMemo(() => createValidationRulesRegistration(), []);
 
   const onSubmit = async (data: IRegistrationRequest) => {
+    const authHeader = process.env.NEXT_PUBLIC_AUTH_HEADER || 'authorization';
+
     try {
       setIsLoading(true);
       const response = await registration(data);
@@ -68,15 +70,13 @@ export const RegistrationForm = () => {
         const errorMessage = errorMessages[response.status] || 'Произошла ошибка при входе!';
 
         toast.error(errorMessage);
-        console.log('error:', response.data);
       } else {
-        setServerCookie('x-auth', response.data.token);
+        setServerCookie(authHeader, response.data.token);
 
         toast.success('Вы успешно вошли!');
         router.push(ROUTES.home);
       }
     } catch (error) {
-      console.error('error', error);
       toast.error('Возникла ошибка. Пожалуйста, попробуйте позже.');
     } finally {
       setIsLoading(false);

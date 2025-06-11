@@ -5,7 +5,7 @@ export interface ILoginRequest {
 
 export interface ILoginResponse {
   token: string;
-  email_is_verify: boolean;
+  user_id: number;
 }
 
 export interface IRegistrationRequest {

@@ -5,11 +5,11 @@ export const ApiPath = {
   /* Ручки для регистрации/аутентификации */
   auth: {
     sign_in: '/api/auth/v1/sign-in',
-    sign_up: '/api/v1/auth/sign-up',
+    sign_up: '/api/auth/v1/sign-up',
     sign_verify: '/api/v1/auth/verify',
     sign_resetPassport: '/api/v1/auth/reset-password',
     sign_changeEmail: '/api/v1/auth/change-mail',
-    auth_current: '/api/v1/auth/current',
+    auth_current: '/api/auth/v1/current',
   },
 
   /* Ручки для событий */
@@ -17,7 +17,7 @@ export const ApiPath = {
     event_create: '/api/v1/create/event',
     event_getAll: '/api/v1/read/event',
     get_user_events: '/api/v1/user/events',
-    get_events: '/api/v1/filter/events',
+    get_events: '/api/event/v1/event/filter',
   },
 
   /* Ручки для сообществ */

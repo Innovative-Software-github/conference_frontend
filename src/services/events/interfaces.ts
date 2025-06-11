@@ -2,6 +2,11 @@
 import { ISelectOptions } from 'ui-kit-conf/dist/types/components/Dropdown/Dropdown';
 import { ICityFiltersConfig, ITracksFiltersConfig } from '../static/filtersConfig/interfaces';
 
+export interface IGetEventsRequest {
+  limit: number;
+  offset: number;
+}
+
 export interface IEventsResponse {
   id: number;
   title: string;
